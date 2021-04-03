@@ -1,0 +1,40 @@
+{
+  "name": "food-baby",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "dependencies": {
+    "apollo-server-express": "^2.22.2",
+    "env": "0.0.2",
+    "express": "^4.17.1",
+    "graphql": "^15.5.0",
+    "if-env": "^1.0.4",
+    "jsonwebtoken": "^8.5.1",
+    "path": "^0.12.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3",
+    "web-vitals": "^1.1.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.0"
+  },
+  "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "cd server && npm start",
+    "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "seed": "cd server && npm run seed",
+    "heroku-postbuild": "cd client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nickhill2380/food-baby.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nickhill2380/food-baby/issues"
+  },
+  "homepage": "https://github.com/Nickhill2380/food-baby#readme"
+}
