@@ -2,6 +2,8 @@ import React from 'react';
 import CartItem from '../CartItem';
 import './style.css';
 import { TOGGLE_CART } from '../../utils/actions';
+import { useStoreContext } from '../../utils/GlobalState';
+import Auth from '../../utils/auth';
 
 const Cart = () => {
     const [state, dispatch] = useStoreContext();
