@@ -26,6 +26,13 @@ const userSchema = new Schema({
     required: true,
     minlength: 6
   },
+  //  set up a validation method to differentiate between user type
+  roles: {
+    type: [{
+      type: String,
+      enum: ['user', 'owner']
+    }]
+  },
   orders: [Order.schema]
 });
 
