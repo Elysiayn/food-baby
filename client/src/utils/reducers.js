@@ -5,7 +5,8 @@ import {
     REMOVE_FROM_CART,
     UPDATE_CART_QUANTITY,
     CLEAR_CART,
-    TOGGLE_CART
+    TOGGLE_CART,
+    UPDATE_CURRENT_COURSE
   } from "./actions";
 
 
@@ -60,6 +61,12 @@ export const reducer = (state, action) => {
               ...state,
               cartOpen: !state.cartOpen
             };
+
+        case UPDATE_CURRENT_COURSE:
+            return {
+                ...state,
+                currentCourse: action.currentCourse
+            };
             
         default:
             return state;
@@ -67,5 +74,5 @@ export const reducer = (state, action) => {
 };
       
 export function useMenuReducer(initialState) {
-        return useReducer(reducer, initialState)
-}
+    return useReducer(reducer, initialState)
+};
