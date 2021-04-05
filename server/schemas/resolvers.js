@@ -43,7 +43,7 @@ const resolvers = {
         },
         checkout: async (parent, args, context) => {
             const url = new URL(context.headers.referer).origin;
-            const order = new Order({ products: args.products });
+            const order = new Order({ menuItem: args.menuItem });
             const { menuItems } = await order.populate('menuItem').execPopulate();
 
             const line_items = [];
@@ -103,10 +103,10 @@ const resolvers = {
 
             throw new AuthenticationError('Not logged in');
         },
-        updateProduct: async (parent, { _id, quantity }) => {
+        updateMenuItem: async (parent, { _id, quantity }) => {
             const decrement = Math.abs(quantity) * -1;
 
-            return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
+            return await MenuItem.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
         },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });

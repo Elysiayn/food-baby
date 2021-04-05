@@ -7,7 +7,7 @@ type User {
     lastName: String
     email: String
     orders: [Order]
-    favorites: [Food]
+    favorites: [MenuItem]
 }
 
 type MenuItem {
@@ -15,19 +15,31 @@ type MenuItem {
     name: String
     description: String
     price: Int
-    course: Category
+    course: Course
+    quantity: Int
+}
+
+type Course {
+    _id: ID
+    name: String
 }
 
 type Restaurant {
     _id: ID
     name: String
     description: String
-    food: [Food]
+    menuItem: [MenuItem]
 }
 
 type Owner {
     _id: ID
     email: String
+}
+
+type Order {
+    _id: ID
+    purchaseDate: String
+    menuItems: [MenuItem]
 }
 
 type Checkout {
@@ -40,6 +52,7 @@ type Auth {
 }
 
 type Query {
+    course: [Course]
     menuItem(_id: ID!): MenuItem
     menuItems: [MenuItem]
     user: User
@@ -50,7 +63,7 @@ type Query {
 type Mutation {
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
     updateUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    updateMenuItem(_id: ID!): MenuItem
+    updateMenuItem(_id: ID!, quantity: Int!): MenuItem
     login(email: String!, password: String!): Auth
     addOrder(products: [ID]!): Order
 }
