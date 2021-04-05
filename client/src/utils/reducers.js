@@ -66,6 +66,6 @@ export const reducer = (state, action) => {
     }
 };
       
-export function useProductReducer(initialState) {
+export function useMenuReducer(initialState) {
         return useReducer(reducer, initialState)
 }
