@@ -5,7 +5,8 @@ import {
     REMOVE_FROM_CART,
     UPDATE_CART_QUANTITY,
     CLEAR_CART,
-    TOGGLE_CART
+    TOGGLE_CART,
+    UPDATE_CURRENT_COURSE
   } from "./actions";
 
 
@@ -15,19 +16,19 @@ export const reducer = (state, action) => {
             return {
               ...state,
               cartOpen: true,
-              cart: [...state.cart, action.product]
+              cart: [...state.cart, action.menuItem]
             };
       
         case ADD_MULTIPLE_TO_CART:
             return {
               ...state,
               cartOpen: true,
-              cart:[...state.cart, ...action.products]
+              cart:[...state.cart, ...action.menuItem]
             };
       
         case REMOVE_FROM_CART:
-            let newState = state.cart.filter(product => {
-              return product._id !== action._id
+            let newState = state.cart.filter(menuItem => {
+              return menuItem._id !== action._id
             });
       
             return{
@@ -40,11 +41,11 @@ export const reducer = (state, action) => {
             return {
               ...state,
               cartOpen: true,
-              cart: state.cart.map(product => {
-                if (action._id === product._id) {
-                  product.purchaseQuantity = action.purchaseQuantity;
+              cart: state.cart.map(menuItem=> {
+                if (action._id === menuItem._id) {
+                  menuItem.purchaseQuantity = action.purchaseQuantity;
                 }
-                return product;
+                return menuItem;
               })
             };
       
@@ -60,12 +61,18 @@ export const reducer = (state, action) => {
               ...state,
               cartOpen: !state.cartOpen
             };
+
+        case UPDATE_CURRENT_COURSE:
+            return {
+                ...state,
+                currentCourse: action.currentCourse
+            };
             
         default:
             return state;
     }
 };
       
-export function useProductReducer(initialState) {
-        return useReducer(reducer, initialState)
-}
+export function useMenuReducer(initialState) {
+    return useReducer(reducer, initialState)
+};
