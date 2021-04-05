@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "apollo-server-express": "^2.22.2",
+    "bcrypt": "^5.0.1",
     "env": "0.0.2",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
