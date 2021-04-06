@@ -1,5 +1,5 @@
 const db = require('./connection');
-const { Course, MenuItem } = require('../models');
+const { Course, MenuItem, User } = require('../models');
 
 db.once('open', async () => {
     await Course.deleteMany();
@@ -61,6 +61,26 @@ db.once('open', async () => {
     ]);
 
     console.log('menu seeded');
+
+    await User.deleteMany();
+
+    await User.create({
+        firstName: 'admin',
+        lastName: 'admin',
+        email: 'admin@food-baby.com',
+        password: 'password12345',
+        role: 'owner'
+    });
+
+    await User.create({
+        firstName: 'John',
+        lastName: 'Cena',
+        email: 'jcena@food-baby.com',
+        password: 'password12345',
+        role: 'user'
+    });
+
+    console.log('users seeded')
 
     process.exit();
 });
