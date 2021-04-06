@@ -103,10 +103,10 @@ const resolvers = {
 
             throw new AuthenticationError('Not logged in');
         },
-        updateMenuItem: async (parent, { _id, quantity }) => {
-            const decrement = Math.abs(quantity) * -1;
+        updateMenuItem: async (parent, args, context) => {
+            // const decrement = Math.abs(args.quantity) * -1;
 
-            return await MenuItem.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
+            return await MenuItem.findByIdAndUpdate(args._id, args, { new: true });
         },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
