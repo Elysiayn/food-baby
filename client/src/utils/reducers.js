@@ -6,7 +6,8 @@ import {
     UPDATE_CART_QUANTITY,
     CLEAR_CART,
     TOGGLE_CART,
-    UPDATE_CURRENT_COURSE
+    UPDATE_CURRENT_COURSE,
+    UPDATE_MENU_ITEMS
   } from "./actions";
 
 
@@ -68,6 +69,11 @@ export const reducer = (state, action) => {
                 currentCourse: action.currentCourse
             };
             
+        case UPDATE_MENU_ITEMS:
+            return {
+              ...state,
+              products: [...action.menuItems]
+            }
         default:
             return state;
     }
