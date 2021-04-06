@@ -5,29 +5,11 @@ import { TOGGLE_CART } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
 import Auth from '../../utils/auth';
 
-
 const Cart = () => {
     const [state, dispatch] = useStoreContext();
 
-    let message = {
-        data: {
-            facts: "bears eat beets",
-            opinion: "which bear is best"
-        },
-        token: registrationToken
-    };
-
     function toggleCart() {
         dispatch({ type:TOGGLE_CART});
-
-        admin.messaging().send(message)
-            .then((response) => {
-                // response is a message ID string.
-                console.log('Successfully sent message:', response);
-            })
-            .catch((error) => {
-                console.log('Error sending message:', error)
-            });
     };
 
     if (!state.cartOpen) {

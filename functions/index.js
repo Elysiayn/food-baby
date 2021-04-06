@@ -26,4 +26,19 @@ exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
         const uppercase = original.toUpperCase();
 
         return snap.ref.set({uppercase}, {merge:true});
-    });
+});
+
+exports.cartMessage = functions.database.ref('/state/cartOpen')
+    .onUpdate(() => {
+
+        const tokens = 'grab from console.log'
+
+        const payload = {
+            notification: {
+                title: 'Thanks for clicking the cart',
+                body: 'You clicked the cart and I like that about you'
+            }
+        }
+
+    return admin.messaging.sendToDevice(tokens, payload);
+}); 
