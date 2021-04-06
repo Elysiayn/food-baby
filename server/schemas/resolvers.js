@@ -85,9 +85,10 @@ const resolvers = {
 
             return { token, user };
         },
-        addOrder: async (parent, { menuItems }, context) => {
+        addOrder: async (parent, {menuItems}, context) => {
             if (context.user) {
                 const order = new Order({ menuItems });
+                console.log(order);
 
                 await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
 
@@ -112,13 +113,13 @@ const resolvers = {
             const user = await User.findOne({ email });
 
             if (!user) {
-                throw new AuthenticationError('Incorrect credentials');
+                throw new AuthenticationError('Incorrect email');
             }
 
             const correctPw = await user.isCorrectPassword(password);
 
             if (!correctPw) {
-                throw new AuthenticationError('Incorrect credentials');
+                throw new AuthenticationError('Incorrect password');
             }
 
             const token = signToken(user);

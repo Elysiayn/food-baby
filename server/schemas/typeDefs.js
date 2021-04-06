@@ -57,7 +57,7 @@ type Query {
     menuItems: [MenuItem]
     user: User
     order(_id: ID!): Order
-    checkout(products: [ID]!): Checkout
+    checkout(menuItems: [ID]!): Checkout
 }
 
 type Mutation {
