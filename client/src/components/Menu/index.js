@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_MENU_ITEMS } from '../../utils/actions';
 import { QUERY_MENU_ITEMS } from '../../utils/queries' // not written yet
+import { idbPromise } from '../../utils/helpers';
 import { MenuItem } from '../MenuItem/index';
 
 function Menu() {
@@ -17,9 +18,20 @@ function Menu() {
                 type: UPDATE_MENU_ITEMS,
                 menuItems: data.menuItems
             });
-        } 
-    })
-    // need to add IDB save
+
+            // save to indexedDB
+            data.menuItems.forEach(item => {
+                idbPromise('menuItems', 'put', item);
+            });
+        }  else if (!loading) {
+            idbPromise('menuItems', 'get').then(item => {
+                dispatch({
+                    type: UPDATE_MENU_ITEMS,
+                    menuItems: menuItems
+                })
+            })
+        }
+    }, [data, loading, dispatch]);
 
     function filterMenu(courseName) {
         return state.menuItems.filter(item => item.course.name === courseName);

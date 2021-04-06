@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStoreContext } from '../../utils/GlobalState';
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from '../../utils/actions';
+import { idbPromise } from '../../utils/helpers';
 
 function MenuItem(item) {
     const {
@@ -13,7 +14,6 @@ function MenuItem(item) {
     const [state, dispatch] = useStoreContext();
     const { cart } = state;
 
-    // need to add IDB save
     const addToCart = () => {
         const itemInCart = cart.find((cartItem) => cartItem._id === _id);
 
@@ -24,11 +24,18 @@ function MenuItem(item) {
                 _id: _id,
                 purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
             });
+
+            idbPromise('cart', 'put', {
+                ...itemInCart,
+                purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
+            });
         } else {
             dispatch({
                 type: ADD_TO_CART,
                 product: { ...item, purchaseQuantity: 1 }
-            })
+            });
+
+            idbPromise('cart','put', { ...item, purchaseQuantity: 1 });
         }
     };
 
