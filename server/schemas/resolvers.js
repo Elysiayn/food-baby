@@ -87,7 +87,7 @@ const resolvers = {
         },
         addOrder: async (parent, { menuItems }, context) => {
             if (context.user) {
-                const order = new Order({ products });
+                const order = new Order({ menuItems });
 
                 await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
 
