@@ -23,8 +23,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_ORDER = gql`
-    mutation addOrder($_id: ID!) {
-        addOrder(_id: $_id) {
+    mutation addOrder($menuItems: [ID]!) {
+        addOrder(menuItems: $menuItems) {
             _id
             purchaseDate
             menuItems {
