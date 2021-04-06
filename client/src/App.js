@@ -48,12 +48,11 @@ messaging.requestPermission()
   return messaging.getToken();
 })
 .then( function (token) {
-  console.log(token);
+  firebase.database().ref('users/' + this.user._id + '/notificationTokens/' + token).set(true)
 })
 .catch(function(err) {
   console.log(err);
 })
-
 messaging.onMessage(function(payload) {
   console.log('onMessage: ', payload);
 });

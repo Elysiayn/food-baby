@@ -57,6 +57,20 @@ db.once('open', async () => {
             image: 'boba.jpg',
             price: 5,
             course: categories[3]._id
+        },
+        {
+            name: 'Choose Your Own Adventure',
+            description: 'Grab your own destiny and build your burger the way you want it.',
+            image: 'burger.jpg',
+            price: 8,
+            course: categories[1]._id
+        },
+        {
+            name: 'Cave Johnson\'s Combustible Lemonade',
+            description: 'Cave\'s engineers have finally done it.',
+            image: 'lemonade.jpg',
+            price: 3,
+            course: categories[3]._id
         }
     ]);
 
