@@ -39,9 +39,7 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-// admin.initializeApp({ 
-//     credential: admin.credential.applicationDefault(admin),
-// });
+
 
 
 const messaging= firebase.messaging();

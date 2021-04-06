@@ -19,12 +19,15 @@ server.applyMiddleware({ app });
 
 
 
-var serviceAccount = require("../food-babydb.json");
+let serviceAccount = require("../food-babydb.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://food-baby.firebaseio.com'
-});
+const defaultApp = admin.initializeApp(defaultAppConfig);
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: 'https://food-baby.firebaseio.com'
+// });
+
+
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

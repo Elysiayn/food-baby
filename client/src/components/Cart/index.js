@@ -4,7 +4,7 @@ import './style.css';
 import { TOGGLE_CART } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
 import Auth from '../../utils/auth';
-import admin from 'firebase-admin';
+import * as admin from 'firebase-admin';
 
 const Cart = () => {
     const [state, dispatch] = useStoreContext();
