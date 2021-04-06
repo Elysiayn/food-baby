@@ -4,6 +4,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 import firebase from 'firebase';
 
+
 import Home from "./pages/Home";
 // import Detail from "./pages/Detail";
 // import NoMatch from "./pages/NoMatch"; 
@@ -38,7 +39,9 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
+// admin.initializeApp({ 
+//     credential: admin.credential.applicationDefault(admin),
+// });
 
 
 const messaging= firebase.messaging();

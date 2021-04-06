@@ -5,6 +5,7 @@ const path = require('path');
 const {typeDefs, resolvers} = require('./schemas');
 const {authMiddleware} = require('./utils/auth');
 const db = require('./config/connection');
+const admin = require('firebase-admin');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -15,6 +16,15 @@ const server = new ApolloServer({
 });
 
 server.applyMiddleware({ app });
+
+
+
+var serviceAccount = require("../food-babydb.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://food-baby.firebaseio.com'
+});
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
