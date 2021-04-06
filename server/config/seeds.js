@@ -13,9 +13,9 @@ db.once('open', async () => {
 
     console.log('courses seeded');
 
-    await MenuItem.deleteManu();
+    await MenuItem.deleteMany();
 
-    const menuItems = await MenuItem.deleteMany([
+    const menuItems = await MenuItem.insertMany([
         {
             name: 'Head Crab Cakes',
             description: 'Some description here',
@@ -59,6 +59,8 @@ db.once('open', async () => {
             course: categories[3]._id
         }
     ]);
+
+    console.log('menu seeded');
 
     process.exit();
 });
