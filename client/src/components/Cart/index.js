@@ -22,9 +22,6 @@ const Cart = () => {
 
     function toggleCart() {
         dispatch({ type:TOGGLE_CART});
-<<<<<<< HEAD
-    };
-=======
     }
     
     
@@ -35,7 +32,6 @@ const Cart = () => {
         });
         return sum.toFixed(2);
     }
->>>>>>> 44ccff5839114f8c1ff0938b3c48e1f63e2b179f
 
     if (!state.cartOpen) {
         return (

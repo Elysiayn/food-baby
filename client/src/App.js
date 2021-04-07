@@ -40,7 +40,7 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-
+var database = firebase.database();
 
 const messaging= firebase.messaging();
 messaging.requestPermission()
@@ -82,6 +82,5 @@ function App() {
 
   );
 }
-
 
 export default App;

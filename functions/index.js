@@ -10,6 +10,8 @@ admin.initializeApp();
 //   response.send("Hello from Firebase!");
 // });
 
+let database = firebase.database();
+
 exports.addMessage = functions.https.onRequest(async( req, res) => {
     const original = req.query.text;
     const writeResult = await admin.firestore().collection('messages').add({ original: original });
@@ -41,7 +43,6 @@ exports.welcomeUser = functions.database.ref('/user/{uid}')
                 body: `Welcome to food baby, ${userId}`
             }
         }
-
     return admin.messaging.sendToDevice(token, payload);
 });
 
@@ -62,6 +63,20 @@ exports.orderConfirmation = functions.database.ref('/checkout/{oid}/{uid}')
         return admin.messaging.sendToDevice(token, payload);
     })
 
+exports.cartTest = functions.database.ref('/cart/{cid}')
+    .onUpdate((snapshot, context) => {
+        const cartId = context.params.cid;
+
+        const token = "cxI26L__jA7scTWwuCgJuF:APA91bGsJejZfWcibwtZS9vtKyglxb7NGXzB_NuO3avVwTez-naNbUEEP08vRUUwr57PwN31i76RHhJ2HUjYov1e-cXTssDmfecar1xbWesyqCB8UehH7H8JxqWICqFDwtw_3LLCaecT";
+        const payload = {
+            notification: {
+                title: 'Item added to cartId',
+                body: `You added an item to cart ${cartId}.`
+            }
+        }
+
+        return admin.messaging.sendToDevice(token, payload);
+    })
 
 // exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
 //     // [END onCreateTrigger]
