@@ -1,4 +1,6 @@
 import React from 'react';
+import { Card, Image, Button, Icon } from 'semantic-ui-react';
+
 import { useStoreContext } from '../../utils/GlobalState';
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from '../../utils/actions';
 import { idbPromise } from '../../utils/helpers';
@@ -40,15 +42,20 @@ function MenuItem(item) {
     };
 
     return (
-        <div>
-            <img alt={name} src={`/images/${image}`} />
-            <p>{name}</p>
-            <div>
-                <span>${price}</span>
-                <p>{description}</p>
-            </div>
-            <button onClick={addToCart}>Add To Cart</button>
-        </div>
+        <Card>
+            <Image ui={false} wrapped src={`/images/${image}`} />
+            <Card.Content>
+                <Card.Header>{name}</Card.Header>
+                <Card.Meta>${price}</Card.Meta>
+                <Card.Description>{description}</Card.Description>
+            </Card.Content>
+            <Button animated='fade' onClick={addToCart}>
+                <Button.Content hidden>Add To Order</Button.Content>
+                <Button.Content visible>
+                    <Icon name='utensils' />
+                </Button.Content>
+            </Button>
+        </Card>
     );
 };
 
