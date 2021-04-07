@@ -21,11 +21,11 @@ function Menu() {
 
             // save to indexedDB
             data.menuItems.forEach(item => {
-                idbPromise('menuItems', 'put', item);
+                idbPromise('cart', 'put', item);
             });
 
         }  else if (!loading) {
-            idbPromise('menuItems', 'get').then(item => {
+            idbPromise('cart', 'get').then(item => {
                 dispatch({
                     type: UPDATE_MENU_ITEMS,
                     menuItems: item
@@ -35,7 +35,6 @@ function Menu() {
     }, [data, loading, dispatch]);
 
     function filterMenu(courseName) {
-        console.log(state.menuItems)
         return state.menuItems.filter(item => item.course.name === courseName);
     };
 
