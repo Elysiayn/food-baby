@@ -97,7 +97,7 @@ db.once('open', async () => {
           name: 'Owlbear Claws',
           description: 'Freshly baked, lighly glazed and almond paste filled puff pastry dessert sure to intice all surrounding owlbears keen smell for miles around! No owlbears where hurt in the making of this dessert. ',
           image: 'owlbear-claws.png',
-          price: '7',
+          price: 7,
           course: categories[2]._id
         },
         {
@@ -108,17 +108,17 @@ db.once('open', async () => {
           course: categories[2]._id
         },
         {
-          name: '',
-          description: '',
-          image: '',
-          price: ,
+          name: 'Conjured Mana Buns',
+          description: 'Conjured by our very live-in wizard and flavored wuth a rich brown sugar glaze and cinnimon sugar filling.',
+          image: 'buns.jpg',
+          price: 8,
           course: categories[2]._id
         },
         {
-          name: '',
-          description: '',
-          image: '',
-          price: ,
+          name: 'Halfling Oatmeal Sweet Nibbles',
+          description: 'Dense with oats, chocolate chips, and butterscotch, these diminutive cookies are perfect for halfling hands... and the stomachs of everyone.',
+          image: 'sweet-nibbles.jpg',
+          price: 5,
           course: categories[2]._id
         },
         {
@@ -129,29 +129,29 @@ db.once('open', async () => {
             course: categories[3]._id
         },
         {
-          name: '',
-          description: '',
-          image: '',
-          price: ,
+          name: 'Par-Salian\'s Tea',
+          description: 'A resorative and potent tea blend of fresh ginger infusion, honey, dried lemon, and mint. Highmage Par-Salian approved.',
+          image: 'ginger-tea.jpg',
+          price: 6,
           course: categories[3]._id
         },
         {
-          name: '',
-          description: '',
-          image: '',
-          price: ,
+          name: 'Potion of Restoration',
+          description: 'The perfect pick me up before any dungeon, this rejuvenatingly fruity and sweet sparkling potion is made with strawberries. Drink enough of these and you will know neither pain nor fear, guaranteed.',
+          image: 'potion.jpg',
+          price: 4,
           course: categories[3]._id
         },
         {
-          name: '',
-          description: '',
-          image: '',
-          price: ,
+          name: 'Cactus Apple Surprise',
+          description: 'Straight from the Valley of trials, this refreshing apple treat is a perfect reward after a long day of raiding.',
+          image: 'apple.jpg',
+          price: 5,
           course: categories[3]._id
         },
         {
           name: 'Moonglow',
-          description: 'Celebrate the Lunar festival with fellow druids in Moonglade with this sweet and refreshing fruit drink.',
+          description: 'Celebrate the Lunar festival with fellow druids in Moonglade with this sweet and refreshing lemon sparkling fruit drink.',
           image:'moonglow.jpg',
           price: 6,
           course: categories[3]._id
