@@ -29,7 +29,11 @@ export const QUERY_ALL_MENU_ITEMS = gql`
         name
         description
         price
-        course
+        image
+        course {
+            _id
+            name
+        }
         quantity
     }
 }

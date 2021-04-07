@@ -10,7 +10,7 @@ const resolvers = {
             return await Course.find();
         },
         menuItems: async () => {
-            return await MenuItem.find();
+            return await MenuItem.find().populate('course');
         },
         menuItem: async (parent, { _id }) => {
             return await MenuItem.findById(_id).populate('course');
