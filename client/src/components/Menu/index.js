@@ -21,11 +21,11 @@ function Menu() {
 
             // save to indexedDB
             data.menuItems.forEach(item => {
-                idbPromise('cart', 'put', item);
+                idbPromise('menuItems', 'put', item);
             });
 
         }  else if (!loading) {
-            idbPromise('cart', 'get').then(item => {
+            idbPromise('menuItems', 'get').then(item => {
                 dispatch({
                     type: UPDATE_MENU_ITEMS,
                     menuItems: item
