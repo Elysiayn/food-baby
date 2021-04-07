@@ -12,6 +12,12 @@ function Signup() {
     const handleFormSubmit = async event => {
         event.preventDefault();
 
+        firebase.database().ref(`users`).push().set({
+          email: formState.email,
+          firstName: formState.firstName,
+          lastName: formState.lastName
+      });
+
         const mutationResponse = await addUser({
             variables: {
                 email: formState.email, password: formState.password,
@@ -19,9 +25,7 @@ function Signup() {
             }
         });
         
-        firebase.database().ref(`user/${formState.lastName}`).update({
-          email: formState.email
-      });
+        
 
         const token = mutationResponse.data.addUser.token;
         Auth.login(token);
@@ -89,6 +93,8 @@ function Signup() {
           </button>
         </div>
       </form>
+        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
         </div>
     );
 }
