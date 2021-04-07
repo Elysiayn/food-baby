@@ -14,6 +14,7 @@ type MenuItem {
     _id: ID
     name: String
     description: String
+    image: String
     price: Int
     course: Course
     quantity: Int
