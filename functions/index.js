@@ -28,17 +28,61 @@ exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
         return snap.ref.set({uppercase}, {merge:true});
 });
 
-exports.cartMessage = functions.database.ref('/state/cartOpen')
-    .onUpdate(() => {
+exports.welcomeUser = functions.database.ref('/user/{uid}')
+    .onCreate((snapshot, context) => {
+        const userId = context.params.uid;
 
-        const tokens = 'grab from console.log'
+    
+        const token = 'cxI26L__jA7scTWwuCgJuF:APA91bGsJejZfWcibwtZS9vtKyglxb7NGXzB_NuO3avVwTez-naNbUEEP08vRUUwr57PwN31i76RHhJ2HUjYov1e-cXTssDmfecar1xbWesyqCB8UehH7H8JxqWICqFDwtw_3LLCaecT'
 
         const payload = {
             notification: {
                 title: 'Thanks for clicking the cart',
-                body: 'You clicked the cart and I like that about you'
+                body: `Welcome to food baby, ${userId}`
             }
         }
 
-    return admin.messaging.sendToDevice(tokens, payload);
-}); 
+    return admin.messaging.sendToDevice(token, payload);
+});
+
+exports.orderConfirmation = functions.database.ref('/checkout/{oid}/{uid}')
+    .onCreate((snapshot, context) => {
+        const orderId = context.params.oid
+        const userId = context.params.uid;
+
+        const token = " user token"
+
+        const payload = {
+            notification: {
+                title: 'Order Recieved',
+                body: `Thank you for your order, ${userId}. ${orderId}`
+            }
+        }
+
+        return admin.messaging.sendToDevice(token, payload);
+    })
+
+
+// exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
+//     // [END onCreateTrigger]
+//       // [START eventAttributes]
+//       const email = user.email; // The email of the user.
+//       const displayName = user.displayName; // The display name of the user.
+//       // [END eventAttributes]
+    
+//       return sendWelcomeEmail(email, displayName);
+// });
+
+// async function sendWelcomeEmail(email, displayName) {
+//     const mailOptions = {
+//       from: `${APP_NAME} <noreply@firebase.com>`,
+//       to: email,
+//     };
+  
+//     // The user subscribed to the newsletter.
+//     mailOptions.subject = `Welcome to ${APP_NAME}!`;
+//     mailOptions.text = `Hey ${displayName || ''}! Welcome to ${APP_NAME}. I hope you will enjoy our service.`;
+//     await mailTransport.sendMail(mailOptions);
+//     functions.logger.log('New welcome email sent to:', email);
+//     return null;
+//   }

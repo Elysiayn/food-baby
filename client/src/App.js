@@ -26,6 +26,7 @@ const client = new ApolloClient({
   uri: '/graphql',
 })
 
+
 var firebaseConfig = {
   apiKey: "AIzaSyAPYUQl3v49glJc2H1WErSHVGgejiqEfxo",
   authDomain: "food-baby-682db.firebaseapp.com",
@@ -45,10 +46,11 @@ const messaging= firebase.messaging();
 messaging.requestPermission()
 .then(function() {
   console.log('Have permission');
-  return messaging.getToken();
+  return messaging.getToken(); 
 })
 .then( function (token) {
-  firebase.database().ref('users/' + this.user._id + '/notificationTokens/' + token).set(true)
+  // firebase.database().ref('users/' + this.currentUid + '/notificationTokens/' + token).set(true)
+  console.log(token);
 })
 .catch(function(err) {
   console.log(err);
@@ -80,5 +82,6 @@ function App() {
 
   );
 }
+
 
 export default App;
