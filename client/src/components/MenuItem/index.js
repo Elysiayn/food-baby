@@ -42,6 +42,7 @@ function MenuItem(item) {
     return (
         <div>
             <img alt={name} src={`/images/${image}`} />
+            <p>{name}</p>
             <div>
                 <span>${price}</span>
             </div>

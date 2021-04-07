@@ -72,7 +72,7 @@ export const reducer = (state, action) => {
         case UPDATE_MENU_ITEMS:
             return {
               ...state,
-              products: [...action.menuItems]
+              menuItems: [...action.menuItems]
             }
         default:
             return state;

@@ -3,15 +3,16 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_MENU_ITEMS } from '../../utils/actions';
-import { QUERY_MENU_ITEMS } from '../../utils/queries' // not written yet
+import { QUERY_ALL_MENU_ITEMS } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
-import { MenuItem } from '../MenuItem/index';
+import MenuItem from '../MenuItem/index';
 
 function Menu() {
     const [state, dispatch] = useStoreContext();
     const { currentCourse } = state; // might not need, remove from GlobalState
-    const { loading, data } = useQuery(QUERY_MENU_ITEMS); // not written yet
+    const { loading, data } = useQuery(QUERY_ALL_MENU_ITEMS);
 
+    console.log('data', useQuery(QUERY_ALL_MENU_ITEMS))
     useEffect(() => {
         if (data) {
             dispatch({ 
@@ -23,11 +24,13 @@ function Menu() {
             data.menuItems.forEach(item => {
                 idbPromise('menuItems', 'put', item);
             });
+
+            console.log(state)
         }  else if (!loading) {
             idbPromise('menuItems', 'get').then(item => {
                 dispatch({
                     type: UPDATE_MENU_ITEMS,
-                    menuItems: menuItems
+                    menuItems: item
                 })
             })
         }
@@ -43,12 +46,12 @@ function Menu() {
             {/* DRY by querying categories and looping categories/forEach? */}
             <h3>Appetizers</h3>
             <div>
-                {filterMenu('appetizers').map(item => (
+                {state.menuItems.map(item => (
                     <MenuItem
                         key={item._id}
                         _id={item._id}
                         image={item.image}
-                        name={item.price}
+                        name={item.name}
                         price={item.price}
                     />
                 ))}
