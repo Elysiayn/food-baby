@@ -10,7 +10,7 @@ const resolvers = {
             return await Course.find();
         },
         menuItems: async () => {
-            return await MenuItem.find();
+            return await MenuItem.find().populate('course');
         },
         menuItem: async (parent, { _id }) => {
             return await MenuItem.findById(_id).populate('course');
@@ -85,9 +85,10 @@ const resolvers = {
 
             return { token, user };
         },
-        addOrder: async (parent, { menuItems }, context) => {
+        addOrder: async (parent, {menuItems}, context) => {
             if (context.user) {
-                const order = new Order({ products });
+                const order = new Order({ menuItems });
+                console.log(order);
 
                 await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
 
@@ -103,22 +104,22 @@ const resolvers = {
 
             throw new AuthenticationError('Not logged in');
         },
-        updateMenuItem: async (parent, { _id, quantity }) => {
-            const decrement = Math.abs(quantity) * -1;
+        updateMenuItem: async (parent, args, context) => {
+            // const decrement = Math.abs(args.quantity) * -1;
 
-            return await MenuItem.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
+            return await MenuItem.findByIdAndUpdate(args._id, args, { new: true });
         },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
             if (!user) {
-                throw new AuthenticationError('Incorrect credentials');
+                throw new AuthenticationError('Incorrect email');
             }
 
             const correctPw = await user.isCorrectPassword(password);
 
             if (!correctPw) {
-                throw new AuthenticationError('Incorrect credentials');
+                throw new AuthenticationError('Incorrect password');
             }
 
             const token = signToken(user);
