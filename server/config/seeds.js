@@ -18,11 +18,32 @@ db.once('open', async () => {
     const menuItems = await MenuItem.insertMany([
         {
             name: 'Head Crab Cakes',
-            description: 'Some description here',
+            description: 'Crabby goodness, watch out it doesn\'t swallow you whole!',
             image: 'crab-cakes.jpg',
             price: 10,
             course: categories[0]._id
         },
+        {
+          name: 'Traveler\'s Stew',
+          description: 'A earthy and hearty beef, ale and vegetable stew straight from a flame-licked cauldron. For optimal flavour served in a wooden bowl and spoon.',
+          image: 'travelers-stew.jpg',
+          price: 9,
+          course: categories[0]._id
+      },
+      {
+        name: 'Delzoun Tide-Me-Overs',
+        description: 'Beef, pork, onions, and a smathering of dwarven seasonings are rolled up into delicious little balls and coated in dark dwarven gravy for snacking. Also known as meatballs in the multiverse.',
+        image: 'tide-me-overs.jpg',
+        price: 11,
+        course: categories[0]._id
+        },
+        {
+          name: 'Lord of the Onion Rings',
+          description: 'Lightly battered and seasoned crispy golden onion rings sure to be your new precious! Just make sure Gollum isn\'t around.',
+          image: 'onion-rings.jpg',
+          price: 7,
+          course: categories[0]._id
+          },
         {
             name: 'Barrens Chat',
             description: 'Chuck Norris and Mankrik\'s wife\'s favorite dish.',
@@ -32,7 +53,7 @@ db.once('open', async () => {
         },
         { 
             name: 'The Mimic',
-            description: 'While the Mimic remains motionless, it is indistinguishable from an ordinary object.   Be careful this veggie burger bites back.',
+            description: 'While the Mimic remains motionless, it is indistinguishable from an ordinary object. Be careful this veggie burger bites back.',
             image: 'veggie-burger.jpg',
             price: 12,
             course: categories[1]._id
@@ -44,6 +65,27 @@ db.once('open', async () => {
             price: 13,
             course: categories[1]._id
         },
+        {
+          name: 'Moonshae Seafood Rice',
+          description: 'Recipe derived from the mythical elven isle of Evermeet, this creamy fish rice dish includes shrimps and scallops and refined with the finest seasonings of all the Sword Coast!',
+          image: 'seafood-rice.jpg',
+          price: 14,
+          course: categories[1]._id
+        },
+        {
+          name: 'Fire-Spiced Abyssal Chicken Kebabs',
+          description: 'Flame-licked skewers dipped in a spicy pepper glaze straight from your tieflings grandma\'s cookbook!',
+          image: 'chicken-kebabs.png',
+          price: 9,
+          course: categories[1]._id
+        },
+        {
+          name: 'Tavern Steak',
+          description: 'Juicy beef patties kneaded with a chock-full of rich seasongings and seared over an open flame. These steaks are fast dinner options for the hurried tavern hopper.',
+          image: 'tavern-steak.jpg',
+          price: 12,
+          course: categories[1]._id
+        },
         { 
             name: 'The Cake Is A Lie',
             description: 'This was a triumph!  I\'m making a note here: huge success.',
@@ -52,11 +94,67 @@ db.once('open', async () => {
             course: categories[2]._id
         },
         {
+          name: 'Owlbear Claws',
+          description: 'Freshly baked, lighly glazed and almond paste filled puff pastry dessert sure to intice all surrounding owlbears keen smell for miles around! No owlbears where hurt in the making of this dessert. ',
+          image: 'owlbear-claws.png',
+          price: '7',
+          course: categories[2]._id
+        },
+        {
+          name: 'Versicolor Treat',
+          description: 'Crunchy and swirled cherry syrup. This sweet meringue is sold by the night elves of Kalimdor making it a much sought-after dessert for visitors of Azeroth. Warning, may be habit forming.',
+          image: 'versicolor-treat.jpg',
+          price: 11,
+          course: categories[2]._id
+        },
+        {
+          name: '',
+          description: '',
+          image: '',
+          price: ,
+          course: categories[2]._id
+        },
+        {
+          name: '',
+          description: '',
+          image: '',
+          price: ,
+          course: categories[2]._id
+        },
+        {
             name: 'Professor Putricide\'s Slime',
             description: 'Gooooood news everybody! This matcha boba has all the nutrients you\'d ever need, and has bobas!',
             image: 'boba.jpg',
             price: 5,
             course: categories[3]._id
+        },
+        {
+          name: '',
+          description: '',
+          image: '',
+          price: ,
+          course: categories[3]._id
+        },
+        {
+          name: '',
+          description: '',
+          image: '',
+          price: ,
+          course: categories[3]._id
+        },
+        {
+          name: '',
+          description: '',
+          image: '',
+          price: ,
+          course: categories[3]._id
+        },
+        {
+          name: 'Moonglow',
+          description: 'Celebrate the Lunar festival with fellow druids in Moonglade with this sweet and refreshing fruit drink.',
+          image:'moonglow.jpg',
+          price: 6,
+          course: categories[3]._id
         }
     ]);
 
