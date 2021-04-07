@@ -14,6 +14,7 @@ import {
 export const reducer = (state, action) => {
     switch (action.type) {
         case ADD_TO_CART:
+            console.log(action.menuItem)
             return {
               ...state,
               cartOpen: true,

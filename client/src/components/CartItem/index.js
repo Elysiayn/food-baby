@@ -17,7 +17,7 @@ const CartItem = ({ item } ) => {
     const onChange = (e) => {
         const value = e.target.value;
 
-        if( value === '0') {
+        if( value < 1) {
             dispatch({
                 type: REMOVE_FROM_CART,
                 _id: item._id
