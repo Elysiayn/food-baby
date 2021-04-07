@@ -9,10 +9,9 @@ import MenuItem from '../MenuItem/index';
 
 function Menu() {
     const [state, dispatch] = useStoreContext();
-    const { currentCourse } = state; // might not need, remove from GlobalState
+    const { currentCourse } = state; // might not need currentCourse, remove from GlobalState
     const { loading, data } = useQuery(QUERY_ALL_MENU_ITEMS);
 
-    console.log('data', useQuery(QUERY_ALL_MENU_ITEMS))
     useEffect(() => {
         if (data) {
             dispatch({ 
@@ -25,7 +24,6 @@ function Menu() {
                 idbPromise('menuItems', 'put', item);
             });
 
-            console.log(state)
         }  else if (!loading) {
             idbPromise('menuItems', 'get').then(item => {
                 dispatch({
@@ -37,6 +35,7 @@ function Menu() {
     }, [data, loading, dispatch]);
 
     function filterMenu(courseName) {
+        console.log(state.menuItems)
         return state.menuItems.filter(item => item.course.name === courseName);
     };
 
@@ -46,13 +45,14 @@ function Menu() {
             {/* DRY by querying categories and looping categories/forEach? */}
             <h3>Appetizers</h3>
             <div>
-                {state.menuItems.map(item => (
+                {filterMenu('appetizers').map(item => (
                     <MenuItem
                         key={item._id}
                         _id={item._id}
                         image={item.image}
                         name={item.name}
                         price={item.price}
+                        description={item.description}
                     />
                 ))}
             </div>
@@ -63,8 +63,9 @@ function Menu() {
                         key={item._id}
                         _id={item._id}
                         image={item.image}
-                        name={item.price}
+                        name={item.name}
                         price={item.price}
+                        description={item.description}
                     />
                 ))}
             </div>
@@ -75,8 +76,9 @@ function Menu() {
                         key={item._id}
                         _id={item._id}
                         image={item.image}
-                        name={item.price}
+                        name={item.name}
                         price={item.price}
+                        description={item.description}
                     />
                 ))}
             </div>
@@ -87,8 +89,9 @@ function Menu() {
                         key={item._id}
                         _id={item._id}
                         image={item.image}
-                        name={item.price}
+                        name={item.name}
                         price={item.price}
+                        description={item.description}
                     />
                 ))}
             </div>

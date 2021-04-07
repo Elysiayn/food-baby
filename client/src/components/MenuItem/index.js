@@ -8,7 +8,8 @@ function MenuItem(item) {
         _id,
         name,
         image,
-        price  
+        price,
+        description  
     } = item;
 
     const [state, dispatch] = useStoreContext();
@@ -45,6 +46,7 @@ function MenuItem(item) {
             <p>{name}</p>
             <div>
                 <span>${price}</span>
+                <p>{description}</p>
             </div>
             <button onClick={addToCart}>Add To Cart</button>
         </div>
