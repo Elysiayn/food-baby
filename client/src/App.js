@@ -4,20 +4,11 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 
 import Home from "./pages/Home";
-// import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch"; 
-<<<<<<< HEAD
-// import Login from "./pages/Login"; 
-// import Signup from "./pages/Signup"; 
-import Nav from "./components/Nav"; 
-=======
 import Login from "./pages/Login"; 
 import Signup from "./pages/Signup"; 
-// import Nav from "./components/Nav"; 
->>>>>>> c8f9c6d852468148ee82c11b33d4ac880ccaf69a
+import Nav from "./components/Nav"; 
 import { StoreProvider } from "./utils/GlobalState"; 
-// import Success from "./pages/Success"; 
-// import OrderHistory from "./pages/OrderHistory"; 
 import 'semantic-ui-css/semantic.min.css';
 
 const client = new ApolloClient({
@@ -42,10 +33,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
-              {/* <Route exact path="/signup" component={Signup} /> 
-              {/* <Route exact path="/success" component={Success} />  */}
-              {/* <Route exact path="/orderHistory" component={OrderHistory} />  */}
-              {/* <Route exact path="/products/:id" component={Detail} />  */}
+              <Route exact path="/signup" component={Signup} /> 
               <Route component={NoMatch} /> 
             </Switch>
           </StoreProvider>

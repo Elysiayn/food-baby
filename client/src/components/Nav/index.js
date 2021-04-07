@@ -6,7 +6,7 @@ import Auth from "../../utils/auth";
 
 function Nav() {
 
-  function showNavigation() {
+  function showNav() {
     if (Auth.loggedIn()) {
       return (
         <ul className="flex-row">
@@ -44,12 +44,12 @@ function Nav() {
     <header className="flex-row px-1">
       <h1>
         <Link to="/">
-          <span role="img" aria-label="shopping bag">🛍️</span>
+        <span role="img" aria-label="empty plate">🍽️</span>
         </Link>
       </h1>
 
       <nav>
-        {showNavigation()}
+        {showNav()}
       </nav>
     </header>
   );
