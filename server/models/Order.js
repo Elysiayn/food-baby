@@ -12,7 +12,8 @@ const orderSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'MenuItem'
     }
-  ]
+  ],
+  //  reward point system 
 });
 
 const Order = mongoose.model('Order', orderSchema);

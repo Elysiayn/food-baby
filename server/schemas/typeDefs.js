@@ -14,6 +14,7 @@ type MenuItem {
     _id: ID
     name: String
     description: String
+    image: String
     price: Int
     course: Course
     quantity: Int
@@ -57,15 +58,15 @@ type Query {
     menuItems: [MenuItem]
     user: User
     order(_id: ID!): Order
-    checkout(products: [ID]!): Checkout
+    checkout(menuItems: [ID]!): Checkout
 }
 
 type Mutation {
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    updateUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    updateMenuItem(_id: ID!, quantity: Int!): MenuItem
+    updateUser(_id: ID!, firstName: String, lastName: String, email: String, password: String): User
+    updateMenuItem(_id: ID!, quantity: Int, name: String, description: String, price: Int): MenuItem
     login(email: String!, password: String!): Auth
-    addOrder(products: [ID]!): Order
+    addOrder(menuItems: [ID]!): Order
 }
 `;
 
