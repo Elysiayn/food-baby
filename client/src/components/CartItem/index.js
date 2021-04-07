@@ -7,6 +7,12 @@ import firebase from 'firebase';
 const CartItem = ({ item } ) => {
     const [,dispatch] = useStoreContext();
 
+    let cartRef = firebase.database().ref('cart');
+    cartRef.on('child_added', function(snapshot) {
+        let cid = snapshot.key;
+    })
+    
+
     const removeFromCart = () => {
         dispatch({
             type: REMOVE_FROM_CART,
@@ -24,7 +30,7 @@ const CartItem = ({ item } ) => {
                 _id: item._id
             });
             idbPromise('cart', 'delete', { ...item });
-            let cid = item._id;
+                let cid = this.item._id;
             firebase.database().ref(`cart/${cid}`).update({
                 itemId: item._id
             });
@@ -35,7 +41,7 @@ const CartItem = ({ item } ) => {
                 purchaseQuantity: parseInt(value)
             });
             idbPromise('cart', 'put', { ...item, purchaseQuantity: parseInt(value) });
-            let cid = item._id;
+            let cid = this.item._id;
             firebase.database().ref(`cart/${cid}`).update({
                 itemId: item._id
             });
