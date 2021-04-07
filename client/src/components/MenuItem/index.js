@@ -33,9 +33,8 @@ function MenuItem(item) {
         } else {
             dispatch({
                 type: ADD_TO_CART,
-                product: { ...item, purchaseQuantity: 1 }
+                menuItem: { ...item, purchaseQuantity: 1 }
             });
-
             idbPromise('cart','put', { ...item, purchaseQuantity: 1 });
         }
     };

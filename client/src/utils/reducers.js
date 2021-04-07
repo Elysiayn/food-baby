@@ -24,7 +24,7 @@ export const reducer = (state, action) => {
             return {
               ...state,
               cartOpen: true,
-              cart:[...state.cart, ...action.menuItem]
+              cart:[...state.cart, ...action.menuItems]
             };
       
         case REMOVE_FROM_CART:

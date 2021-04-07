@@ -1,27 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { idbPromise } from "../../utils/helpers";
 import CartItem from '../CartItem';
 import './style.css';
-import { TOGGLE_CART } from '../../utils/actions';
+import { TOGGLE_CART, ADD_MULTIPLE_TO_CART  } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
 import Auth from '../../utils/auth';
 
 const Cart = () => {
     const [state, dispatch] = useStoreContext();
 
+    useEffect(() => {
+        async function getCart() {
+          const cart = await idbPromise('cart', 'get');
+          dispatch({ type: ADD_MULTIPLE_TO_CART, menuItems: [...cart] });
+        };
+    
+        if (!state.cart.length) {
+          getCart();
+        }
+      }, [state.cart.length, dispatch]);
+
     function toggleCart() {
         dispatch({ type:TOGGLE_CART});
+<<<<<<< HEAD
     };
-
-    if (!state.cartOpen) {
-        return (
-            <div className="cart-closed" onClick={toggleCart}>
-                <span
-                role="img"
-                aria-label="trash">🛒</span>
-            </div>
-        );
+=======
     }
-
+    
+    
     function calculateTotal() {
         let sum = 0;
         state.cart.forEach(item => {
@@ -29,14 +35,26 @@ const Cart = () => {
         });
         return sum.toFixed(2);
     }
+>>>>>>> 44ccff5839114f8c1ff0938b3c48e1f63e2b179f
+
+    if (!state.cartOpen) {
+        return (
+            <div className="cart-closed" onClick={toggleCart}>
+                <span
+                role="img"
+                aria-label="takeout">🥡</span>
+            </div>
+        );
+    }
+
     return (
         <div className="cart">
             <div className="close" onClick={toggleCart}>[close]</div>
-            <h2>Shopping Cart</h2>
+            <h2>Current Order</h2>
             {state.cart.length ? (
             <div>
                 {state.cart.map(item => (
-                <CartItem key={item.id} item={item} />
+                <CartItem key={item._id} item={item} />
                 ))}
                 <div className="flex-row space-between">
                     <strong>Total: ${calculateTotal()}</strong>
@@ -52,10 +70,10 @@ const Cart = () => {
             </div>
             ) : (
                 <h3>
-                    <span role="img" aria-label="shocked">
-                    😱
+                    <span role="img" aria-label="empty plate">
+                    🍽️
                     </span>
-                    There's no food in your cart yet!
+                    There's no food in your order yet!
                 </h3>
             )}
             <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
