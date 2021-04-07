@@ -10,8 +10,6 @@ admin.initializeApp();
 //   response.send("Hello from Firebase!");
 // });
 
-let database = firebase.database();
-
 exports.addMessage = functions.https.onRequest(async( req, res) => {
     const original = req.query.text;
     const writeResult = await admin.firestore().collection('messages').add({ original: original });
@@ -30,9 +28,9 @@ exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
         return snap.ref.set({uppercase}, {merge:true});
 });
 
-exports.welcomeUser = functions.database.ref('/user/{uid}')
+exports.welcomeUser = functions.database.ref('/user/{lastName}/')
     .onCreate((snapshot, context) => {
-        const userId = context.params.uid;
+        const userId = context.params.lastName;
 
     
         const token = 'cxI26L__jA7scTWwuCgJuF:APA91bGsJejZfWcibwtZS9vtKyglxb7NGXzB_NuO3avVwTez-naNbUEEP08vRUUwr57PwN31i76RHhJ2HUjYov1e-cXTssDmfecar1xbWesyqCB8UehH7H8JxqWICqFDwtw_3LLCaecT'
@@ -65,18 +63,37 @@ exports.orderConfirmation = functions.database.ref('/checkout/{oid}/{uid}')
 
 exports.cartTest = functions.database.ref('/cart/{cid}')
     .onUpdate((snapshot, context) => {
-        const cartId = context.params.cid;
-
-        const token = "cxI26L__jA7scTWwuCgJuF:APA91bGsJejZfWcibwtZS9vtKyglxb7NGXzB_NuO3avVwTez-naNbUEEP08vRUUwr57PwN31i76RHhJ2HUjYov1e-cXTssDmfecar1xbWesyqCB8UehH7H8JxqWICqFDwtw_3LLCaecT";
+       
+        const tokens = "cxI26L__jA7scTWwuCgJuF:APA91bGsJejZfWcibwtZS9vtKyglxb7NGXzB_NuO3avVwTez-naNbUEEP08vRUUwr57PwN31i76RHhJ2HUjYov1e-cXTssDmfecar1xbWesyqCB8UehH7H8JxqWICqFDwtw_3LLCaecT";
         const payload = {
             notification: {
                 title: 'Item added to cartId',
-                body: `You added an item to cart ${cartId}.`
-            }
-        }
+                body: `You added an item to cart .`
+            },
+        };
 
-        return admin.messaging.sendToDevice(token, payload);
-    })
+        const response = await admin.messaging().sendToDevice(tokens, payload);
+        // For each message check if there was an error.
+        const tokensToRemove = [];
+        response.results.forEach((result, index) => {
+          const error = result.error;
+          if (error) {
+            functions.logger.error(
+              'Failure sending notification to',
+              tokens[index],
+              error
+            );
+            // Cleanup the tokens who are not registered anymore.
+            if (error.code === 'messaging/invalid-registration-token' ||
+                error.code === 'messaging/registration-token-not-registered') {
+              tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
+            }
+          }
+        });
+        return Promise.all(tokensToRemove);
+      
+    }
+)
 
 // exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
 //     // [END onCreateTrigger]

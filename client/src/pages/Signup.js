@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useMutation} from '@apollo/react-hooks';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
+import firebase from 'firebase';
 
 function Signup() {
     const [formState, setFormState] = useState({ email: '', password: '' });
@@ -17,6 +18,10 @@ function Signup() {
                 firstName: formState.firstName, lastName: formState.lastName
             }
         });
+        
+        firebase.database().ref(`user/${formState.lastName}`).update({
+          email: formState.email
+      });
 
         const token = mutationResponse.data.addUser.token;
         Auth.login(token);

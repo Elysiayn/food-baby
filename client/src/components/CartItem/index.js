@@ -7,12 +7,6 @@ import firebase from 'firebase';
 const CartItem = ({ item } ) => {
     const [,dispatch] = useStoreContext();
 
-    let cartRef = firebase.database().ref('cart');
-    cartRef.on('child_added', function(snapshot) {
-        let cid = snapshot.key;
-    })
-    
-
     const removeFromCart = () => {
         dispatch({
             type: REMOVE_FROM_CART,
@@ -23,20 +17,15 @@ const CartItem = ({ item } ) => {
 
     const onChange = (e) => {
         const value = e.target.value;
-<<<<<<< HEAD
-        
-        if( value === '0') {
-=======
 
         if( value < 1) {
->>>>>>> e97f53187b11fc9d07147e3b6cf57d346f33ce65
             dispatch({
                 type: REMOVE_FROM_CART,
                 _id: item._id
             });
             idbPromise('cart', 'delete', { ...item });
-                let cid = this.item._id;
-            firebase.database().ref(`cart/${cid}`).update({
+                
+            firebase.database().ref(`cart/${item._id}`).update({
                 itemId: item._id
             });
         } else {
@@ -46,11 +35,24 @@ const CartItem = ({ item } ) => {
                 purchaseQuantity: parseInt(value)
             });
             idbPromise('cart', 'put', { ...item, purchaseQuantity: parseInt(value) });
-            let cid = this.item._id;
-            firebase.database().ref(`cart/${cid}`).update({
+            
+            firebase.database().ref(`cart/${item._id}`).update({
                 itemId: item._id
             });
+            
+            firebase.onMessage = function ( payload ) {
+                console.log('check')
+                console.log('Notifications received.', payload);
+                if (payload.notification) {
+                    // If notifications are supported on this browser we display one.
+                    if (window.Notification instanceof Function) {
+                      // This displays a notification if notifications have been granted.
+                      new Notification(payload.notification.title, payload.notification);
+                    }
+            }
+           
         }
+    };
     };
 
     return (
@@ -80,6 +82,8 @@ const CartItem = ({ item } ) => {
                     </span>
                 </div>
             </div>
+            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
         </div>
     );
 }
