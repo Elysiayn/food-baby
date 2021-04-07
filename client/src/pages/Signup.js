@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation} from '@apollo/react-hooks';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
 
 function Signup() {
-    const [formState, setFormState] = useEffect({ email: '', password: '' });
+    const [formState, setFormState] = useState({ email: '', password: '' });
     const [addUser] = useMutation(ADD_USER);
 
     const handleFormSubmit = async event => {

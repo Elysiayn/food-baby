@@ -23,8 +23,13 @@ const CartItem = ({ item } ) => {
 
     const onChange = (e) => {
         const value = e.target.value;
+<<<<<<< HEAD
         
         if( value === '0') {
+=======
+
+        if( value < 1) {
+>>>>>>> e97f53187b11fc9d07147e3b6cf57d346f33ce65
             dispatch({
                 type: REMOVE_FROM_CART,
                 _id: item._id

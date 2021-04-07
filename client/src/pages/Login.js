@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { Button, Input } from 'semantic-ui-react';
 import { useMutation} from '@apollo/react-hooks';
 import { Link } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
+import '../App.css';
 
 function Login() {
+
     const [formState, setFormState] = useState({ email: '', password: ''});
     const [login, { error }] = useMutation(LOGIN);
 
@@ -30,14 +33,14 @@ function Login() {
     };
 
     return (
-        <div>
+        <div className='login-container'>
             <h2 className='login-title'>
                 Login
             </h2>
             <form onSubmit={handleFormSubmit}>
-                <div>
+                <div className='ui input'>
                     <label htmlFor='email'>Email Address:</label>
-                    <input
+                    <Input
                     placeholder='example@email.com'
                     name='name'
                     type='email'
@@ -47,7 +50,7 @@ function Login() {
                 </div>
                 <div>
                     <label htmlFor='password'>Password:</label>
-                    <input
+                    <Input
                     placeholder='••••••'
                     name='password'
                     type='password'
@@ -60,10 +63,10 @@ function Login() {
                         <p className='login-error'>Incorrect login credentials. Please try again.</p>
                     </div> : null
                 }
-                <div>
-                    <button type='submit'>
+                <div className='ui button'>
+                    <Button type='submit'>
                         Submit
-                    </button>
+                    </Button>
                 </div>
             </form>
             <Link to='/signup'>
