@@ -60,7 +60,7 @@ const Cart = () => {
                             Checkout
                         </button>
                         :
-                        <span>(log in to check out</span>
+                        <span>(log in to check out)</span>
                     }
                 </div>
             </div>
