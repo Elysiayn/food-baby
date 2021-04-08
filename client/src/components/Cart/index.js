@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { idbPromise } from "../../utils/helpers";
 import CartItem from '../CartItem';
-import './style.css';
+// import './style.css';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART  } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
 import Auth from '../../utils/auth';

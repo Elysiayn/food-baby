@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { Card, Container } from 'semantic-ui-react';
 
 import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_MENU_ITEMS } from '../../utils/actions';
@@ -44,55 +45,63 @@ function Menu() {
             {/* DRY by querying categories and looping categories/forEach? */}
             <h3>Appetizers</h3>
             <div>
-                {filterMenu('appetizers').map(item => (
-                    <MenuItem
-                        key={item._id}
-                        _id={item._id}
-                        image={item.image}
-                        name={item.name}
-                        price={item.price}
-                        description={item.description}
-                    />
-                ))}
+                <Card.Group>
+                    {filterMenu('appetizers').map(item => (
+                        <MenuItem
+                            key={item._id}
+                            _id={item._id}
+                            image={item.image}
+                            name={item.name}
+                            price={item.price}
+                            description={item.description}
+                        />
+                    ))}
+                </Card.Group>
             </div>
             <h3>Mains</h3>
             <div>
-                {filterMenu('mains').map(item => (
-                    <MenuItem
-                        key={item._id}
-                        _id={item._id}
-                        image={item.image}
-                        name={item.name}
-                        price={item.price}
-                        description={item.description}
-                    />
-                ))}
+                <Card.Group>
+                    {filterMenu('mains').map(item => (
+                        <MenuItem
+                            key={item._id}
+                            _id={item._id}
+                            image={item.image}
+                            name={item.name}
+                            price={item.price}
+                            description={item.description}
+                        />
+                    ))}
+                </Card.Group>
             </div>
             <h3>Desserts</h3>
             <div>
-                {filterMenu('desserts').map(item => (
-                    <MenuItem
-                        key={item._id}
-                        _id={item._id}
-                        image={item.image}
-                        name={item.name}
-                        price={item.price}
-                        description={item.description}
-                    />
-                ))}
+                <Card.Group>
+                    {filterMenu('desserts').map(item => (
+                        <MenuItem
+                            key={item._id}
+                            _id={item._id}
+                            image={item.image}
+                            name={item.name}
+                            price={item.price}
+                            description={item.description}
+                        />
+                    ))}
+                </Card.Group>
             </div>
             <h3>Drinks</h3>
             <div>
-                {filterMenu('drinks').map(item => (
-                    <MenuItem
-                        key={item._id}
-                        _id={item._id}
-                        image={item.image}
-                        name={item.name}
-                        price={item.price}
-                        description={item.description}
-                    />
-                ))}
+                <Card.Group>
+                    {filterMenu('drinks').map(item => (
+                        <MenuItem
+                            key={item._id}
+                            _id={item._id}
+                            image={item.image}
+                            name={item.name}
+                            price={item.price}
+                            description={item.description}
+                        />
+                    ))}
+                </Card.Group>
             </div>
         </div>
     );
