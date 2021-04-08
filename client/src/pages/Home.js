@@ -10,9 +10,9 @@ const Home = () => {
 
         <Grid stackable columns={2}>
             <Grid.Column>
-                {/* <Segment> */}
+                <Segment>
                     <Menu />
-                {/* </Segment> */}
+                </Segment>
             </Grid.Column>
             <Grid.Column>
                 <Segment>
