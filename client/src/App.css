@@ -1,8 +1,10 @@
 :root {
   --primary-background: white;
   --secondary-background: black;
-  --accent-color: #EDC967;
-  --secondary-accent-color: red;
+  --primary-color: #FFE268;
+  --secondary-color: #2f5d62;
+  --tertiary-color: #364547;
+  --quarternary-color: #ffb037;
   --title-font: 'Acme', sans-serif;
   --body-font: 'Montserrat', sans-serif;
 }
@@ -62,12 +64,13 @@
 #login-btn {
   padding: 20px;
   width: 15rem;
-  background: var(--accent-color);
+  background: var(--primary-color);
   font-size: 1.25rem;
 }
 
 .login-createUser {
   position: relative;
+  color: var(--tertiary-color);
 }
 
 .login-createUser:before {
@@ -86,3 +89,30 @@
   visibility: visible;
   width: 100%;
 }
+
+.create-form {
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.user-first-label {
+  padding-right: 3.25rem;
+}
+
+.user-last-label {
+  padding-right: 3.43rem;
+}
+
+.create-email-label {
+  padding-right: .85rem;
+}
+
+.create-password-label {
+  padding-right: 4.27rem;
+}
+
+.create-user {
+  align-items: center;
+  margin-bottom: 10px;
+}
+

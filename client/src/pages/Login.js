@@ -38,13 +38,16 @@ function Login() {
                 Login
             </h2>
             <form
-                className='login-form'
-                onSubmit={handleFormSubmit}>
+            className='login-form'
+            onSubmit={handleFormSubmit}
+            >
                 <div className='ui input login-email'>
                     <label
-                        htmlFor='email'
-                        className='login-email-label'
-                    >Email Address:</label>
+                    htmlFor='email'
+                    className='login-email-label'
+                    >
+                        Email Address:
+                    </label>
                     <Input
                         placeholder='example@email.com'
                         name='name'
@@ -57,7 +60,9 @@ function Login() {
                     <label
                         htmlFor='password'
                         className='login-password-label'
-                    >Password:</label>
+                    >
+                        Password:
+                    </label>
                     <Input
                         placeholder='••••••'
                         name='password'
@@ -78,11 +83,6 @@ function Login() {
                             <Icon name='arrow right' />
                         </Button.Content>
                     </Button>
-                    {/* <Button.Content animated='arrow right'
-                        type='submit'
-                        className='login-btn' >
-                        Submit
-                    </Button.Content> */}
                 </div>
             </form>
             <div>
