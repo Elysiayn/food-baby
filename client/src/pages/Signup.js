@@ -125,66 +125,10 @@ function Signup() {
                     <p className='login-createUser'>
                         &larr; Back to Login Page
                     </p>
-                </Link>
+                </Link>    
             </div>
-            {/* <Link to='/login'>
-                ← Back to Login Page
-<<<<<<< HEAD
-            </Link>
-
-            <h2>Sign Up</h2>
-            <form onSubmit={handleFormSubmit}>
-        <div className=''>
-          <label htmlFor='firstName'>First Name:</label>
-          <input
-            placeholder='First'
-            name='firstName'
-            type='firstName'
-            id='firstName'
-            onChange={handleChange}
-          />
-        </div>
-        <div className=''>
-          <label htmlFor='lastName'>Last Name:</label>
-          <input
-            placeholder='Last'
-            name='lastName'
-            type='lastName'
-            id='lastName'
-            onChange={handleChange}
-          />
-        </div>
-        <div className=''>
-          <label htmlFor='email'>Email:</label>
-          <input
-            placeholder='youremail@test.com'
-            name='email'
-            type='email'
-            id='email'
-            onChange={handleChange}
-          />
-        </div>
-        <div className=''>
-          <label htmlFor='pwd'>Password:</label>
-          <input
-            placeholder='••••••'
-            name='password'
-            type='password'
-            id='pwd'
-            onChange={handleChange}
-          />
-        </div>
-        <div className=''>
-          <button type='submit'>
-            Submit
-          </button>
-        </div>
-      </form>
-        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
-=======
-        </Link> */}
->>>>>>> 64b0a0fc761c973727a622dc03c985fc0cada9b1
+            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
         </div>
     );
 }
