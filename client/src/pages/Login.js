@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Input } from 'semantic-ui-react';
-import { useMutation} from '@apollo/react-hooks';
+import { Button, Input, Icon } from 'semantic-ui-react';
+import { useMutation } from '@apollo/react-hooks';
 import { Link } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
@@ -8,7 +8,7 @@ import '../App.css';
 
 function Login() {
 
-    const [formState, setFormState] = useState({ email: '', password: ''});
+    const [formState, setFormState] = useState({ email: '', password: '' });
     const [login, { error }] = useMutation(LOGIN);
 
     const handleFormSubmit = async event => {
@@ -24,7 +24,7 @@ function Login() {
     };
 
     const handleChange = event => {
-        
+
         const { name, value } = event.target;
         setFormState({
             ...formState,
@@ -37,25 +37,33 @@ function Login() {
             <h2 className='login-title'>
                 Login
             </h2>
-            <form onSubmit={handleFormSubmit}>
-                <div className='ui input'>
-                    <label htmlFor='email'>Email Address:</label>
+            <form
+                className='login-form'
+                onSubmit={handleFormSubmit}>
+                <div className='ui input login-email'>
+                    <label
+                        htmlFor='email'
+                        className='login-email-label'
+                    >Email Address:</label>
                     <Input
-                    placeholder='example@email.com'
-                    name='name'
-                    type='email'
-                    id='email'
-                    onChange={handleChange}
+                        placeholder='example@email.com'
+                        name='name'
+                        type='email'
+                        id='email'
+                        onChange={handleChange}
                     />
                 </div>
-                <div>
-                    <label htmlFor='password'>Password:</label>
+                <div className='login-password'>
+                    <label
+                        htmlFor='password'
+                        className='login-password-label'
+                    >Password:</label>
                     <Input
-                    placeholder='••••••'
-                    name='password'
-                    type='password'
-                    id='pwd'
-                    onChange={handleChange}
+                        placeholder='••••••'
+                        name='password'
+                        type='password'
+                        id='pwd'
+                        onChange={handleChange}
                     />
                 </div>
                 {
@@ -63,17 +71,27 @@ function Login() {
                         <p className='login-error'>Incorrect login credentials. Please try again.</p>
                     </div> : null
                 }
-                <div className='ui button'>
-                    <Button type='submit'>
-                        Submit
+                <div className='login-btn-container'>
+                    <Button animated id='login-btn'>
+                        <Button.Content visible>Login</Button.Content>
+                        <Button.Content hidden>
+                            <Icon name='arrow right' />
+                        </Button.Content>
                     </Button>
+                    {/* <Button.Content animated='arrow right'
+                        type='submit'
+                        className='login-btn' >
+                        Submit
+                    </Button.Content> */}
                 </div>
             </form>
-            <Link to='/signup'>
-                <p className='login-createUser'>
-                    Don't have an account? Sign up &rarr;
-                </p>
-            </Link>
+            <div>
+                <Link to='/signup' >
+                    <p className='login-createUser'>
+                        Don't have an account? Sign up &rarr;
+                    </p>
+                </Link>
+            </div>
         </div>
     );
 }

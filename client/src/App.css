@@ -1,26 +1,88 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
 :root {
   --primary-background: white;
   --secondary-background: black;
-  --accent-color: #D4AF37;
+  --accent-color: #EDC967;
   --secondary-accent-color: red;
+  --title-font: 'Acme', sans-serif;
+  --body-font: 'Montserrat', sans-serif;
 }
+
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: var(--body-font);
+}
+
+
 
 .login-container {
   display: flex;
   flex-direction: column;
+  /* flex-wrap: wrap; */
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+  min-height: auto;
   min-width: 100vw;
+  font-size: 1.45rem;
 }
 
 .login-title {
-  font-size: 2.5rem;
+  font-size: 6.25rem;
+  font-family: var(--title-font);
+}
+
+.login-form {
+  justify-content: space-between;
   
 }
 
+.login-email {
+  align-items: center;
+  margin: 10px;
+}
+
+.login-email-label {
+  padding-right: .75rem;
+}
+
+.login-password {
+  margin: 10px;
+}
+.login-password-label {
+  padding-right: 4.125rem;
+}
+
+.login-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+#login-btn {
+  padding: 20px;
+  width: 15rem;
+  background: var(--accent-color);
+  font-size: 1.25rem;
+}
+
+.login-createUser {
+  position: relative;
+}
+
+.login-createUser:before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: #2F5D62;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-createUser:hover:before {
+  visibility: visible;
+  width: 100%;
+}
