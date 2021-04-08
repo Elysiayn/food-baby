@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 // import { QUERY_USER } from "../utils/queries"; 
 
 function OrderHistory() {
-  const { data } = useQuery(QUERY_USER);
+  // const { data } = useQuery(QUERY_USER);
   let user;
 
   if (data) {

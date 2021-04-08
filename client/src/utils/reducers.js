@@ -6,13 +6,15 @@ import {
     UPDATE_CART_QUANTITY,
     CLEAR_CART,
     TOGGLE_CART,
-    UPDATE_CURRENT_COURSE
+    UPDATE_CURRENT_COURSE,
+    UPDATE_MENU_ITEMS
   } from "./actions";
 
 
 export const reducer = (state, action) => {
     switch (action.type) {
         case ADD_TO_CART:
+            console.log(action.menuItem)
             return {
               ...state,
               cartOpen: true,
@@ -23,7 +25,7 @@ export const reducer = (state, action) => {
             return {
               ...state,
               cartOpen: true,
-              cart:[...state.cart, ...action.menuItem]
+              cart:[...state.cart, ...action.menuItems]
             };
       
         case REMOVE_FROM_CART:
@@ -68,6 +70,11 @@ export const reducer = (state, action) => {
                 currentCourse: action.currentCourse
             };
             
+        case UPDATE_MENU_ITEMS:
+            return {
+              ...state,
+              menuItems: [...action.menuItems]
+            }
         default:
             return state;
     }
