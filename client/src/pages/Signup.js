@@ -5,6 +5,7 @@ import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
 import firebase from 'firebase';
 
+
 function Signup() {
     const [formState, setFormState] = useState({ email: '', password: '' });
     const [addUser] = useMutation(ADD_USER);
@@ -25,10 +26,10 @@ function Signup() {
             }
         });
         
-        
-
         const token = mutationResponse.data.addUser.token;
         Auth.login(token);
+
+       
     };
 
     const handleChange = event => {

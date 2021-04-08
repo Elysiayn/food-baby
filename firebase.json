@@ -7,6 +7,16 @@
     "functions": {
       "host": "localhost",
       "port": "3002"
+    },
+    "firestore": {
+      "host": "localhost",
+      "port": "3009"
+    },
+    "ui": {
+      "enabled": true
+    },
+    "database": {
+      "port": 9000
     }
   }
 }

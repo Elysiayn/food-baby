@@ -39,19 +39,6 @@ const CartItem = ({ item } ) => {
             firebase.database().ref(`cart/${item._id}`).update({
                 itemId: item._id
             });
-            
-            firebase.onMessage = function ( payload ) {
-                console.log('check')
-                console.log('Notifications received.', payload);
-                if (payload.notification) {
-                    // If notifications are supported on this browser we display one.
-                    if (window.Notification instanceof Function) {
-                      // This displays a notification if notifications have been granted.
-                      new Notification(payload.notification.title, payload.notification);
-                    }
-            }
-           
-        }
     };
     };
 

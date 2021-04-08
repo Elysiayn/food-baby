@@ -24,7 +24,6 @@ const client = new ApolloClient({
   uri: '/graphql',
 })
 
-
 var firebaseConfig = {
   apiKey: "AIzaSyAPYUQl3v49glJc2H1WErSHVGgejiqEfxo",
   authDomain: "food-baby-682db.firebaseapp.com",
@@ -37,6 +36,8 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+
 
 const messaging= firebase.messaging();
 messaging.requestPermission()

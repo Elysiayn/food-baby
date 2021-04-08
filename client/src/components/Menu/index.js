@@ -9,7 +9,7 @@ import MenuItem from '../MenuItem/index';
 
 function Menu() {
     const [state, dispatch] = useStoreContext();
-    const { currentCourse } = state; // might not need currentCourse, remove from GlobalState
+    // const { currentCourse } = state; // might not need currentCourse, remove from GlobalState
     const { loading, data } = useQuery(QUERY_ALL_MENU_ITEMS);
 
     useEffect(() => {

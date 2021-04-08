@@ -9,7 +9,6 @@ admin.initializeApp();
 //   functions.logger.info("Hello logs!", {structuredData: true});
 //   response.send("Hello from Firebase!");
 // });
-
 exports.addMessage = functions.https.onRequest(async( req, res) => {
     const original = req.query.text;
     const writeResult = await admin.firestore().collection('messages').add({ original: original });
@@ -28,72 +27,40 @@ exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
         return snap.ref.set({uppercase}, {merge:true});
 });
 
-exports.welcomeUser = functions.database.ref('/user/{lastName}/')
+exports.welcomeUser = functions.database.ref('/users/{uid}')
     .onCreate((snapshot, context) => {
-        const userId = context.params.lastName;
-
-    
+        
+        const userId = context.params.uid;
+        console.log(`testing ${userId}`)
         const token = 'cxI26L__jA7scTWwuCgJuF:APA91bGsJejZfWcibwtZS9vtKyglxb7NGXzB_NuO3avVwTez-naNbUEEP08vRUUwr57PwN31i76RHhJ2HUjYov1e-cXTssDmfecar1xbWesyqCB8UehH7H8JxqWICqFDwtw_3LLCaecT'
+
+        const userData = snapshot.val()
 
         const payload = {
             notification: {
                 title: 'Thanks for clicking the cart',
-                body: `Welcome to food baby, ${userId}`
+                body: `Welcome to food baby, ${userData.firstName}`
             }
         }
-    return admin.messaging.sendToDevice(token, payload);
+    return admin.messaging().sendToDevice(token, payload);
 });
 
-exports.orderConfirmation = functions.database.ref('/checkout/{oid}/{uid}')
-    .onCreate((snapshot, context) => {
-        const orderId = context.params.oid
-        const userId = context.params.uid;
+// exports.orderConfirmation = functions.database.ref('/checkout/{oid}/{uid}')
+//     .onCreate((snapshot, context) => {
+//         const orderId = context.params.oid
+//         const userId = context.params.uid;
 
-        const token = " user token"
+//         const token = " user token"
 
-        const payload = {
-            notification: {
-                title: 'Order Recieved',
-                body: `Thank you for your order, ${userId}. ${orderId}`
-            }
-        }
+//         const payload = {
+//             notification: {
+//                 title: 'Order Recieved',
+//                 body: `Thank you for your order, ${userId}. ${orderId}`
+//             }
+//         }
 
-        return admin.messaging.sendToDevice(token, payload);
-    })
-
-exports.cartTest = functions.database.ref('/cart/{cid}')
-    .onUpdate((snapshot, context) => {
-       
-        const tokens = "cxI26L__jA7scTWwuCgJuF:APA91bGsJejZfWcibwtZS9vtKyglxb7NGXzB_NuO3avVwTez-naNbUEEP08vRUUwr57PwN31i76RHhJ2HUjYov1e-cXTssDmfecar1xbWesyqCB8UehH7H8JxqWICqFDwtw_3LLCaecT";
-        const payload = {
-            notification: {
-                title: 'Item added to cartId',
-                body: `You added an item to cart .`
-            },
-        };
-
-        const response = await admin.messaging().sendToDevice(tokens, payload);
-        // For each message check if there was an error.
-        const tokensToRemove = [];
-        response.results.forEach((result, index) => {
-          const error = result.error;
-          if (error) {
-            functions.logger.error(
-              'Failure sending notification to',
-              tokens[index],
-              error
-            );
-            // Cleanup the tokens who are not registered anymore.
-            if (error.code === 'messaging/invalid-registration-token' ||
-                error.code === 'messaging/registration-token-not-registered') {
-              tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
-            }
-          }
-        });
-        return Promise.all(tokensToRemove);
-      
-    }
-)
+//         return admin.messaging.sendToDevice(token, payload);
+//     })
 
 // exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
 //     // [END onCreateTrigger]
