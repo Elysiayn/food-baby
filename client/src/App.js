@@ -11,7 +11,7 @@ import Signup from "./pages/Signup";
 import Nav from "./components/Nav"; 
 import { StoreProvider } from "./utils/GlobalState"; 
 import 'semantic-ui-css/semantic.min.css';
-import { Message } from 'semantic-ui-react';
+import {  Header, Modal } from 'semantic-ui-react';
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -35,6 +35,8 @@ var firebaseConfig = {
   measurementId: "G-L9R64LNE17"
 };
 
+
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -52,19 +54,34 @@ firebase.initializeApp(firebaseConfig);
       console.log(err);
     })
     messaging.onMessage(function(payload) {
-      console.log('onMessage: ', payload);
-     
-      return payload;
+      console.log('onMessage:', payload);
+      
+      new Notification(payload.notification.title, payload.notification);
+      return (
+        <Modal
+          basic
+          size='small'
+        >
+          <Header>
+              {payload.notification.title}
+          </Header>
+          <Modal.Content>
+            <p>
+              {payload.notification.body}
+            </p>
+          </Modal.Content>
+        </Modal>
+      )
     });
 
 function App() {
+  
   return (
     <ApolloProvider client={client}>
       <Router>
         <div>
           <StoreProvider> 
             <Nav />
-            <Message /> 
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
