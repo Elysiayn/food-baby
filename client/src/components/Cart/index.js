@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { idbPromise } from "../../utils/helpers";
+import { Header, List, Segment } from 'semantic-ui-react';
+
 import CartItem from '../CartItem';
-// import './style.css';
+import { idbPromise } from '../../utils/helpers';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART  } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
 import Auth from '../../utils/auth';
+import './style.css';
 
 const Cart = () => {
     const [state, dispatch] = useStoreContext();
@@ -35,44 +37,55 @@ const Cart = () => {
 
     if (!state.cartOpen) {
         return (
-            <div className="cart-closed" onClick={toggleCart}>
+            <div className='cart-closed' onClick={toggleCart}>
                 <span
-                role="img"
-                aria-label="takeout">🥡</span>
+                role='img'
+                aria-label='takeout'>🥡</span>
             </div>
         );
     }
 
     return (
-        <div className="cart">
-            <div className="close" onClick={toggleCart}>[close]</div>
-            <h2>Current Order</h2>
+        <Segment className='cart'>
+            <div className='close' onClick={toggleCart}>[close]</div>
+            <Header size='medium' dividing>
+                Current Order
+            </Header>
             {state.cart.length ? (
             <div>
-                {state.cart.map(item => (
-                <CartItem key={item._id} item={item} />
-                ))}
-                <div className="flex-row space-between">
-                    <strong>Total: ${calculateTotal()}</strong>
-                    {
-                        Auth.loggedIn() ?
-                        <button>
-                            Checkout
-                        </button>
-                        :
-                        <span>(log in to check out)</span>
-                    }
+                <List as='ol'>
+                    {state.cart.map(item => (
+                        <List.Item as='li'>
+                            <CartItem key={item._id} item={item} />
+                        </List.Item>
+                    ))}
+                </List>
+                <div className='flex-row space-between'>
+                    <p>
+
+                        <strong>Total: ${calculateTotal()}</strong>
+                    </p>
+                    <p>
+                        {
+                            Auth.loggedIn() ?
+                            <button>
+                                Checkout
+                            </button>
+                            :
+                            <span>(log in to check out)</span>
+                        }
+                    </p>
                 </div>
             </div>
             ) : (
                 <h3>
-                    <span role="img" aria-label="empty plate">
+                    <span role='img' aria-label='empty plate'>
                     🍽️
                     </span>
                     There's no food in your order yet!
                 </h3>
             )}
-        </div>
+        </Segment>
     );
 };
 
