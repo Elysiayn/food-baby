@@ -8,20 +8,33 @@ import '../App.css';
 
 function Signup() {
     const [formState, setFormState] = useState({ email: '', password: '' });
-    const [addUser] = useMutation(ADD_USER);
+    const [addUser, { error }] = useMutation(ADD_USER);
 
     const handleFormSubmit = async event => {
         event.preventDefault();
 
-        const mutationResponse = await addUser({
-            variables: {
-                email: formState.email, password: formState.password,
-                firstName: formState.firstName, lastName: formState.lastName
-            }
-        });
+
+
+        try {
+            const mutationResponse = await addUser({
+                variables: {
+                    email: formState.email, password: formState.password,
+                    firstName: formState.firstName, lastName: formState.lastName
+                }
+            });
+
+        console.log(mutationResponse);
 
         const token = mutationResponse.data.addUser.token;
+        console.log(token);
         Auth.login(token);
+        } catch (e) {
+            if (e.message.includes('email: ')) {
+                console.log('Email is taken.')
+            } else {
+                console.log('Something went wrong. Please try again later.')
+            }
+        }
     };
 
     const handleChange = event => {
@@ -110,16 +123,18 @@ function Signup() {
                     </Button>
                 </div>
             </form>
-            <div>
+            {
+                    error ? <div>
+                        <p className='createUser-error'>A User with these credentials already exist. Use the link below to sign in.</p>
+                    </div> : null
+                }
+            <div className='toLogin'>
                 <Link to='/login' >
                     <p className='login-createUser'>
                         &larr; Back to Login Page
                     </p>
                 </Link>
             </div>
-            {/* <Link to='/login'>
-                ← Back to Login Page
-        </Link> */}
         </div>
     );
 }

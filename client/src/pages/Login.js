@@ -50,7 +50,7 @@ function Login() {
                     </label>
                     <Input
                         placeholder='example@email.com'
-                        name='name'
+                        name='email'
                         type='email'
                         id='email'
                         onChange={handleChange}
