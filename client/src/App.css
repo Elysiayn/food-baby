@@ -116,6 +116,25 @@
   margin-bottom: 10px;
 }
 
+/* nav styles */
+
+.nav-container {
+  background-color: var(--primary-color) !important;
+}
+
+.navLinks {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-size: large;
+}
+
+.nav-container a {
+  color:var(--secondary-color) !important;
+}
+
+.nav-container a:hover {
+  color: var(--tertiary-color) !important;
+}
 .createUser-error {
   color: var(--quarternary-color);
   text-align: center;

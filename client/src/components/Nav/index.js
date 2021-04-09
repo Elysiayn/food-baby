@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
+import { Header, Grid } from 'semantic-ui-react';
 
 import Auth from "../../utils/auth";
 
@@ -9,49 +10,56 @@ function Nav() {
   function showNav() {
     if (Auth.loggedIn()) {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/orderHistory">
-              OrderHistory
-            </Link>
-          </li>
-          <li className="mx-1">
-            <a href="/" onClick={() => Auth.logout()}>
-              Logout
-            </a>
-          </li>
-        </ul>
+      <>
+        <Grid.Column className="navLinks"> 
+          <Link to="/orderHistory">
+            Order History
+          </Link>
+        </Grid.Column> 
+        
+        <Grid.Column className="navLinks"> 
+          <a href="/" onClick={() => Auth.logout()}>
+            Logout
+          </a>
+        </Grid.Column>
+      </>
       );
     } else {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/signup">
-              Signup
-            </Link>
-          </li>
-          <li className="mx-1">
-            <Link to="/Login">
-              Login
-            </Link>
-          </li>
-        </ul>
+      <>
+        <Grid.Column className="navLinks">      
+          <Link to="/signup">
+            Sign-Up
+          </Link>
+        </Grid.Column>    
+      
+        <Grid.Column className="navLinks">   
+          <Link to="/Login">
+            Login
+          </Link>
+        </Grid.Column>
+      </>
       );
     }
   }
 
   return (
-    <header className="flex-row px-1">
-      <h1>
-        <Link to="/">
-        <span role="img" aria-label="empty plate">🍽️</span>
-        </Link>
-      </h1>
+    <Header className="block nav-container"> 
+      <Grid className="middle aligned" columns={3} divided>
+        <Grid.Row>
+          <Grid.Column>  
+            <h1>
+              <Link to="/">
+                <span role="img" aria-label="empty plate">🍽️Nerdy Nummies</span>
+              </Link>
+            </h1>
+          </Grid.Column>  
 
-      <nav>
-        {showNav()}
-      </nav>
-    </header>
+          {showNav()}
+
+        </Grid.Row>
+      </Grid>
+    </Header>
   );
 }
 
