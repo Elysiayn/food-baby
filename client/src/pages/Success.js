@@ -14,7 +14,7 @@ function Success() {
 
             console.log('==============================', menuItems);
 
-            debugger;
+            // debugger;
             if (menuItems.length) {
                 const { data } = await addOrder({ variables: { menuItems } });
                 const menuItemData = data.addOrder.menuItems;
@@ -30,6 +30,8 @@ function Success() {
                 setTimeout(function() {
                     window.location.assign('/')
                 }, 3000);
+            } else {
+                console.log('error');
             }
         }
         saveOrder();
