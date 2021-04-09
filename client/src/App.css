@@ -21,7 +21,7 @@
 .login-container {
   display: flex;
   flex-direction: column;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   align-items: center;
   min-height: auto;
   min-width: 100vw;
@@ -114,5 +114,17 @@
 .create-user {
   align-items: center;
   margin-bottom: 10px;
+}
+
+.createUser-error {
+  color: var(--quarternary-color);
+  text-align: center;
+  margin: 0 auto;
+  width: 65%;
+}
+
+.toLogin {
+  margin-top: 25px;
+
 }
 

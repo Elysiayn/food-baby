@@ -4,7 +4,7 @@ const { User, MenuItem, Course, Order } = require('../models');
 const { signToken } = require('../utils/auth');
 // const stripe = require('stripe')
 
-const resolvers = { 
+const resolvers = {
     Query: {
         course: async () => {
             return await Course.find();
@@ -80,12 +80,14 @@ const resolvers = {
     },
     Mutation: {
         addUser: async (parent, args) => {
+
             const user = await User.create(args);
+
             const token = signToken(user);
 
             return { token, user };
         },
-        addOrder: async (parent, {menuItems}, context) => {
+        addOrder: async (parent, { menuItems }, context) => {
             if (context.user) {
                 const order = new Order({ menuItems });
                 console.log(order);
