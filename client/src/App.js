@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 import firebase from 'firebase';
@@ -8,10 +8,11 @@ import Home from "./pages/Home";
 import NoMatch from "./pages/NoMatch"; 
 import Login from "./pages/Login"; 
 import Signup from "./pages/Signup"; 
-import Nav from "./components/Nav"; 
+import Nav from "./components/Nav";
+import OrderHistory from './pages/OrderHistory'; 
 import { StoreProvider } from "./utils/GlobalState"; 
 import 'semantic-ui-css/semantic.min.css';
-import {  Header, Modal } from 'semantic-ui-react';
+import Notification from "./components/Notification";
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -53,25 +54,13 @@ firebase.initializeApp(firebaseConfig);
     .catch(function(err) {
       console.log(err);
     })
-    messaging.onMessage(function(payload) {
-      console.log('onMessage:', payload);
-      
-      new Notification(payload.notification.title, payload.notification);
-      return (
-        <Modal
-          basic
-          size='small'
-        >
-          <Header>
-              {payload.notification.title}
-          </Header>
-          <Modal.Content>
-            <p>
-              {payload.notification.body}
-            </p>
-          </Modal.Content>
-        </Modal>
-      )
+    messaging.onMessage(payload => {
+      console.log('onMessage:', payload)
+
+      // new Notification(payload.notification.title, payload.notification);   
+      window.alert(payload.notification.body)
+  
+        
     });
 
 function App() {
@@ -80,17 +69,18 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <StoreProvider> 
+          <StoreProvider>
             <Nav />
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route exact path="/orderHistory" component={OrderHistory} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} /> 
               <Route component={NoMatch} /> 
             </Switch>
           </StoreProvider>
         </div>
-      </Router>
+      </Router>   
     </ApolloProvider>
 
   );

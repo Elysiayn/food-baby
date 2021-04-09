@@ -2,7 +2,6 @@ import React from 'react';
 import { useStoreContext } from '../../utils/GlobalState';
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from '../../utils/actions';
 import { idbPromise } from "../../utils/helpers";
-import firebase from 'firebase';
 
 const CartItem = ({ item } ) => {
     const [,dispatch] = useStoreContext();
@@ -24,10 +23,6 @@ const CartItem = ({ item } ) => {
                 _id: item._id
             });
             idbPromise('cart', 'delete', { ...item });
-                
-            firebase.database().ref(`cart/${item._id}`).update({
-                itemId: item._id
-            });
         } else {
             dispatch({
                 type:UPDATE_CART_QUANTITY,
@@ -35,10 +30,6 @@ const CartItem = ({ item } ) => {
                 purchaseQuantity: parseInt(value)
             });
             idbPromise('cart', 'put', { ...item, purchaseQuantity: parseInt(value) });
-            
-            firebase.database().ref(`cart/${item._id}`).update({
-                itemId: item._id
-            });
     };
     };
 
@@ -69,8 +60,6 @@ const CartItem = ({ item } ) => {
                     </span>
                 </div>
             </div>
-            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
         </div>
     );
 }

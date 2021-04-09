@@ -56,6 +56,7 @@ type Query {
     course: [Course]
     menuItem(_id: ID!): MenuItem
     menuItems: [MenuItem]
+    allUsers: [User]
     user: User
     order(_id: ID!): Order
     checkout(menuItems: [ID]!): Checkout

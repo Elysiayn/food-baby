@@ -2,9 +2,9 @@ const { AuthenticationError } = require('apollo-server-express');
 // const { stripIgnoredCharacters } = require('graphql');
 const { User, MenuItem, Course, Order } = require('../models');
 const { signToken } = require('../utils/auth');
-// const stripe = require('stripe')
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
-const resolvers = { 
+const resolvers = {
     Query: {
         course: async () => {
             return await Course.find();
@@ -14,6 +14,9 @@ const resolvers = {
         },
         menuItem: async (parent, { _id }) => {
             return await MenuItem.findById(_id).populate('course');
+        },
+        allUsers : async () => {
+            return User.find();
         },
         user: async (parent, args, context) => {
             if (context.user) {
@@ -43,29 +46,34 @@ const resolvers = {
         },
         checkout: async (parent, args, context) => {
             const url = new URL(context.headers.referer).origin;
-            const order = new Order({ menuItem: args.menuItem });
-            const { menuItems } = await order.populate('menuItem').execPopulate();
+            const order = new Order({ menuItems: args.menuItems});
+            const { menuItems } = await order.populate('menuItems').execPopulate();
 
+            console.log(menuItems);
             const line_items = [];
 
-            for (let i = 0; i < args.length; i++) {
-                const menuItem = await stripe.menuItem.create({
-                    name: menuItem[i].name,
-                    description: menuItem[i].description,
-                    images: [`${url}/images/${menuItem[i].image}`]
+            for (let i = 0; i < menuItems.length; i++) {
+                const menuItem = await stripe.products.create({
+                    name: menuItems[i].name,
+                    description: menuItems[i].description,
+                    images: [`${url}/images/${menuItems[i].image}`]
                 });
 
+                console.log('1')
                 const price = await stripe.prices.create({
                     product: menuItem.id,
-                    unit_amount: menuItem[i].price * 100,
+                    unit_amount: menuItems[i].price * 100,
                     currency: 'usd'
                 });
 
+                console.log('2')
                 line_items.push({
                     price: price.id,
                     quantity: 1
                 })
             }
+
+            console.log('============', line_items);
 
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
@@ -75,17 +83,20 @@ const resolvers = {
                 cancel_url: `${url}/`
             });
 
+            console.log(session);
             return { session: session.id };
         }
     },
     Mutation: {
         addUser: async (parent, args) => {
+
             const user = await User.create(args);
+
             const token = signToken(user);
 
             return { token, user };
         },
-        addOrder: async (parent, {menuItems}, context) => {
+        addOrder: async (parent, { menuItems }, context) => {
             if (context.user) {
                 const order = new Order({ menuItems });
                 console.log(order);
