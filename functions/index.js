@@ -32,13 +32,13 @@ exports.welcomeUser = functions.database.ref('/users/{uid}')
         
         const userId = context.params.uid;
         console.log(`testing ${userId}`)
-        const token = 'cxI26L__jA7scTWwuCgJuF:APA91bGsJejZfWcibwtZS9vtKyglxb7NGXzB_NuO3avVwTez-naNbUEEP08vRUUwr57PwN31i76RHhJ2HUjYov1e-cXTssDmfecar1xbWesyqCB8UehH7H8JxqWICqFDwtw_3LLCaecT'
-
+        const token = 'cxI26L__jA7scTWwuCgJuF:APA91bFu1sY2H9SQRVr30OVsRlCtLdbuRaqCzHhKD3fSXGIQByWs1Ez5P8xo1L22OC7MiI_KNt7XGycUlMWUpxWqR1Sm2mpxYvbb_XPwjmIESV3e2hd_otO_PCSTTSr-3sFcnoq-xlpz'
+        
         const userData = snapshot.val()
 
         const payload = {
             notification: {
-                title: 'Thanks for clicking the cart',
+                title: 'Thanks for signing in!',
                 body: `Welcome to food baby, ${userData.firstName}`
             }
         }

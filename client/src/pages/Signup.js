@@ -15,23 +15,22 @@ function Signup() {
     const handleFormSubmit = async event => {
         event.preventDefault();
 
-        firebase.database().ref(`users`).push().set({
-          email: formState.email,
-          firstName: formState.firstName,
-          lastName: formState.lastName
-      });
-
         const mutationResponse = await addUser({
             variables: {
                 email: formState.email, password: formState.password,
                 firstName: formState.firstName, lastName: formState.lastName
             }
         });
-        
-        const token = mutationResponse.data.addUser.token;
-        Auth.login(token);
 
-       
+        firebase.database().ref(`users`).push({
+            email: formState.email,
+            firstName: formState.firstName,
+            lastName: formState.lastName
+        }, error => { console.log(error)
+            const token = mutationResponse.data.addUser.token;
+            Auth.login(token);
+        })
+    
     };
 
     const handleChange = event => {

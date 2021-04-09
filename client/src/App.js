@@ -11,6 +11,7 @@ import Signup from "./pages/Signup";
 import Nav from "./components/Nav"; 
 import { StoreProvider } from "./utils/GlobalState"; 
 import 'semantic-ui-css/semantic.min.css';
+import { Message } from 'semantic-ui-react';
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -37,24 +38,24 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-
-
-const messaging= firebase.messaging();
-messaging.requestPermission()
-.then(function() {
-  console.log('Have permission');
-  return messaging.getToken(); 
-})
-.then( function (token) {
-  // firebase.database().ref('users/' + this.currentUid + '/notificationTokens/' + token).set(true)
-  console.log(token);
-})
-.catch(function(err) {
-  console.log(err);
-})
-messaging.onMessage(function(payload) {
-  console.log('onMessage: ', payload);
-});
+  const messaging= firebase.messaging();
+    messaging.requestPermission()
+    .then(function() {
+      console.log('Have permission');
+      return messaging.getToken(); 
+    })
+    .then( function (token) {
+      // firebase.database().ref('users/' + this.currentUid + '/notificationTokens/' + token).set(true)
+      console.log(token);
+    })
+    .catch(function(err) {
+      console.log(err);
+    })
+    messaging.onMessage(function(payload) {
+      console.log('onMessage: ', payload);
+     
+      return payload;
+    });
 
 function App() {
   return (
@@ -62,7 +63,8 @@ function App() {
       <Router>
         <div>
           <StoreProvider> 
-            <Nav /> 
+            <Nav />
+            <Message /> 
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
