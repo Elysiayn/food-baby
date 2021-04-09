@@ -21,7 +21,7 @@
 .login-container {
   display: flex;
   flex-direction: column;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   align-items: center;
   min-height: auto;
   min-width: 100vw;
@@ -119,3 +119,36 @@
 .menu {
   width: 75vw;
 }
+/* nav styles */
+
+.nav-container {
+  background-color: var(--primary-color) !important;
+}
+
+.navLinks {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-size: large;
+}
+
+.nav-container a {
+  color:var(--secondary-color) !important;
+}
+
+.nav-container a:hover {
+  color: var(--tertiary-color) !important;
+  font-size: larger;
+}
+
+.createUser-error {
+  color: var(--quarternary-color);
+  text-align: center;
+  margin: 0 auto;
+  width: 65%;
+}
+
+.toLogin {
+  margin-top: 25px;
+
+}
+
