@@ -5,6 +5,9 @@ import './style.css';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART  } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
 import Auth from '../../utils/auth';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 const Cart = () => {
     const [state, dispatch] = useStoreContext();
