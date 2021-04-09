@@ -134,7 +134,9 @@
 
 .nav-container a:hover {
   color: var(--tertiary-color) !important;
+  font-size: larger;
 }
+
 .createUser-error {
   color: var(--quarternary-color);
   text-align: center;

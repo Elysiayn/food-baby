@@ -47,7 +47,7 @@ function Nav() {
     <Header className="block nav-container"> 
       <Grid className="middle aligned" columns={3} divided>
         <Grid.Row>
-          <Grid.Column>  
+          <Grid.Column className="navLinks">  
             <h1>
               <Link to="/">
                 <span role="img" aria-label="empty plate">🍽️Nerdy Nummies</span>
