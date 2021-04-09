@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Card } from 'semantic-ui-react';
+import { Card, Header } from 'semantic-ui-react';
 
 import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_MENU_ITEMS } from '../../utils/actions';
-import { QUERY_ALL_MENU_ITEMS } from '../../utils/queries';
+import { QUERY_ALL_MENU_ITEMS, QUERY_ALL_COURSES } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 import MenuItem from '../MenuItem/index';
 
@@ -12,6 +12,7 @@ function Menu() {
     const [state, dispatch] = useStoreContext();
     const { currentCourse } = state; // might not need currentCourse, remove from GlobalState
     const { loading, data } = useQuery(QUERY_ALL_MENU_ITEMS);
+
 
     useEffect(() => {
         if (data) {
@@ -41,9 +42,9 @@ function Menu() {
 
     return (
         <div>
-            <h2>Food Baby Menu</h2>
+            <Header size='large'>Food Baby Menu</Header>
             {/* DRY by querying categories and looping categories/forEach? */}
-            <h3>Appetizers</h3>
+            <Header size='medium'>Appetizers</Header>
             <div>
                 <Card.Group>
                     {filterMenu('appetizers').map(item => (

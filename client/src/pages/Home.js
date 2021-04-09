@@ -8,10 +8,10 @@ const Home = () => {
     const contextRef = createRef();
     
     return (
-        <Grid columns={2}>
+        <Grid stackable columns={2}>
             <Grid.Column>
                 <Ref innerRef={contextRef}>
-                    <Segment>
+                    <Segment className="menu">
                         <Menu />
                         <Rail position='right'>
                             <Sticky context={contextRef}>
