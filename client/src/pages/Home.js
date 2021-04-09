@@ -1,26 +1,27 @@
-import React from 'react'; 
-import { Container, Grid, Segment } from 'semantic-ui-react';
+import React, { createRef } from 'react'; 
+import { Grid, Segment, Rail, Sticky, Ref } from 'semantic-ui-react';
 
 import Cart from '../components/Cart';
 import Menu from '../components/Menu';
 
 const Home = () => {
+    const contextRef = createRef();
+    
     return (
-        // <div className='container'>
-
-        <Grid stackable columns={2}>
+        <Grid columns={2}>
             <Grid.Column>
-                <Segment>
-                    <Menu />
-                </Segment>
-            </Grid.Column>
-            <Grid.Column>
-                <Segment>
-                    <Cart />
-                </Segment>
+                <Ref innerRef={contextRef}>
+                    <Segment>
+                        <Menu />
+                        <Rail position='right'>
+                            <Sticky context={contextRef}>
+                                <Cart />
+                            </Sticky>
+                        </Rail>
+                    </Segment>
+                </Ref>
             </Grid.Column>
         </Grid>
-        // </div>
     );
 };
 

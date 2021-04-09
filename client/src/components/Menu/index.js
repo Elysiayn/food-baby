@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Card, Container } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 
 import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_MENU_ITEMS } from '../../utils/actions';
