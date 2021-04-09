@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
+import { Header, Grid, List } from 'semantic-ui-react';
 
 import Auth from "../../utils/auth";
 
@@ -9,49 +10,69 @@ function Nav() {
   function showNav() {
     if (Auth.loggedIn()) {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/orderHistory">
-              OrderHistory
-            </Link>
-          </li>
-          <li className="mx-1">
-            <a href="/" onClick={() => Auth.logout()}>
-              Logout
-            </a>
-          </li>
-        </ul>
+
+          <ul className="flex-row">
+            <li className="mx-1">
+              <Link to="/orderHistory">
+                OrderHistory
+              </Link>
+            </li>
+            <li className="mx-1">
+              <a href="/" onClick={() => Auth.logout()}>
+                Logout
+              </a>
+            </li>
+          </ul>
       );
     } else {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
+      <List divided horizontal>  
+        {/* <Grid.Column>       */}
+          {/* <List divided horizontal> */}
+          <List.Item>   
             <Link to="/signup">
-              Signup
+              Sign Up
             </Link>
-          </li>
-          <li className="mx-1">
+          </List.Item>  
+          {/* </List>  */}
+        {/* </Grid.Column>     */}
+      
+        {/* <Grid.Column>    */}
+          {/* <List divided horizontal>  */}
+          <List.Item>  
             <Link to="/Login">
               Login
             </Link>
-          </li>
-        </ul>
+          </List.Item>  
+          {/* </List>  */}
+        {/* </Grid.Column>     */}
+      </List>
       );
     }
   }
 
   return (
-    <header className="flex-row px-1">
-      <h1>
-        <Link to="/">
-        <span role="img" aria-label="empty plate">🍽️</span>
-        </Link>
-      </h1>
+    <Header className="block nav-container"> 
+      <Grid columns={3} divided>
+        <Grid.Row>
+          {/* <Grid.Column>   */}
+            <h1>
+              <Link to="/">
+                <span role="img" aria-label="empty plate">🍽️N</span>
+              </Link>
+            </h1>
+          {/* </Grid.Column>   */}
 
-      <nav>
-        {showNav()}
-      </nav>
-    </header>
+          {/* <Grid.Column>     */}
+            {/* <nav>   */}
+              {/* <Grid.Column>    */}
+                {showNav()}
+              {/* </Grid.Column>    */}
+            {/* </nav>   */}
+            {/* </Grid.Column>      */}
+        </Grid.Row>
+      </Grid>
+    </Header>
   );
 }
 

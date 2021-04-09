@@ -116,3 +116,24 @@
   margin-bottom: 10px;
 }
 
+/* nav styles */
+
+.nav-container {
+  background-color: var(--primary-color) !important;
+  /* justify-items: center !important;  */
+  /* vertical-align: center;  */
+
+}
+
+.nav-container ul {
+  list-style-type: none;
+  justify-content: center !important;
+}
+
+.nav-container a {
+  color:var(--secondary-color);
+}
+
+.nav-container a:hover:after {
+  color: var(--tertiary-color) !important;
+}
