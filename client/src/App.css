@@ -120,20 +120,18 @@
 
 .nav-container {
   background-color: var(--primary-color) !important;
-  /* justify-items: center !important;  */
-  /* vertical-align: center;  */
-
 }
 
-.nav-container ul {
-  list-style-type: none;
-  justify-content: center !important;
+.navLinks {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-size: large;
 }
 
 .nav-container a {
-  color:var(--secondary-color);
+  color:var(--secondary-color) !important;
 }
 
-.nav-container a:hover:after {
+.nav-container a:hover {
   color: var(--tertiary-color) !important;
 }
