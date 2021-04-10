@@ -166,7 +166,7 @@ db.once('open', async () => {
         {
           name: 'Cactus Apple Surprise',
           description: 'Straight from the Valley of Trials, this refreshing apple treat is a perfect reward after a long day of raiding.',
-          image: 'apple.jpg',
+          image: 'apple.png',
           price: 5,
           course: categories[3]._id
         },
