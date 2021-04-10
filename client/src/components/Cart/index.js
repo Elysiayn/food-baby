@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Header, List, Segment } from 'semantic-ui-react';
+import { Button, Header, Icon, List, Segment } from 'semantic-ui-react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -80,7 +80,7 @@ const Cart = () => {
                 Current Order
             </Header>
             {state.cart.length ? (
-            <div>
+            <div className='cart-body'>
                 <List as='ol'>
                     {state.cart.map(item => (
                         <List.Item as='li'>
@@ -96,9 +96,12 @@ const Cart = () => {
                     <p>
                         {
                             Auth.loggedIn() ?
-                            <button onClick={submitCheckout}>
-                                Checkout
-                            </button>
+                            <Button animated='fade' onClick={submitCheckout} id='cart-btn'>
+                                <Button.Content hidden>Checkout</Button.Content>
+                                <Button.Content visible>
+                                    <Icon name='shopping basket' />
+                                </Button.Content>
+                            </Button>
                             :
                             <span>(log in to check out)</span>
                         }

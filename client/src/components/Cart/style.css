@@ -3,7 +3,7 @@
     top: .5rem;
     right: .5rem;
     cursor: pointer;
-    color: var(--tertiary);
+    color: var(--secondary-color);
 }
   
 .cart .close:hover {
@@ -31,6 +31,12 @@
     width: 60px;
     padding: 0;
     margin: 0 .5rem 1rem 0;
+}
+
+#cart-btn {
+    width: 8rem;
+    background: var(--secondary-color);
+    font-size: 1.25rem;
 }
   
 /* @media screen and (max-width: 768px) {

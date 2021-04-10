@@ -9,14 +9,11 @@
   --body-font: 'Montserrat', sans-serif;
 }
 
-
 * {
   margin: 0;
   padding: 0;
   font-family: var(--body-font);
 }
-
-
 
 .login-container {
   display: flex;
@@ -116,11 +113,7 @@
   margin-bottom: 10px;
 }
 
-.menu {
-  width: 75vw;
-}
 /* nav styles */
-
 .nav-container {
   background-color: var(--primary-color) !important;
 }
@@ -152,3 +145,27 @@
 
 }
 
+/* menu styles */
+.menu {
+  width: 75vw;
+}
+
+.menu-title {
+  letter-spacing: .1em;
+  text-align: center;
+}
+
+.course-wrapper {
+  margin: 2em 5em;
+}
+
+.course-title {
+  text-align: center;
+  letter-spacing: .1em;
+}
+
+.card-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
