@@ -4,36 +4,38 @@ const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 const Order = require('./Order');
 
-
 const userSchema = new Schema({
-  firstName: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  lastName: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6
-  },
-  //  set up a validation method to differentiate between user type
-  roles: {
-    type: [{
-      type: String,
-      enum: ['user', 'owner']
+    firstName: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    lastName: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: 6
+    },
+    role: {
+        type: String,
+        required: true,
+        enum: ['user', 'owner'],
+        default: 'user'
+    },
+    orders: [Order.schema],
+    favorites: [{
+        type: Schema.Types.ObjectId,
+        ref: 'MenuItem'
     }]
-  },
-  orders: [Order.schema]
 });
 
 // set up pre-save middleware to create password

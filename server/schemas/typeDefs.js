@@ -6,6 +6,7 @@ type User {
     firstName: String
     lastName: String
     email: String
+    role: String
     orders: [Order]
     favorites: [MenuItem]
 }
@@ -23,13 +24,6 @@ type MenuItem {
 type Course {
     _id: ID
     name: String
-}
-
-type Restaurant {
-    _id: ID
-    name: String
-    description: String
-    menuItem: [MenuItem]
 }
 
 type Owner {
