@@ -13,87 +13,51 @@ function Menu() {
     // const { currentCourse } = state; // might not need currentCourse, remove from GlobalState
     const { loading, data } = useQuery(QUERY_ALL_MENU_ITEMS);
     const { loading: coursesLoading, data: coursesData } = useQuery(QUERY_ALL_COURSES);
-    
+
     useEffect(() => {
-        // switch (true) {
-        //     case data: 
-        //         console.log('data was true')
-        //         dispatch({ 
-        //                 type: UPDATE_MENU_ITEMS,
-        //                 menuItems: data.menuItems
-        //             });
-                
-        //         // save to indexedDB
-        //         data.menuItems.forEach(item => {
-        //                 idbPromise('menuItems', 'put', item);
-        //             });
-                
-        //             break;
-                    
-        //     case coursesData:
-        //         console.log('courses data was true')
-        //         dispatch({
-        //             type: UPDATE_ALL_COURSES,
-        //             allCourses: coursesData.course
-        //         });
-                          
-        //         coursesData.course.forEach(course => {
-        //             idbPromise('courses', 'put', course);
-        //         });
-                
-        //         break;
-            
-        //     default:
-        //         idbPromise('menuItems', 'get').then(item => {
-        //             dispatch({
-        //                 type: UPDATE_MENU_ITEMS,
-        //                 menuItems: item
-        //             })
-        //         });
-
-        //         idbPromise('courses', 'get').then(course => {
-        //             dispatch({ 
-        //                 type: UPDATE_ALL_COURSES,
-        //                 allCourses: course
-        //             })
-        //         });
-        // };
-
-        if (coursesData) {
-            dispatch({
-                type: UPDATE_ALL_COURSES,
-                allCourses: coursesData.course
-            });
-            
-            // save to indexedDB
-            coursesData.course.forEach(course => {
-                idbPromise('courses', 'put', course);
-            });
-        } else if (data) {
-            dispatch({ 
-                type: UPDATE_MENU_ITEMS,
-                menuItems: data.menuItems
-            });
-        
-            // save to indexedDB
-            data.menuItems.forEach(item => {
-                idbPromise('menuItems', 'put', item);
-            });
-        } else if (!loading || !coursesLoading) {
-            idbPromise('menuItems', 'get').then(item => {
-                dispatch({
-                    type: UPDATE_MENU_ITEMS,
-                    menuItems: item
-                })
-            })
-
-            idbPromise('courses', 'get').then(course => {
+        switch (true) {
+            case (data !== undefined): 
                 dispatch({ 
+                        type: UPDATE_MENU_ITEMS,
+                        menuItems: data.menuItems
+                    });
+                
+                // save to indexedDB
+                data.menuItems.forEach(item => {
+                        idbPromise('menuItems', 'put', item);
+                    });
+                
+                break;
+                    
+            case (coursesData !== undefined):
+                dispatch({
                     type: UPDATE_ALL_COURSES,
-                    allCourses: course
-                })
-            });
-        }
+                    allCourses: coursesData.course
+                });
+                          
+                // save to indexedDB
+                coursesData.course.forEach(course => {
+                    idbPromise('courses', 'put', course);
+                });
+                
+                break;
+            
+            default:
+                idbPromise('menuItems', 'get').then(item => {
+                    dispatch({
+                        type: UPDATE_MENU_ITEMS,
+                        menuItems: item
+                    })
+                });
+
+                idbPromise('courses', 'get').then(course => {
+                    dispatch({ 
+                        type: UPDATE_ALL_COURSES,
+                        allCourses: course
+                    })
+                });
+        };
+
     }, [data, loading, coursesLoading, coursesData, dispatch]);
 
     function filterMenu(courseName) {
@@ -102,7 +66,7 @@ function Menu() {
 
     function capitalize(title) {
         return title.toUpperCase();
-    }
+    };
 
     return (
         <div>
@@ -123,7 +87,7 @@ function Menu() {
                         ))}
                     </Card.Group>
                 </div>
-            )) }
+            ))}
         </div>
     );
 };
