@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
@@ -13,6 +13,7 @@ import OrderHistory from './pages/OrderHistory';
 import { StoreProvider } from "./utils/GlobalState"; 
 import 'semantic-ui-css/semantic.min.css';
 import Notification from "./components/Notification";
+import { app } from 'firebase-admin';
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -58,19 +59,35 @@ firebase.initializeApp(firebaseConfig);
       console.log('onMessage:', payload)
 
       // new Notification(payload.notification.title, payload.notification);   
-      window.alert(payload.notification.body)
-  
-        
+      // window.alert(payload.notification.body)
+      App(payload)        
     });
 
-function App() {
+function App(payload) {
+  console.log("we are here")
+  console.log(payload)
   
+  const showNotification = function() {
+      if(payload > 0) {
+        return (
+          <Notification payload={payload} />
+        )
+      }
+  };
+
+  useEffect((payload) => {
+    showNotification(payload)
+  }, [payload])
+  
+
   return (
     <ApolloProvider client={client}>
       <Router>
         <div>
           <StoreProvider>
             <Nav />
+            {payload > 0 &&
+            showNotification(payload)}
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/orderHistory" component={OrderHistory} />

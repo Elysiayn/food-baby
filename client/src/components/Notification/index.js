@@ -3,8 +3,11 @@ import { Button, Header, Icon, Modal} from 'semantic-ui-react';
 
 function  Notification(payload)  {
     const [open, setOpen] = React.useState(true)
-    console.log("we are here")
+    console.log(payload);
+
+    if (payload > 0) {
     return (
+      
       <Modal
         basic
         onClose={() => setOpen(false)}
@@ -14,11 +17,12 @@ function  Notification(payload)  {
       >
         <Header icon>
           <Icon name='archive' />
-          {payload.notification.title}
+          {/* {payload.notification.title} */}
         </Header>
         <Modal.Content>
           <p>
-           {payload.notification.body}
+            test
+           {/* {payload.notification.body} */}
           </p>
         </Modal.Content>
         <Modal.Actions>
@@ -31,6 +35,7 @@ function  Notification(payload)  {
         </Modal.Actions>
       </Modal>
     )
+    }
   }
 
 export default Notification;
