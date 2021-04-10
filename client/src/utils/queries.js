@@ -45,8 +45,10 @@ export const QUERY_ALL_MENU_ITEMS = gql`
 export const QUERY_USER = gql`
     {
         user {
+            _id
             firstName
             lastName
+            role
             orders {
                 _id
                 purchaseDate

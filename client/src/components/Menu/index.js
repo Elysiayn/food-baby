@@ -16,28 +16,29 @@ function Menu() {
 
     useEffect(() => {
         switch (true) {
-            case (data !== undefined): 
-                dispatch({ 
-                        type: UPDATE_MENU_ITEMS,
-                        menuItems: data.menuItems
-                    });
-                
-                // save to indexedDB
-                data.menuItems.forEach(item => {
-                        idbPromise('menuItems', 'put', item);
-                    });
-                
-                break;
                     
             case (coursesData !== undefined):
                 dispatch({
                     type: UPDATE_ALL_COURSES,
                     allCourses: coursesData.course
                 });
-                          
+                        
                 // save to indexedDB
                 coursesData.course.forEach(course => {
                     idbPromise('courses', 'put', course);
+                });
+                
+                break;
+                
+            case (data !== undefined): 
+                dispatch({ 
+                    type: UPDATE_MENU_ITEMS,
+                    menuItems: data.menuItems
+                });
+                
+                // save to indexedDB
+                data.menuItems.forEach(item => {
+                    idbPromise('menuItems', 'put', item);
                 });
                 
                 break;
@@ -47,14 +48,14 @@ function Menu() {
                     dispatch({
                         type: UPDATE_MENU_ITEMS,
                         menuItems: item
-                    })
+                    });
                 });
 
                 idbPromise('courses', 'get').then(course => {
                     dispatch({ 
                         type: UPDATE_ALL_COURSES,
                         allCourses: course
-                    })
+                    });
                 });
         };
 
