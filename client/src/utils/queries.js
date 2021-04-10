@@ -16,7 +16,10 @@ export const QUERY_MENU_ITEM = gql`
             name
             description
             price
-            course
+            course {
+                _id
+                name
+            }
             quantity
         }
     }
@@ -52,7 +55,10 @@ export const QUERY_USER = gql`
                     name
                     description
                     price
-                    course
+                    course {
+                        _id
+                        name
+                    }
                     quantity
                 }
             }
@@ -61,7 +67,10 @@ export const QUERY_USER = gql`
                 name
                 description
                 price
-                course
+                course {
+                    _id
+                    name
+                }
             }
         }
     }

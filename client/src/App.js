@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
@@ -9,11 +9,12 @@ import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login"; 
 import Signup from "./pages/Signup"; 
 import Nav from "./components/Nav";
+import Success from "./pages/Success";
 import OrderHistory from './pages/OrderHistory'; 
 import { StoreProvider } from "./utils/GlobalState"; 
 import 'semantic-ui-css/semantic.min.css';
-import Notification from "./components/Notification";
-import { app } from 'firebase-admin';
+import { Message } from "semantic-ui-react";
+
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -37,6 +38,12 @@ var firebaseConfig = {
   measurementId: "G-L9R64LNE17"
 };
 
+const onMessageListener = () => 
+  new Promise((resolve) => {
+    messaging.onMessage((payload) => {
+      resolve(payload)
+    })
+  })
 
 
 // Initialize Firebase
@@ -57,28 +64,25 @@ firebase.initializeApp(firebaseConfig);
     })
     messaging.onMessage(payload => {
       console.log('onMessage:', payload)
-
-      // new Notification(payload.notification.title, payload.notification);   
-      // window.alert(payload.notification.body)
-      App(payload)        
     });
 
-function App(payload) {
-  console.log("we are here")
-  console.log(payload)
-  
-  const showNotification = function() {
-      if(payload > 0) {
-        return (
-          <Notification payload={payload} />
-        )
-      }
-  };
+function App() {
+  const [show, setShow ] = useState(false)
+  const [notification, setNotification] = useState({title: '', body: ''});
 
-  useEffect((payload) => {
-    showNotification(payload)
-  }, [payload])
-  
+  onMessageListener().then(payload => {
+    setShow(true);
+    setNotification({title: payload.notification.title, body: payload.notification.body})
+    console.log(payload);
+  }).catch(err => console.log('failed: ', err));
+
+  const handleDismiss = () => {
+    setShow(false)
+
+    setTimeout(() => {
+    setShow(true)
+    }, 2000)
+  }
 
   return (
     <ApolloProvider client={client}>
@@ -86,13 +90,19 @@ function App(payload) {
         <div>
           <StoreProvider>
             <Nav />
-            {payload > 0 &&
-            showNotification(payload)}
+              <Message 
+              onDismiss={() => handleDismiss()}
+              show={show}
+              delay={3000}
+              header={notification.title}
+              content={notification.body}
+            />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/orderHistory" component={OrderHistory} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} /> 
+              <Route exact path="/success" component={Success} />
               <Route component={NoMatch} /> 
             </Switch>
           </StoreProvider>

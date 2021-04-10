@@ -6,6 +6,7 @@ import {
     UPDATE_CART_QUANTITY,
     CLEAR_CART,
     TOGGLE_CART,
+    UPDATE_ALL_COURSES,
     UPDATE_CURRENT_COURSE,
     UPDATE_MENU_ITEMS
   } from "./actions";
@@ -14,56 +15,61 @@ import {
 export const reducer = (state, action) => {
     switch (action.type) {
         case ADD_TO_CART:
-            console.log(action.menuItem)
             return {
-              ...state,
-              cartOpen: true,
-              cart: [...state.cart, action.menuItem]
+                ...state,
+                cartOpen: true,
+                cart: [...state.cart, action.menuItem]
             };
       
         case ADD_MULTIPLE_TO_CART:
             return {
-              ...state,
-              cartOpen: true,
-              cart:[...state.cart, ...action.menuItems]
+                ...state,
+                cartOpen: true,
+                cart:[...state.cart, ...action.menuItems]
             };
       
         case REMOVE_FROM_CART:
             let newState = state.cart.filter(menuItem => {
-              return menuItem._id !== action._id
+                return menuItem._id !== action._id
             });
       
             return{
-              ...state,
-              cartOpen: newState.length > 0,
-              cart: newState
+                ...state,
+                cartOpen: newState.length > 0,
+                cart: newState
             };
       
         case UPDATE_CART_QUANTITY:
             return {
-              ...state,
-              cartOpen: true,
-              cart: state.cart.map(menuItem=> {
-                if (action._id === menuItem._id) {
-                  menuItem.purchaseQuantity = action.purchaseQuantity;
-                }
-                return menuItem;
-              })
+                ...state,
+                cartOpen: true,
+                cart: state.cart.map(menuItem=> {
+                    if (action._id === menuItem._id) {
+                        menuItem.purchaseQuantity = action.purchaseQuantity;
+                    }
+                    return menuItem;
+                })
             };
       
         case CLEAR_CART:
             return {
-              ...state,
-              cartOpen: false,
-              cart:[]
+                ...state,
+                cartOpen: false,
+                cart:[]
             };
       
         case TOGGLE_CART:
             return {
-              ...state,
-              cartOpen: !state.cartOpen
+                ...state,
+                cartOpen: !state.cartOpen
             };
-
+        
+        case UPDATE_ALL_COURSES:
+            return {
+                ...state,
+                allCourses: [...action.allCourses]
+            }
+            
         case UPDATE_CURRENT_COURSE:
             return {
                 ...state,
@@ -72,8 +78,8 @@ export const reducer = (state, action) => {
             
         case UPDATE_MENU_ITEMS:
             return {
-              ...state,
-              menuItems: [...action.menuItems]
+                ...state,
+                menuItems: [...action.menuItems]
             }
         default:
             return state;

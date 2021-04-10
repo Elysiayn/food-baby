@@ -36,6 +36,6 @@ function  Notification(payload)  {
       </Modal>
     )
     }
-  }
+   }
 
 export default Notification;

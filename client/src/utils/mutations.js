@@ -32,7 +32,10 @@ export const ADD_ORDER = gql`
                 name
                 description
                 price
-                course
+                course {
+                    _id
+                    name
+                }
                 quantity
             }
         }
