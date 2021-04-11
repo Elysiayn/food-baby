@@ -36,7 +36,22 @@ export const ADD_ORDER = gql`
                     _id
                     name
                 }
-                quantity
+            }
+        }
+    }
+`;
+
+export const EDIT_MENU_ITEM = gql`
+    mutation updateMenuItem($_id: ID!, $name: String, $description: String, $price: Int) {
+        updateMenuItem(_id: $id, name: $name, description: $description, price: $price) {
+            _id
+            name
+            description
+            image
+            price
+            course {
+                _id
+                name
             }
         }
     }

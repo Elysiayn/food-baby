@@ -17,39 +17,46 @@ db.once('open', async () => {
 
     const menuItems = await MenuItem.insertMany([
         {
-            name: 'Head Crab Cakes',
+            name: 'Headcrab Cakes',
             description: 'Crabby goodness, watch out it doesn\'t swallow you whole!',
             image: 'crab-cakes.jpg',
             price: 10,
             course: categories[0]._id
         },
         {
-          name: 'Traveler\'s Stew',
-          description: 'A earthy and hearty beef, ale and vegetable stew straight from a flame-licked cauldron. For optimal flavour served in a wooden bowl and spoon.',
-          image: 'travelers-stew.jpg',
-          price: 9,
-          course: categories[0]._id
-      },
-      {
-        name: 'Delzoun Tide-Me-Overs',
-        description: 'Beef, pork, onions, and a smathering of dwarven seasonings are rolled up into delicious little balls and coated in dark dwarven gravy for snacking. Also known as meatballs in the multiverse.',
-        image: 'tide-me-overs.jpg',
-        price: 11,
-        course: categories[0]._id
+            name: 'Traveler\'s Stew',
+            description: 'A earthy and hearty beef, ale and vegetable stew straight from a flame-licked cauldron. For optimal flavour served in a wooden bowl and spoon.',
+            image: 'travelers-stew.jpg',
+            price: 9,
+            course: categories[0]._id
         },
         {
-          name: 'Lord of the Onion Rings',
-          description: 'Lightly battered and seasoned crispy golden onion rings sure to be your new precious! Just make sure Gollum isn\'t around.',
-          image: 'onion-rings.jpg',
-          price: 7,
-          course: categories[0]._id
-          },
+            name: 'Delzoun Tide-Me-Overs',
+            description: 'Beef, pork, onions, and a smathering of dwarven seasonings are rolled up into delicious little balls and coated in dark dwarven gravy for snacking. Also known as meatballs in the multiverse.',
+            image: 'tide-me-overs.jpg',
+            price: 11,
+            course: categories[0]._id
+        },
+        {
+            name: 'Lord of the Onion Rings',
+            description: 'Lightly battered and seasoned crispy golden onion rings sure to be your new precious! Just make sure Gollum isn\'t around.',
+            image: 'onion-rings.jpg',
+            price: 7,
+            course: categories[0]._id
+        },
         {
             name: 'Barrens Chat',
             description: 'Chuck Norris and Mankrik\'s wife\'s favorite dish.',
             image: 'loaded-fries.jpg',
             price: 8,
             course: categories[0]._id
+        },
+        {
+          name: 'Petyr "Little Chicken Finger" Baelish',
+          description: 'Crispy, batter-spiced chicken fingers served with a side of dipping sauce. Chaos is a ladder, but chicken fingers are best served on a paltter.',
+          image: 'chicken-fingers.jpg',
+          price: 7,
+          course: categories[0]._id
         },
         { 
             name: 'The Mimic',
@@ -66,24 +73,31 @@ db.once('open', async () => {
             course: categories[1]._id
         },
         {
-          name: 'Moonshae Seafood Rice',
-          description: 'Recipe derived from the mythical elven isle of Evermeet, this creamy fish rice dish includes shrimps and scallops and refined with the finest seasonings of all the Sword Coast!',
-          image: 'seafood-rice.jpg',
-          price: 14,
-          course: categories[1]._id
+            name: 'Moonshae Seafood Rice',
+            description: 'Recipe derived from the mythical elven isle of Evermeet, this creamy fish rice dish includes shrimps and scallops and refined with the finest seasonings of all the Sword Coast!',
+            image: 'seafood-rice.jpg',
+            price: 14,
+            course: categories[1]._id
         },
         {
-          name: 'Fire-Spiced Abyssal Chicken Kebabs',
-          description: 'Flame-licked skewers dipped in a spicy pepper glaze straight from your tieflings grandma\'s cookbook!',
-          image: 'chicken-kebabs.png',
-          price: 9,
-          course: categories[1]._id
+            name: 'Fire-Spiced Abyssal Chicken Kebabs',
+            description: 'Flame-licked skewers dipped in a spicy pepper glaze straight from your tieflings grandma\'s cookbook!',
+            image: 'chicken-kebabs.png',
+            price: 9,
+            course: categories[1]._id
         },
         {
-          name: 'Tavern Steak',
-          description: 'Juicy beef patties kneaded with a chock-full of rich seasongings and seared over an open flame. These steaks are fast dinner options for the hurried tavern hopper.',
-          image: 'tavern-steak.jpg',
-          price: 12,
+            name: 'Tavern Steak',
+            description: 'Juicy beef patties kneaded with a chock-full of rich seasongings and seared over an open flame. These steaks are fast dinner options for the hurried tavern hopper.',
+            image: 'tavern-steak.jpg',
+            price: 12,
+            course: categories[1]._id
+        },
+        {
+          name: 'King Robert\'s Boar',
+          description: 'Fall off the bone tender smoked ribs seasoned with spices and simmered in a thick barbecue sauce. A favorite of King Robert Baratheon before his.... ironic end, dish considered.',
+          image: 'ribs.jpg',
+          price: 13,
           course: categories[1]._id
         },
         { 
@@ -94,31 +108,38 @@ db.once('open', async () => {
             course: categories[2]._id
         },
         {
-          name: 'Owlbear Claws',
-          description: 'Freshly baked, lighly glazed and almond paste filled puff pastry dessert sure to intice all surrounding owlbears keen smell for miles around! No owlbears where hurt in the making of this dessert. ',
-          image: 'owlbear-claws.png',
-          price: 7,
-          course: categories[2]._id
+            name: 'Owlbear Claws',
+            description: 'Freshly baked, lighly glazed and almond paste filled puff pastry dessert sure to intice all surrounding owlbears keen smell for miles around! No owlbears where hurt in the making of this dessert. ',
+            image: 'owlbear-claws.png',
+            price: 7,
+            course: categories[2]._id
         },
         {
-          name: 'Versicolor Treat',
-          description: 'Crunchy and swirled cherry syrup. This sweet meringue is sold by the night elves of Kalimdor making it a much sought-after dessert for visitors of Azeroth. Warning, may be habit forming.',
-          image: 'versicolor-treat.jpg',
-          price: 11,
-          course: categories[2]._id
+            name: 'Versicolor Treat',
+            description: 'Crunchy and swirled cherry syrup. This sweet meringue is sold by the night elves of Kalimdor making it a much sought-after dessert for visitors of Azeroth. Warning, may be habit forming.',
+            image: 'versicolor-treat.jpg',
+            price: 11,
+            course: categories[2]._id
         },
         {
-          name: 'Conjured Mana Buns',
-          description: 'Conjured by our very live-in wizard and flavored wuth a rich brown sugar glaze and cinnimon sugar filling.',
-          image: 'buns.jpg',
-          price: 8,
-          course: categories[2]._id
+            name: 'Conjured Mana Buns',
+            description: 'Conjured by our very live-in wizard and flavored wuth a rich brown sugar glaze and cinnimon sugar filling.',
+            image: 'buns.jpg',
+            price: 8,
+            course: categories[2]._id
         },
         {
-          name: 'Halfling Oatmeal Sweet Nibbles',
-          description: 'Dense with oats, chocolate chips, and butterscotch, these diminutive cookies are perfect for halfling hands... and the stomachs of everyone.',
-          image: 'sweet-nibbles.jpg',
-          price: 5,
+            name: 'Halfling Oatmeal Sweet Nibbles',
+            description: 'Dense with oats, chocolate chips, and butterscotch, these diminutive cookies are perfect for halfling hands... and the stomachs of everyone.',
+            image: 'sweet-nibbles.jpg',
+            price: 5,
+            course: categories[2]._id
+        },
+        {
+          name: 'Game of Scones',
+          description: 'Sweet and hearty treats, useful for those traversing though Westeros. Betrayal not included.',
+          image: 'scones.jpg',
+          price: 4,
           course: categories[2]._id
         },
         {
@@ -129,24 +150,31 @@ db.once('open', async () => {
             course: categories[3]._id
         },
         {
-          name: 'Par-Salian\'s Tea',
-          description: 'A resorative and potent tea blend of fresh ginger infusion, honey, dried lemon, and mint. Highmage Par-Salian approved.',
-          image: 'ginger-tea.jpg',
-          price: 6,
-          course: categories[3]._id
+            name: 'Par-Salian\'s Tea',
+            description: 'A resorative and potent tea blend of fresh ginger infusion, honey, dried lemon, and mint. Highmage Par-Salian approved.',
+            image: 'ginger-tea.jpg',
+            price: 6,
+            course: categories[3]._id
         },
         {
-          name: 'Potion of Restoration',
-          description: 'The perfect pick me up before any dungeon, this rejuvenatingly fruity and sweet sparkling potion is made with strawberries. Drink enough of these and you will know neither pain nor fear, guaranteed.',
-          image: 'potion.jpg',
-          price: 4,
-          course: categories[3]._id
+            name: 'Potion of Restoration',
+            description: 'The perfect pick me up before any dungeon, this rejuvenatingly fruity and sweet sparkling potion is made with strawberries. Drink enough of these and you will know neither pain nor fear, guaranteed.',
+            image: 'potion.jpg',
+            price: 4,
+            course: categories[3]._id
         },
         {
           name: 'Cactus Apple Surprise',
           description: 'Straight from the Valley of Trials, this refreshing apple treat is a perfect reward after a long day of raiding.',
-          image: 'apple.jpg',
+          image: 'apple.png',
           price: 5,
+          course: categories[3]._id
+        },
+        {
+          name: 'Mug of Jon Snow',
+          description: 'A refreshing and icy milkshake, just like the snow north of the Wall. You\'ll be brought to life with it\'s icy vanilla-cinnamon flavor!',
+          image: 'vanilla-milkshake.jpg',
+          price: 7,
           course: categories[3]._id
         },
         {

@@ -8,7 +8,8 @@ import {
     TOGGLE_CART,
     UPDATE_ALL_COURSES,
     UPDATE_CURRENT_COURSE,
-    UPDATE_MENU_ITEMS
+    UPDATE_MENU_ITEMS,
+    UPDATE_USER
   } from "./actions";
 
 
@@ -80,7 +81,14 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 menuItems: [...action.menuItems]
-            }
+            };
+
+        case UPDATE_USER:
+            return {
+                ...state,
+                user: {...action.user}
+            };
+            
         default:
             return state;
     }
