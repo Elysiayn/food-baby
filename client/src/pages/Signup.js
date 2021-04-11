@@ -25,9 +25,7 @@ function Signup() {
                 }
             });
 
-        console.log(mutationResponse);
-
-        firebase.database().ref(`users`).push({
+        firebase.database().ref(`users/` + formState.email).push({
             email: formState.email,
             firstName: formState.firstName,
             lastName: formState.lastName
