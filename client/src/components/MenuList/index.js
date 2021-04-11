@@ -2,6 +2,7 @@ import React from 'react';
 import { Accordion, Icon, Table } from 'semantic-ui-react';
 
 import { UPDATE_MENU_ITEMS } from '../../utils/actions';
+import { formatName } from '../../utils/helpers';
 import { useStoreContext } from '../../utils/GlobalState';
 
 const MenuList = () => {
@@ -30,7 +31,7 @@ const MenuList = () => {
                 <Table.Body>
                     {state.menuItems.map(item => (
                         <Table.Row>
-                            <Table.Cell>{item.name}</Table.Cell>
+                            <Table.Cell>{formatName(item.name)}</Table.Cell>
                             <Table.Cell>${item.price}</Table.Cell>
                             <Table.Cell>{item.course.name}</Table.Cell>
                             <Table.Cell className='edit-cell'>

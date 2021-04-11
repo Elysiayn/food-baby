@@ -1,10 +1,15 @@
 export function formatName(string) {
-    const formattedStr = string.toLowerCase()
-        .split(' ')
-        .map(s => s.charAt(0).toUpperCase() + s.slice(1))
-        .join(' ');
+    const splitArr = [' ', '-', '"'];
+    string = string.toLowerCase();
 
-    return formattedStr;
+    // splits, formats, and joins strings for each format case in splitArr
+    for (let i = 0; i < splitArr.length; i++) {
+        string = string.split(splitArr[i])
+            .map(s => s.charAt(0).toUpperCase() + s.slice(1))
+            .join(splitArr[i])
+    };
+
+    return string;
 };
 
 export function filterMenu(menuItems, courseName) {
