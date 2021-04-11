@@ -45,18 +45,9 @@ const Dashboard = () => {
                         onClick={() => handleClick(1)}
                     >
                         <Icon name='dropdown' />
-                        Section 2
+                        Add Menu Item
                     </Accordion.Title>
                     <MenuForm index={1} />
-
-                    <Accordion.Title
-                        active={state.activeIndex === 2}
-                        onClick={() => handleClick(2)}
-                    >
-                        <Icon name='dropdown' />
-                        Section 3
-                    </Accordion.Title>
-                    <MenuForm index={2} />
                     
                 </Accordion>
             </Segment>
