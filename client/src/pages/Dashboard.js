@@ -1,10 +1,11 @@
 import React from 'react';
-import { Accordion, Icon, Placeholder, Segment } from 'semantic-ui-react';
+import { Accordion, Icon, Segment } from 'semantic-ui-react';
 
 import MenuForm from '../components/MenuForm';
 import MenuList from '../components/MenuList';
+import MenuPreview from '../components/MenuPreview';
 
-import { UPDATE_ACTIVE_INDEX, UPDATE_MENU_ITEMS } from '../utils/actions';
+import { UPDATE_ACTIVE_INDEX } from '../utils/actions';
 import { useStoreContext } from '../utils/GlobalState';
 
 const Dashboard = () => {
@@ -60,20 +61,7 @@ const Dashboard = () => {
                 </Accordion>
             </Segment>
             <Segment>
-                <Placeholder>
-                    <Placeholder.Paragraph>
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                    </Placeholder.Paragraph>
-                </Placeholder>
+                <MenuPreview />
             </Segment>
         </Segment.Group>
     );

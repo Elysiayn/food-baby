@@ -9,6 +9,7 @@ import {
     UPDATE_ACTIVE_INDEX,
     UPDATE_ALL_COURSES,
     UPDATE_CURRENT_COURSE,
+    UPDATE_CURRENT_MENU_ITEM,
     UPDATE_MENU_ITEMS,
     UPDATE_USER
   } from "./actions";
@@ -82,6 +83,13 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 currentCourse: action.currentCourse
+            };
+
+        case UPDATE_CURRENT_MENU_ITEM:
+            console.log(state)
+            return {
+                ...state,
+                test: action.test
             };
             
         case UPDATE_MENU_ITEMS:
