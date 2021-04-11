@@ -7,6 +7,7 @@ import Auth from "../../utils/auth";
 import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_USER } from '../../utils/actions';
 import { QUERY_USER } from '../../utils/queries';
+import Permission from '../Permission';
 
 function Nav() {
     const [state, dispatch] = useStoreContext();
@@ -20,6 +21,8 @@ function Nav() {
             })
         }
     }, [data, loading, dispatch]);
+
+    
 
     function showNav() {
         switch (true) {
@@ -37,6 +40,7 @@ function Nav() {
                                 Logout
                             </a>
                         </Grid.Column>
+                        <Permission />
                     </>
                 );
             case (state.user.role === 'owner'):

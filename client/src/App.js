@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
+import firebase from 'firebase';
 
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
@@ -13,6 +14,7 @@ import Signup from "./pages/Signup";
 import Success from "./pages/Success";
 import { StoreProvider } from "./utils/GlobalState"; 
 import 'semantic-ui-css/semantic.min.css';
+import { Message } from "semantic-ui-react";
 
 
 const client = new ApolloClient({
@@ -27,13 +29,73 @@ const client = new ApolloClient({
   uri: '/graphql',
 })
 
+var firebaseConfig = {
+  apiKey: "AIzaSyAPYUQl3v49glJc2H1WErSHVGgejiqEfxo",
+  authDomain: "food-baby-682db.firebaseapp.com",
+  projectId: "food-baby-682db",
+  storageBucket: "food-baby-682db.appspot.com",
+  messagingSenderId: "696002118688",
+  appId: "1:696002118688:web:c7b3e92a1806d71bb92845",
+  measurementId: "G-L9R64LNE17"
+};
+
+const onMessageListener = () => 
+  new Promise((resolve) => {
+    messaging.onMessage((payload) => {
+      resolve(payload)
+    })
+  })
+
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+  const messaging= firebase.messaging();
+    messaging.requestPermission()
+    .then(function() {
+      console.log('Have permission');
+      return messaging.getToken(); 
+    })
+    .then( function (token) {
+      // firebase.database().ref('users/' + this.currentUid + '/notificationTokens/' + token).set(true)
+      console.log(token);
+    })
+    .catch(function(err) {
+      console.log(err);
+    })
+    messaging.onMessage(payload => {
+      console.log('onMessage:', payload)
+    });
+
 function App() {
+  const [show, setShow ] = useState(false)
+  const [notification, setNotification] = useState({title: '', body: ''});
+  console.log(setShow);
+
+  onMessageListener().then(payload => {
+    setShow(true);
+    setNotification({title: payload.notification.title, body: payload.notification.body})
+    console.log(payload);
+  }).catch(err => console.log('failed: ', err));
+
+  const handleDismiss = () => {
+    setShow(false)
+
+  }
+
   return (
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <StoreProvider> 
-            <Nav /> 
+          <StoreProvider>
+            <Nav />
+            { (show) && <Message 
+              onDismiss={() => handleDismiss()}
+              show={show}
+              delay={10000}
+              header={notification.title}
+              content={notification.body}
+            />}
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/dashboard" component={Dashboard} />
@@ -45,7 +107,7 @@ function App() {
             </Switch>
           </StoreProvider>
         </div>
-      </Router>
+      </Router>   
     </ApolloProvider>
 
   );
