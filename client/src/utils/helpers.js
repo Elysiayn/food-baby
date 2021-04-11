@@ -1,3 +1,12 @@
+export function formatName(string) {
+    const formattedStr = string.toLowerCase()
+        .split(' ')
+        .map(s => s.charAt(0).toUpperCase() + s.slice(1))
+        .join(' ');
+
+    return formattedStr;
+};
+
 export function filterMenu(menuItems, courseName) {
     return menuItems.filter(item => item.course.name === courseName);
 };

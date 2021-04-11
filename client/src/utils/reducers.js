@@ -86,10 +86,9 @@ export const reducer = (state, action) => {
             };
 
         case UPDATE_CURRENT_MENU_ITEM:
-            console.log(state)
             return {
                 ...state,
-                test: action.test
+                itemPreview: {...action.itemPreview}
             };
             
         case UPDATE_MENU_ITEMS:

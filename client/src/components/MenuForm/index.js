@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Button, Form, Icon } from 'semantic-ui-react';
+import { Accordion, Button, Form } from 'semantic-ui-react';
 
 import { UPDATE_CURRENT_MENU_ITEM } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
@@ -15,55 +15,73 @@ const MenuForm = (props) => {
         { key: '3', value: 'drinks', text: 'drinks' }
     ]
 
-    const renderMenu = () => {
-        if (index === 1) {
-            return (
-                <div>
-                    This is index 1.
-                </div>
-            );
-        } else if (index === 2) {
-            return (
-                <div>
-                    This is index 2.
-                </div>
-            )
-        }
-    };
+    const handleChange = event => {
+        const { name, value } = event.target    
 
-    const handleChange = (event) => {
-        dispatch({
-            type: UPDATE_CURRENT_MENU_ITEM,
-            test: event.target.value
-        })
+        // specifically targets semantic ui's select form
+        if (event.target.getAttribute('role') === 'option') {
+
+            // gets course type selected
+            const selectedOption = event.target.querySelector('span').textContent
+            
+            dispatch({
+                type: UPDATE_CURRENT_MENU_ITEM,
+                itemPreview: {
+                    ...state.itemPreview,
+                    course: selectedOption
+                }
+            })
+        } else {
+            // updates GlobalState on input change for menu item preview
+            dispatch({
+                type: UPDATE_CURRENT_MENU_ITEM,
+                itemPreview: { 
+                    ...state.itemPreview, 
+                    [name]: value 
+                }
+            });
+        }
+
     };
 
     return (
         <Accordion.Content active={state.activeIndex === index}>
-            {/* {renderMenu()} */}
             <Form>
                 <Form.Input 
                     label='Name' 
+                    name='name'
                     placeholder='Enter the name of the menu item' 
+                    onChange={handleChange} 
                 />
                 <Form.Group widths='equal'>
                     <Form.Field>
-                        <label>Price</label>
-                        <input type='number' />
+                        <label for='form-price'>Price</label>
+                        <input 
+                            type='number' 
+                            name='price' 
+                            min='0' 
+                            onChange={handleChange} 
+                            id='form-price'
+                        />
                     </Form.Field> 
                     <Form.Select 
                         fluid 
                         label='Course'
+                        name='course'
                         placeholder='Select the Course' 
                         options={courses} 
+                        onChange={handleChange} 
                     />
                 </Form.Group>
                 <Form.Input 
                     label='Image' 
+                    name='image'
                     placeholder='' 
+                    onChange={handleChange} 
                 />
                 <Form.TextArea 
                     label='Description' 
+                    name='description'
                     placeholder='Enter a short description of the menu item.' 
                     onChange={handleChange} 
                 />
