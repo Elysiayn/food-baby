@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useQuery } from '@apollo/react-hooks';
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Header, Grid } from 'semantic-ui-react';
 
 import Auth from "../../utils/auth";
@@ -11,7 +11,7 @@ import { QUERY_USER } from '../../utils/queries';
 function Nav() {
     const [state, dispatch] = useStoreContext();
     const { loading, data } = useQuery(QUERY_USER);
-    
+
     useEffect(() => {
         if (data) {
             dispatch({
@@ -22,7 +22,6 @@ function Nav() {
     }, [data, loading, dispatch]);
 
     function showNav() {
-
         switch (true) {
             case (state.user.role ===  'user'):
                 return (

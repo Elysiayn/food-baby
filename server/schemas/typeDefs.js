@@ -18,7 +18,6 @@ type MenuItem {
     image: String
     price: Int
     course: Course
-    quantity: Int
 }
 
 type Course {
@@ -59,7 +58,7 @@ type Query {
 type Mutation {
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
     updateUser(_id: ID!, firstName: String, lastName: String, email: String, password: String): User
-    updateMenuItem(_id: ID!, quantity: Int, name: String, description: String, price: Int): MenuItem
+    updateMenuItem(_id: ID!, name: String, description: String, price: Int): MenuItem
     login(email: String!, password: String!): Auth
     addOrder(menuItems: [ID]!): Order
 }

@@ -20,7 +20,6 @@ export const QUERY_MENU_ITEM = gql`
                 _id
                 name
             }
-            quantity
         }
     }
 `;
@@ -37,7 +36,6 @@ export const QUERY_ALL_MENU_ITEMS = gql`
             _id
             name
         }
-        quantity
     }
 }
 `;
@@ -61,7 +59,6 @@ export const QUERY_USER = gql`
                         _id
                         name
                     }
-                    quantity
                 }
             }
             favorites {
