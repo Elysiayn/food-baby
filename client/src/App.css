@@ -1,6 +1,6 @@
 :root {
   --primary-background: white;
-  --secondary-background: black;
+  --secondary-background: #121212;
   --primary-color: #FFE268;
   --secondary-color: #2f5d62;
   --tertiary-color: #364547;
@@ -169,3 +169,15 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+
+/* @media (prefers-color-scheme: dark) {
+  body {
+    color: #eee;
+    background: #121212;
+  }
+
+  a {
+    color: #809fff;
+  }
+} */

@@ -1,16 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from '@apollo/react-hooks';
 import { Link } from "react-router-dom";
 import { Header, Grid } from 'semantic-ui-react';
-
 import Auth from "../../utils/auth";
 import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_USER } from '../../utils/actions';
 import { QUERY_USER } from '../../utils/queries';
+import { themeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from '../../Themes';
 
 function Nav() {
     const [state, dispatch] = useStoreContext();
     const { loading, data } = useQuery(QUERY_USER);
+
+    const [theme, useTheme] = useState('light');
+    const themeToggler = () => {
+        theme === 'light' ? setTheme('dark') : setTheme('light');
+    }
 
     useEffect(() => {
         if (data) {
@@ -20,6 +26,7 @@ function Nav() {
             })
         }
     }, [data, loading, dispatch]);
+
 
     function showNav() {
         switch (true) {
