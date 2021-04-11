@@ -69,6 +69,7 @@ firebase.initializeApp(firebaseConfig);
 function App() {
   const [show, setShow ] = useState(false)
   const [notification, setNotification] = useState({title: '', body: ''});
+  console.log(setShow);
 
   onMessageListener().then(payload => {
     setShow(true);
@@ -79,9 +80,6 @@ function App() {
   const handleDismiss = () => {
     setShow(false)
 
-    setTimeout(() => {
-    setShow(true)
-    }, 2000)
   }
 
   return (
@@ -90,13 +88,13 @@ function App() {
         <div>
           <StoreProvider>
             <Nav />
-              <Message 
+            { (show) && <Message 
               onDismiss={() => handleDismiss()}
               show={show}
-              delay={3000}
+              delay={10000}
               header={notification.title}
               content={notification.body}
-            />
+            />}
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/orderHistory" component={OrderHistory} />
