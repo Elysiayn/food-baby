@@ -6,6 +6,7 @@ import {
     UPDATE_CART_QUANTITY,
     CLEAR_CART,
     TOGGLE_CART,
+    UPDATE_ACTIVE_INDEX,
     UPDATE_ALL_COURSES,
     UPDATE_CURRENT_COURSE,
     UPDATE_MENU_ITEMS,
@@ -65,11 +66,17 @@ export const reducer = (state, action) => {
                 cartOpen: !state.cartOpen
             };
         
+        case UPDATE_ACTIVE_INDEX: 
+            return {
+                ...state,
+                activeIndex: action.activeIndex
+            };
+        
         case UPDATE_ALL_COURSES:
             return {
                 ...state,
                 allCourses: [...action.allCourses]
-            }
+            };
             
         case UPDATE_CURRENT_COURSE:
             return {

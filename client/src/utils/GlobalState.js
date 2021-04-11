@@ -6,6 +6,7 @@ const { Provider } = StoreContext;
 
 const StoreProvider = ({ value = [], ...props }) => {
     const [state, dispatch] = useMenuReducer({
+        activeIndex: '',
         cart: [],
         currentCourse: '',
         cartOpen: false,
