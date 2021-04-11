@@ -169,3 +169,17 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+/* dashboard styles */
+.dashboard-left {
+  max-width: 45vw;
+}
+
+.dashboard-menu {
+  padding: 1em;
+}
+
+.edit-cell {
+  display: flex;
+  justify-content: center;
+}

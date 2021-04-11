@@ -1,3 +1,7 @@
+export function filterMenu(menuItems, courseName) {
+    return menuItems.filter(item => item.course.name === courseName);
+};
+
 export function idbPromise(storeName, method, object) {
     return new Promise((resolve, reject) => {
         // open connection to database
