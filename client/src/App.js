@@ -12,12 +12,12 @@ import OrderHistory from './pages/OrderHistory';
 import Signup from "./pages/Signup";
 import Success from "./pages/Success";
 import { StoreProvider } from "./utils/GlobalState";
-// import 'semantic-ui-css/semantic.min.css';
+import 'semantic-ui-css/semantic.min.css';
 import { useDarkMode } from './components/Themes/useDarkMode';
 import { lightTheme, darkTheme } from "./components/Themes/Themes";
 import { ThemeProvider } from "styled-components";
-// import { GlobalStyles } from "./components/Themes/GlobalStyles";
-// import Toggle from './components/Themes/Toggler'
+import { GlobalStyles } from "./components/Themes/GlobalStyles";
+import Toggle from './components/Themes/Toggler'
 
 
 const client = new ApolloClient({
@@ -42,13 +42,13 @@ const App = () => {
   return (
 
     <ApolloProvider client={client}>
-      <ThemeProvider>
-       
+      
           <Router>
-            <div>
-               {/* <>
+          <ThemeProvider theme={themeMode}>
+      <>
           <GlobalStyles />
-          <Toggle theme={theme} toggleTheme={themeToggler} /> */}
+            <div>
+          <Toggle theme={theme} toggleTheme={themeToggler} />
               <StoreProvider>
                 <Nav />
                 <Switch>
@@ -62,11 +62,12 @@ const App = () => {
                 </Switch>
               </StoreProvider>
             </div>
-          </Router>
-        {/* </> */}
+            </>
       </ThemeProvider>
+          </Router>
+       
     </ApolloProvider>
-
+ 
   );
 }
 
