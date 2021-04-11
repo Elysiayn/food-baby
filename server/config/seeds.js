@@ -51,6 +51,13 @@ db.once('open', async () => {
             price: 8,
             course: categories[0]._id
         },
+        {
+          name: 'Petyr "Little Chicken Finger" Baelish',
+          description: 'Crispy, batter-spiced chicken fingers served with a side of dipping sauce. Chaos is a ladder, but chicken fingers are best served on a paltter.',
+          image: 'chicken-fingers.jpg',
+          price: 7,
+          course: categories[0]._id
+        },
         { 
             name: 'The Mimic',
             description: 'While the Mimic remains motionless, it is indistinguishable from an ordinary object. Be careful this veggie burger bites back.',
@@ -85,6 +92,13 @@ db.once('open', async () => {
             image: 'tavern-steak.jpg',
             price: 12,
             course: categories[1]._id
+        },
+        {
+          name: 'King Robert\'s Boar',
+          description: 'Fall off the bone tender smoked ribs seasoned with spices and simmered in a thick barbecue sauce. A favorite of King Robert Baratheon before his.... ironic end, dish considered.',
+          image: 'ribs.jpg',
+          price: 13,
+          course: categories[1]._id
         },
         { 
             name: 'The Cake Is A Lie',
@@ -122,6 +136,13 @@ db.once('open', async () => {
             course: categories[2]._id
         },
         {
+          name: 'Game of Scones',
+          description: 'Sweet and hearty treats, useful for those traversing though Westeros. Betrayal not included.',
+          image: 'scones.jpg',
+          price: 4,
+          course: categories[2]._id
+        },
+        {
             name: 'Professor Putricide\'s Slime',
             description: 'Gooooood news everybody! This matcha boba has all the nutrients you\'d ever need, and has bobas!',
             image: 'boba.jpg',
@@ -143,18 +164,25 @@ db.once('open', async () => {
             course: categories[3]._id
         },
         {
-            name: 'Cactus Apple Surprise',
-            description: 'Straight from the Valley of Trials, this refreshing apple treat is a perfect reward after a long day of raiding.',
-            image: 'apple.jpg',
-            price: 5,
-            course: categories[3]._id
+          name: 'Cactus Apple Surprise',
+          description: 'Straight from the Valley of Trials, this refreshing apple treat is a perfect reward after a long day of raiding.',
+          image: 'apple.png',
+          price: 5,
+          course: categories[3]._id
         },
         {
-            name: 'Moonglow',
-            description: 'Celebrate the Lunar festival with fellow druids in Moonglade with this sweet and refreshing lemon sparkling fruit drink.',
-            image:'moonglow.jpg',
-            price: 6,
-            course: categories[3]._id
+          name: 'Mug of Jon Snow',
+          description: 'A refreshing and icy milkshake, just like the snow north of the Wall. You\'ll be brought to life with it\'s icy vanilla-cinnamon flavor!',
+          image: 'vanilla-milkshake.jpg',
+          price: 7,
+          course: categories[3]._id
+        },
+        {
+          name: 'Moonglow',
+          description: 'Celebrate the Lunar festival with fellow druids in Moonglade with this sweet and refreshing lemon sparkling fruit drink.',
+          image:'moonglow.jpg',
+          price: 6,
+          course: categories[3]._id
         }
     ]);
 
