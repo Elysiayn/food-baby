@@ -1,5 +1,8 @@
+// currently not being used
+
 import React from 'react';
 import { Button, Header, Icon, Modal} from 'semantic-ui-react';
+
 
 function  Notification(payload)  {
     const [open, setOpen] = React.useState(true)
