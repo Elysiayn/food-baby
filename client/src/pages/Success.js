@@ -1,29 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useEffect} from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_ORDER } from '../utils/mutations';
-import { idbPromise } from '../utils/helpers';
+import { formatDate, idbPromise } from '../utils/helpers';
+import { useStoreContext } from '../utils/GlobalState';
+
 
 function Success() {
 
     const [addOrder] = useMutation(ADD_ORDER);
-
+    const [state] = useStoreContext();
+    
     useEffect(() => {
+
         async function saveOrder() {
             const cart = await idbPromise('cart', 'get');
             const menuItems = cart.map(item => item._id);
+            
 
-            console.log('==============================', menuItems);
+            // console.log('==============================', menuItems);
 
             // debugger;
             if (menuItems.length) {
                 const { data } = await addOrder({ variables: { menuItems } });
                 const menuItemData = data.addOrder.menuItems;
+                const purchaseDate = data.addOrder.purchaseDate;
+                const orderTime = new Date (purchaseDate * 1000)
+                const completionTime = new Date ((purchaseDate + 1800) * 1000);
+                console.log(orderTime);
+                console.log(completionTime);
 
-                console.log('====222222222222======', menuItemData);
+                // console.log('====222222222222======', menuItemData);
+                // firebase.database().ref('orders').push({
+                //     firstName: state.user.firstName,
+                //     lastName: state.user.LastName,
+                //     menuItems,
+                //     purchaseDate: formatTime(data.addOrder.purchaseDate)
+                // })    
+
 
                 menuItemData.forEach(item => {
                     idbPromise('cart', 'delete', item)
-                    console.log('====33333333333======', item);
+                    // console.log('====33333333333======', item);
 
                 });
 
@@ -33,7 +50,9 @@ function Success() {
             } else {
                 console.log('error');
             }
+            
         }
+        
         saveOrder();
     }, [addOrder])
 
