@@ -8,7 +8,7 @@ export const GlobalStyles = createGlobalStyle`
   & .ui.segment.menu {
     background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};
-    box-shadow: 2px -2px
+    border: 1px solid lightgrey
    
   }
   & .ui.large.header.menu-title {
@@ -20,16 +20,10 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.text};
   }
 
-  & .ui.card>.content {
-    background: ${({ theme }) => theme.body};
-    color: ${({ theme }) => theme.text};
-  }
-
-
   & div.ui.segment.cart {
     background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};
-    box-shadow
+    border: 1px solid lightgrey
   }
 
   & div.cart.body {
@@ -55,5 +49,15 @@ export const GlobalStyles = createGlobalStyle`
   & li::before {
     background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};
+}
+
+& label.login-email-label {
+  color: ${({ theme }) => theme.text};
+  transition all .50s linear;
+}
+
+& label.user-first-label {
+  color: ${({ theme }) => theme.text};
+  transition all .50s linear;
 }
   `
