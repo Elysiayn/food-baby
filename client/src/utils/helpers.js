@@ -1,3 +1,21 @@
+export function formatName(string) {
+    const splitArr = [' ', '-', '"'];
+    string = string.toLowerCase();
+
+    // splits, formats, and joins strings for each format case in splitArr
+    for (let i = 0; i < splitArr.length; i++) {
+        string = string.split(splitArr[i])
+            .map(s => s.charAt(0).toUpperCase() + s.slice(1))
+            .join(splitArr[i])
+    };
+
+    return string;
+};
+
+export function filterMenu(menuItems, courseName) {
+    return menuItems.filter(item => item.course.name === courseName);
+};
+
 export function idbPromise(storeName, method, object) {
     return new Promise((resolve, reject) => {
         // open connection to database

@@ -169,3 +169,48 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+/* dashboard styles */
+.dashboard-left {
+  max-width: 45vw;
+}
+
+.dashboard-menu {
+  padding: 1em;
+}
+
+.edit-cell {
+  display: flex;
+  justify-content: center;
+}
+
+.preview-area {
+  width: 100%;
+  height: 100%;
+}
+
+.preview-price {
+  color: rgba(10, 6, 6, 0.4);
+}
+
+.preview-course {
+  margin: 1em 0;
+}
+
+.preview-image {
+  max-width: 30em;
+  margin: .75em 0;
+}
+
+.preview-image img {
+  width: 100%;
+}
+
+.preview-description {
+  margin: .75em 0;
+}
+
+.menu-placeholder {
+  height: 100%;
+  width: 100%;
+}

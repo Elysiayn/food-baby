@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
+
 import '../App.css';
 
 function Signup() {
@@ -23,11 +24,9 @@ function Signup() {
                 }
             });
 
-        console.log(mutationResponse);
-
-        const token = mutationResponse.data.addUser.token;
-        console.log(token);
-        Auth.login(token);
+            const token = mutationResponse.data.addUser.token;
+            Auth.login(token);
+       
         } catch (e) {
             if (e.message.includes('email: ')) {
                 console.log('Email is taken.')
@@ -133,8 +132,8 @@ function Signup() {
                     <p className='login-createUser'>
                         &larr; Back to Login Page
                     </p>
-                </Link>
-            </div>
+                </Link>    
+            </div>    
         </div>
     );
 }

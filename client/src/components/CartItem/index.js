@@ -31,7 +31,7 @@ const CartItem = ({ item } ) => {
                 purchaseQuantity: parseInt(value)
             });
             idbPromise('cart', 'put', { ...item, purchaseQuantity: parseInt(value) });
-        }
+    };
     };
 
     return (

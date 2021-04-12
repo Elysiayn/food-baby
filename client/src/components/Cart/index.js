@@ -116,6 +116,9 @@ const Cart = () => {
                     There's no food in your order yet!
                 </h3>
             )}
+            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
+        
+        
         </Segment>
     );
 };
