@@ -44,7 +44,7 @@ function MenuItem(item) {
 
     return (
         <Card>
-            <Image ui={false} wrapped src={`/images/${image}`} />
+            <Image ui={false} wrapped src={image} />
             <Card.Content>
                 <Card.Header>{formatName(name)}</Card.Header>
                 <Card.Meta>${price}</Card.Meta>

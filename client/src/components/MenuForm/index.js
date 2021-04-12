@@ -1,6 +1,8 @@
 import React from 'react';
 import { Accordion, Button, Form } from 'semantic-ui-react';
 
+import ImageUpload from '../ImageUpload';
+
 import { UPDATE_CURRENT_MENU_ITEM } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
 
@@ -55,7 +57,7 @@ const MenuForm = (props) => {
                 />
                 <Form.Group widths='equal'>
                     <Form.Field>
-                        <label for='form-price'>Price</label>
+                        <label htmlFor='form-price'>Price</label>
                         <input 
                             type='number' 
                             name='price' 
@@ -73,12 +75,16 @@ const MenuForm = (props) => {
                         onChange={handleChange} 
                     />
                 </Form.Group>
-                <Form.Input 
+                {/* <Form.Input 
                     label='Image' 
                     name='image'
                     placeholder='' 
                     onChange={handleChange} 
-                />
+                /> */}
+                <Form.Field>
+                    <label htmlFor='form-image-upload'>Image</label>
+                    <ImageUpload />
+                </Form.Field>
                 <Form.TextArea 
                     label='Description' 
                     name='description'
