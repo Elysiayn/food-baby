@@ -51,26 +51,26 @@ const onMessageListener = () =>
 firebase.initializeApp(firebaseConfig);
 
   const messaging= firebase.messaging();
-    messaging.requestPermission()
-    .then(function() {
-      console.log('Have permission');
-      return messaging.getToken(); 
-    })
-    .then( function (token) {
-      // firebase.database().ref('users/' + this.currentUid + '/notificationTokens/' + token).set(true)
-      console.log(token);
-    })
-    .catch(function(err) {
-      console.log(err);
-    })
+    // messaging.requestPermission()
+    // .then(function() {
+    //   console.log('Have permission');
+    //   return messaging.getToken(); 
+    // })
+    // .then( function (token) {
+    
+    //   console.log(token);
+    // })
+    // .catch(function(err) {
+    //   console.log(err);
+    // })
     messaging.onMessage(payload => {
       console.log('onMessage:', payload)
     });
 
 function App() {
+
   const [show, setShow ] = useState(false)
   const [notification, setNotification] = useState({title: '', body: ''});
-  console.log(setShow);
 
   onMessageListener().then(payload => {
     setShow(true);
@@ -92,7 +92,7 @@ function App() {
             { (show) && <Message 
               onDismiss={() => handleDismiss()}
               show={show}
-              delay={10000}
+              delay={100}
               header={notification.title}
               content={notification.body}
             />}
@@ -107,7 +107,9 @@ function App() {
             </Switch>
           </StoreProvider>
         </div>
-      </Router>   
+      </Router> 
+      <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>  
     </ApolloProvider>
 
   );

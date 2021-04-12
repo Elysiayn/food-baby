@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
-import firebase from 'firebase';
 
 import '../App.css';
 
@@ -25,14 +24,9 @@ function Signup() {
                 }
             });
 
-        firebase.database().ref(`users/` + formState.email).push({
-            email: formState.email,
-            firstName: formState.firstName,
-            lastName: formState.lastName
-        }, error => { console.log(error)
             const token = mutationResponse.data.addUser.token;
             Auth.login(token);
-        })
+       
         } catch (e) {
             if (e.message.includes('email: ')) {
                 console.log('Email is taken.')
@@ -139,9 +133,7 @@ function Signup() {
                         &larr; Back to Login Page
                     </p>
                 </Link>    
-            </div>
-            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
+            </div>    
         </div>
     );
 }
