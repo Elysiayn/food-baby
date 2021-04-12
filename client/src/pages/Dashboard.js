@@ -1,61 +1,58 @@
-import React, { useState } from 'react';
-import { Accordion, Grid, Icon, Segment } from 'semantic-ui-react';
+import React from 'react';
+import { Accordion, Icon, Segment } from 'semantic-ui-react';
+
+import MenuForm from '../components/MenuForm';
+import MenuList from '../components/MenuList';
+import MenuPreview from '../components/MenuPreview';
+
+import { UPDATE_ACTIVE_INDEX } from '../utils/actions';
+import { useStoreContext } from '../utils/GlobalState';
 
 const Dashboard = () => {
-    const [activeIndex, setActiveIndex] = useState({ activeIndex: 0 })
+    const [state, dispatch] = useStoreContext();
 
-    const handleClick = (e, titleProps) => {
-        console.log(e)
-        const { index } = titleProps;
-        const { activeIndex } = activeIndex;
-        const newIndex = activeIndex === index ? -1 : index;
-
-        setActiveIndex({ activeIndex: newIndex });
-    } 
+    const handleClick = (index) => {
+        if (index === state.activeIndex) {
+            // closes menu if active menu is the one clicked
+            dispatch({
+                type: UPDATE_ACTIVE_INDEX,
+                activeIndex: -1
+            })
+        } else {
+            dispatch({
+                type: UPDATE_ACTIVE_INDEX,
+                activeIndex: index
+            });
+        }
+    };
 
     return (
         <Segment.Group horizontal>
-            <Segment>
+            <Segment className='dashboard-left'>
                 <Accordion fluid styled>
+
                     <Accordion.Title
-                        active={activeIndex === 0}
-                        index={0}
-                        onClick={() => handleClick()}
+                        active={state.activeIndex === 0}
+                        onClick={() => handleClick(0)}
                     >
                         <Icon name='dropdown' />
-                        Section 1
+                        Current Menu
                     </Accordion.Title>
-                    <Accordion.Content active={activeIndex === 0}>
-                        Test content
-                    </Accordion.Content>
+                    <MenuList />
+
                     <Accordion.Title
-                        active={activeIndex === 1}
-                        index={1}
-                        onClick={() => handleClick()}
+                        active={state.activeIndex === 1}
+                        onClick={() => handleClick(1)}
                     >
                         <Icon name='dropdown' />
-                        Section 2
+                        Add Menu Item
                     </Accordion.Title>
-                    <Accordion.Content active={activeIndex === 1}>
-                        Test content
-                    </Accordion.Content>
-                    <Accordion.Title
-                        active={activeIndex === 2}
-                        index={2}
-                        onClick={() => handleClick()}
-                    >
-                        <Icon name='dropdown' />
-                        Section 3
-                    </Accordion.Title>
-                    <Accordion.Content active={activeIndex === 2}>
-                        Test content
-                    </Accordion.Content>
+                    <MenuForm index={1} />
+                    
                 </Accordion>
             </Segment>
             <Segment>
-                {/* <Grid.Column>
-                    Test
-                </Grid.Column> */}
+                <MenuPreview />
             </Segment>
         </Segment.Group>
     );
