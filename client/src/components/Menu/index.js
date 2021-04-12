@@ -8,6 +8,7 @@ import { QUERY_ALL_MENU_ITEMS, QUERY_ALL_COURSES } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 import MenuItem from '../MenuItem/index';
 
+
 function Menu() {
     const [state, dispatch] = useStoreContext();
     // const { currentCourse } = state; // might not need currentCourse, remove from GlobalState
@@ -68,6 +69,7 @@ function Menu() {
     function capitalize(title) {
         return title.toUpperCase();
     };
+
 
     return (
         <div>
