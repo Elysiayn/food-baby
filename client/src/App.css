@@ -197,8 +197,17 @@
   margin: 1em 0;
 }
 
+.preview-image {
+  max-width: 30em;
+  margin: .75em 0;
+}
+
+.preview-image img {
+  width: 100%;
+}
+
 .preview-description {
-  margin: 1em 0;
+  margin: .75em 0;
 }
 
 .menu-placeholder {

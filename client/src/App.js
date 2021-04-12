@@ -29,9 +29,10 @@ const client = new ApolloClient({
   uri: '/graphql',
 })
 
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyAPYUQl3v49glJc2H1WErSHVGgejiqEfxo",
   authDomain: "food-baby-682db.firebaseapp.com",
+  databaseURL: "https://food-baby-682db-default-rtdb.firebaseio.com",
   projectId: "food-baby-682db",
   storageBucket: "food-baby-682db.appspot.com",
   messagingSenderId: "696002118688",
