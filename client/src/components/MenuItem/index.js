@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import { Card, Image, Button, Icon } from 'semantic-ui-react';
+
+import {useQuery } from '@apollo/react-hooks';
 
 import { useStoreContext } from '../../utils/GlobalState';
 import { formatName } from '../../utils/helpers';
-import { ADD_TO_CART, UPDATE_CART_QUANTITY } from '../../utils/actions';
+import { ADD_TO_CART, UPDATE_CART_QUANTITY, UPDATE_MENU_ITEMS } from '../../utils/actions';
 import { idbPromise } from '../../utils/helpers';
+import { QUERY_MENU_ITEM } from '../../utils/queries';
 
 function MenuItem(item) {
     const {
@@ -14,6 +17,8 @@ function MenuItem(item) {
         price,
         description  
     } = item;
+
+    const { loading, data } = useQuery(QUERY_MENU_ITEM);
 
     const [state, dispatch] = useStoreContext();
     const { cart } = state;
@@ -41,6 +46,23 @@ function MenuItem(item) {
             idbPromise('cart','put', { ...item, purchaseQuantity: 1 });
         }
     };
+
+    // 
+    useEffect(() => {
+      // if there's data to be stored
+      if (data) {
+        //  store's in  the global state object
+        dispatch ({
+          type:UPDATE_MENU_ITEMS,
+          menuItems: data.menuItems
+        });
+        // takes each item and saves it to IndexDB
+        data.menuItems.forEach((menuItem) => {
+          idbPromise('menuItems', 'put', menuItem);
+        });
+      }
+    }, [data, loading, dispatch]);
+// 
 
     return (
         <Card>
