@@ -12,7 +12,7 @@
     "dotenv": "^8.2.0",
     "env": "0.0.2",
     "express": "^4.17.1",
-    "firebase": "^8.3.2",
+    "firebase": "^8.4.0",
     "firebase-admin": "^9.6.0",
     "graphql": "^15.5.0",
     "if-env": "^1.0.4",
@@ -25,9 +25,9 @@
     "react-native": "^0.64.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
-    "styled-components": "^4.4.1",
     "react-toastify": "^7.0.3",
     "stripe": "^8.142.0",
+    "styled-components": "^4.4.1",
     "web-vitals": "^1.1.1"
   },
   "devDependencies": {

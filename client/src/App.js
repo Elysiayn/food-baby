@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
-import firebase from 'firebase';
+const firebase = require('firebase');
 
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";

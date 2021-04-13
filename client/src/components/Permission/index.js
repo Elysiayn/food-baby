@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import firebase from 'firebase';
+const firebase = require('firebase');
 import {Label, Icon} from 'semantic-ui-react';
 import { useStoreContext } from '../../utils/GlobalState';
 
