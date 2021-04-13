@@ -30,7 +30,6 @@ const ImageUpload = () => {
         <FileUploader
             accept='image/*'
             name='image'
-            randomizeFilename
             storageRef={firebase.storage().ref('images')}
             onUploadError={handleUploadError}
             onUploadSuccess={handleUploadSuccess}

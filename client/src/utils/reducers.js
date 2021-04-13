@@ -59,14 +59,14 @@ export const reducer = (state, action) => {
                 ...state,
                 cartOpen: false,
                 cart:[]
-            };
+            };    
       
         case TOGGLE_CART:
             return {
                 ...state,
                 cartOpen: !state.cartOpen
             };
-        
+
         case UPDATE_ACTIVE_INDEX: 
             return {
                 ...state,
