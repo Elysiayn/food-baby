@@ -60,4 +60,18 @@ export const GlobalStyles = createGlobalStyle`
   color: ${({ theme }) => theme.text};
   transition all .50s linear;
 }
+
+& div.menu-cards {
+  background: ${({ theme }) => theme.body};
+  color: ${({ theme }) => theme.text};
+}
+
+& .login-createUser {
+  color: ${({ theme }) => theme.a};
+}
+
+& .login-createUser:before {
+  background: ${({ theme }) => theme.a};
+  color: ${({ theme }) => theme.a};
+}
   `

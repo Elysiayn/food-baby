@@ -67,7 +67,7 @@
 
 .login-createUser {
   position: relative;
-  color: var(--quarternary-color);
+  color: var(--secondary-color);
 }
 
 .login-createUser:before {
@@ -77,7 +77,7 @@
   height: 2px;
   bottom: 0;
   left: 0;
-  background: var(--quarternary-color);
+  background: var(--secondary-color);
   visibility: hidden;
   transition: all 0.3s ease-in-out;
 }

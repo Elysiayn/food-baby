@@ -1,5 +1,5 @@
 import React from 'react';
-const firebase = require('firebase');
+import firebase from 'firebase';
 import FileUploader from 'react-firebase-file-uploader';
 
 import { UPDATE_CURRENT_MENU_ITEM } from '../../utils/actions';

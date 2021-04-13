@@ -1,8 +1,8 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
-const firebase = require('firebase');
+import firebase from 'firebase';
 
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
@@ -34,25 +34,20 @@ const client = new ApolloClient({
   uri: '/graphql',
 })
 
-const App = () => {
-
-
-  const [theme, themeToggler] = useDarkMode();
-
-  const themeMode = theme === 'light' ? lightTheme : darkTheme;
+// const App = () => 
   
   const firebaseConfig = {
-    apiKey: "AIzaSyAPYUQl3v49glJc2H1WErSHVGgejiqEfxo",
-    authDomain: "food-baby-682db.firebaseapp.com",
-    databaseURL: "https://food-baby-682db-default-rtdb.firebaseio.com",
-    projectId: "food-baby-682db",
-    storageBucket: "food-baby-682db.appspot.com",
-    messagingSenderId: "696002118688",
-    appId: "1:696002118688:web:c7b3e92a1806d71bb92845",
-    measurementId: "G-L9R64LNE17"
-  };
+  apiKey: "AIzaSyAPYUQl3v49glJc2H1WErSHVGgejiqEfxo",
+  authDomain: "food-baby-682db.firebaseapp.com",
+  databaseURL: "https://food-baby-682db-default-rtdb.firebaseio.com",
+  projectId: "food-baby-682db",
+  storageBucket: "food-baby-682db.appspot.com",
+  messagingSenderId: "696002118688",
+  appId: "1:696002118688:web:c7b3e92a1806d71bb92845",
+  measurementId: "G-L9R64LNE17"
+};
 
-  const onMessageListener = () => 
+  const onMessageListener = () =>
     new Promise((resolve) => {
       messaging.onMessage((payload) => {
         resolve(payload)
@@ -61,33 +56,39 @@ const App = () => {
 
 
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+  }
 
-    const messaging= firebase.messaging();
-      // messaging.requestPermission()
-      // .then(function() {
-      //   console.log('Have permission');
-      //   return messaging.getToken(); 
-      // })
-      // .then( function (token) {
-      
-      //   console.log(token);
-      // })
-      // .catch(function(err) {
-      //   console.log(err);
-      // })
-      messaging.onMessage(payload => {
-        console.log('onMessage:', payload)
-      });
+  const messaging = firebase.messaging();
+  // messaging.requestPermission()
+  // .then(function() {
+  //   console.log('Have permission');
+  //   return messaging.getToken(); 
+  // })
+  // .then( function (token) {
+
+  //   console.log(token);
+  // })
+  // .catch(function(err) {
+  //   console.log(err);
+  // })
+  messaging.onMessage(payload => {
+    console.log('onMessage:', payload)
+  });
 
   function App() {
 
-    const [show, setShow ] = useState(false)
-    const [notification, setNotification] = useState({title: '', body: ''});
+    const [theme, themeToggler] = useDarkMode();
+
+    const themeMode = theme === 'light' ? lightTheme : darkTheme;
+
+    const [show, setShow] = useState(false)
+    const [notification, setNotification] = useState({ title: '', body: '' });
 
     onMessageListener().then(payload => {
       setShow(true);
-      setNotification({title: payload.notification.title, body: payload.notification.body})
+      setNotification({ title: payload.notification.title, body: payload.notification.body })
       console.log(payload);
     }).catch(err => console.log('failed: ', err));
 
@@ -99,42 +100,40 @@ const App = () => {
     return (
 
       <ApolloProvider client={client}>
-            
+
         <Router>
           <ThemeProvider theme={themeMode}>
-        <>
-            <GlobalStyles />
-          <div>
-            <Toggle theme={theme} toggleTheme={themeToggler} />
-            <StoreProvider>
-              <Nav />
-              { (show) && <Message 
-                onDismiss={() => handleDismiss()}
-                show={show}
-                delay={100}
-                header={notification.title}
-                content={notification.body}
-              />}
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/dashboard" component={Dashboard} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/orderHistory" component={OrderHistory} />
-                <Route exact path="/signup" component={Signup} /> 
-                <Route exact path="/success" component={Success} />
-                <Route component={NoMatch} /> 
-              </Switch>
-            </StoreProvider>
-          </div>
-          </>
-        </ThemeProvider>
-        </Router> 
+            <>
+              <GlobalStyles />
+              <div>
+                <Toggle theme={theme} toggleTheme={themeToggler} />
+                <StoreProvider>
+                  <Nav />
+                  {(show) && <Message
+                    onDismiss={() => handleDismiss()}
+                    show={show}
+                    delay={100}
+                    header={notification.title}
+                    content={notification.body}
+                  />}
+                  <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/dashboard" component={Dashboard} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/orderHistory" component={OrderHistory} />
+                    <Route exact path="/signup" component={Signup} />
+                    <Route exact path="/success" component={Success} />
+                    <Route component={NoMatch} />
+                  </Switch>
+                </StoreProvider>
+              </div>
+            </>
+          </ThemeProvider>
+        </Router>
         <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>  
+        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
       </ApolloProvider>
-  
     );
   }
-}
 
-export default App;
+  export default App;
