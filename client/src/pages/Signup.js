@@ -24,14 +24,6 @@ function Signup() {
                 }
             });
 
-<<<<<<< HEAD
-        firebase.database().ref(`users/`).push({
-            email: formState.email,
-            firstName: formState.firstName,
-            lastName: formState.lastName
-        }, error => { console.log(error)
-=======
->>>>>>> 23fb46da5661150d386df2e44e05b826a7558602
             const token = mutationResponse.data.addUser.token;
             Auth.login(token);
        
