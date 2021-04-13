@@ -31,7 +31,6 @@ function Permission () {
             .catch(function(error) {
                 console.error(error)
             })
-            // firebase.database().ref('users/' + this.currentUid + '/notificationTokens/' + token).set(true)
             console.log(token);
             setPermission(true);
         })
