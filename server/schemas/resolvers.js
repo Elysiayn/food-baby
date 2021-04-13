@@ -116,6 +116,12 @@ const resolvers = {
 
             throw new AuthenticationError('Not logged in');
         },
+        deleteMenuItem: async (parent, args, context) => {
+            console.log(args)
+            await MenuItem.findByIdAndDelete(args);
+
+            return;
+        },
         updateUser: async (parent, args, context) => {
             if (context.user) {
                 return await User.findByIdAndUpdate(context.user._id, args, { new: true })

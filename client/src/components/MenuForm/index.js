@@ -69,7 +69,7 @@ const MenuForm = (props) => {
         event.preventDefault();
 
         try {
-            const mutationResponse = await addMenuItem({variables: {
+            const mutationResponse = await addMenuItem({ variables: {
                 menuItem: itemPreview
             }});
 
