@@ -61,7 +61,7 @@ export const GlobalStyles = createGlobalStyle`
   transition all .50s linear;
 }
 
-& div.menu-cards {
+& .menu-cards {
   background: ${({ theme }) => theme.body};
   color: ${({ theme }) => theme.text};
 }
@@ -72,6 +72,23 @@ export const GlobalStyles = createGlobalStyle`
 
 & .login-createUser:before {
   background: ${({ theme }) => theme.a};
+  color: ${({ theme }) => theme.a};
+}
+
+& .checkout-link {
+  color: ${({ theme }) => theme.a};
+}
+
+& .checkout-link:hover {
+  color: ${({ theme }) => theme.a};
+}
+
+& .checkout-link:before {
+  background: ${({ theme }) => theme.a};
+  color: ${({ theme }) => theme.a};
+}
+
+& .close {
   color: ${({ theme }) => theme.a};
 }
   `

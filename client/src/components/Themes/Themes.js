@@ -11,5 +11,5 @@ export const darkTheme = {
     toggleBorder: '#6B8096',
     background: '#999',
     a: '#ffb037',
-    card: '#999'
+    div: '#999'
 }
