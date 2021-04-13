@@ -1,8 +1,9 @@
 import React, { useEffect} from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_ORDER } from '../utils/mutations';
-import { formatDate, idbPromise } from '../utils/helpers';
+import { idbPromise } from '../utils/helpers';
 import { useStoreContext } from '../utils/GlobalState';
+import firebase from 'firebase';
 
 
 function Success() {
@@ -10,8 +11,15 @@ function Success() {
     const [addOrder] = useMutation(ADD_ORDER);
     const [state] = useStoreContext();
     
-    useEffect(() => {
+   
 
+
+    useEffect(() => {
+        console.log(state.user)
+    const firstName = state.user.firstName;
+    const firebaseId = state.user._id;
+    const lastName = state.user.lastName;
+    
         async function saveOrder() {
             const cart = await idbPromise('cart', 'get');
             const menuItems = cart.map(item => item._id);
@@ -23,19 +31,23 @@ function Success() {
             if (menuItems.length) {
                 const { data } = await addOrder({ variables: { menuItems } });
                 const menuItemData = data.addOrder.menuItems;
-                const purchaseDate = data.addOrder.purchaseDate;
-                const orderTime = new Date (purchaseDate * 1000)
-                const completionTime = new Date ((purchaseDate + 1800) * 1000);
+                const purchaseDate = parseInt(data.addOrder.purchaseDate);
+                const orderTime = new Date (purchaseDate)
+                const completionTime = new Date(purchaseDate);
+                completionTime.setMinutes( completionTime.getMinutes() + 30 )
                 console.log(orderTime);
                 console.log(completionTime);
-
+                console.log(state.user)
+                
                 // console.log('====222222222222======', menuItemData);
-                // firebase.database().ref('orders').push({
-                //     firstName: state.user.firstName,
-                //     lastName: state.user.LastName,
-                //     menuItems,
-                //     purchaseDate: formatTime(data.addOrder.purchaseDate)
-                // })    
+                firebase.database().ref('orders').push({
+                    firebaseId,
+                    firstName,
+                    lastName,
+                    menuItems,
+                    purchaseDate: orderTime,
+                    orderReady: completionTime
+                })    
 
 
                 menuItemData.forEach(item => {
