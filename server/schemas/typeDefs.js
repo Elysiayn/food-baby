@@ -45,6 +45,15 @@ type Auth {
     user: User
 }
 
+input MenuItemInput {
+    _id: ID
+    name: String!
+    description: String!
+    image: String!
+    price: Int!
+    course: String!
+}
+
 type Query {
     course: [Course]
     menuItem(_id: ID!): MenuItem
@@ -56,9 +65,10 @@ type Query {
 }
 
 type Mutation {
+    addMenuItem(menuItem: MenuItemInput): MenuItem
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
     updateUser(_id: ID!, firstName: String, lastName: String, email: String, password: String): User
-    updateMenuItem(_id: ID!, name: String, description: String, price: Int): MenuItem
+    updateMenuItem(_id: ID!, name: String!, image: String!, description: String!, price: Int!): MenuItem
     login(email: String!, password: String!): Auth
     addOrder(menuItems: [ID]!): Order
 }

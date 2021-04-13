@@ -24,7 +24,6 @@ const MenuPreview = () => {
             const itemDescription = itemPreview.description ? 
                 itemPreview.description : 'Give your menu item a short description.'
 
-            console.log(itemPreview.image)
             previewArea.innerHTML = `
                 <h3>${formatName(itemName)}</h3>
                 <div>
