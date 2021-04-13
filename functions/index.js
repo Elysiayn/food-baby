@@ -21,22 +21,29 @@ exports.welcomeUser = functions.database.ref('/users/{userId}')
     return admin.messaging().sendToDevice(token, payload);
 });
 
-// exports.orderConfirmation = functions.database.ref('/checkout/{oid}/{uid}')
-//     .onCreate((snapshot, context) => {
-//         const orderId = context.params.oid
-//         const userId = context.params.uid;
+exports.orderConfirmation = functions.database.ref('/orders/{oid}')
+    .onCreate((snapshot, context) => {
+        const orderId = context.params.oid
+        const userData = snapshot.val()
 
-//         const token = " user token"
+        const dbRef = firebase.database().ref();
+            dbRef.child("user").child(userData.firebaseId).get().then((snap) => {
+                 snap.val()
+            }
+            
+            )
 
-//         const payload = {
-//             notification: {
-//                 title: 'Order Recieved',
-//                 body: `Thank you for your order, ${userId}. ${orderId}`
-//             }
-//         }
+            const token = dbRef.snap.token;
 
-//         return admin.messaging.sendToDevice(token, payload);
-//     })
+        const payload = {
+            notification: {
+                title: 'Order Recieved',
+                body: `Thank you for your order# ${orderId}, ${userData.firstName}. It will be ready at ${userData.orderReady}`
+            }
+        }
+
+        return admin.messaging.sendToDevice(token, payload);
+    })
 
 // exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
 //     // [END onCreateTrigger]

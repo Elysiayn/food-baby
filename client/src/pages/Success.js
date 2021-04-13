@@ -10,36 +10,36 @@ function Success() {
 
     const [addOrder] = useMutation(ADD_ORDER);
     const [state] = useStoreContext();
-    
-   
-
 
     useEffect(() => {
-        console.log(state.user)
-    const firstName = state.user.firstName;
-    const firebaseId = state.user._id;
-    const lastName = state.user.lastName;
-    
+      
         async function saveOrder() {
             const cart = await idbPromise('cart', 'get');
             const menuItems = cart.map(item => item._id);
-            
 
-            // console.log('==============================', menuItems);
-
-            // debugger;
             if (menuItems.length) {
                 const { data } = await addOrder({ variables: { menuItems } });
                 const menuItemData = data.addOrder.menuItems;
+               
                 const purchaseDate = parseInt(data.addOrder.purchaseDate);
                 const orderTime = new Date (purchaseDate)
                 const completionTime = new Date(purchaseDate);
                 completionTime.setMinutes( completionTime.getMinutes() + 30 )
-                console.log(orderTime);
-                console.log(completionTime);
-                console.log(state.user)
+
                 
-                // console.log('====222222222222======', menuItemData);
+
+                menuItemData.forEach(item => {
+                    idbPromise('cart', 'delete', item)
+                    // console.log('====33333333333======', item);
+
+                });
+                
+                console.log(state.user)
+                const firstName = state.user.firstName;
+                const firebaseId = state.user._id;
+                const lastName = state.user.lastName;
+    
+
                 firebase.database().ref('orders').push({
                     firebaseId,
                     firstName,
@@ -47,14 +47,7 @@ function Success() {
                     menuItems,
                     purchaseDate: orderTime,
                     orderReady: completionTime
-                })    
-
-
-                menuItemData.forEach(item => {
-                    idbPromise('cart', 'delete', item)
-                    // console.log('====33333333333======', item);
-
-                });
+                })  
 
                 setTimeout(function() {
                     window.location.assign('/')
