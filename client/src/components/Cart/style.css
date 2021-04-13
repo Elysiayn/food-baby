@@ -3,7 +3,7 @@
     top: .5rem;
     right: .5rem;
     cursor: pointer;
-    color: var(--secondary-color);
+    /* color: var(--secondary-color); */
 }
   
 .cart .close:hover {

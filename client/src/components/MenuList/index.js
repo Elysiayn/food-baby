@@ -1,12 +1,15 @@
 import React from 'react';
 import { Accordion, Icon, Table } from 'semantic-ui-react';
+import { useMutation } from '@apollo/react-hooks';
 
 import { UPDATE_MENU_ITEMS } from '../../utils/actions';
 import { formatName } from '../../utils/helpers';
 import { useStoreContext } from '../../utils/GlobalState';
+import { DELETE_MENU_ITEM } from '../../utils/mutations';
 
 const MenuList = () => {
     const [state, dispatch] = useStoreContext();
+    const [deleteMenuItem] = useMutation(DELETE_MENU_ITEM);
 
     if (state.menuItems.length < 1) {
         // uses menu saved in localStorage
@@ -17,6 +20,11 @@ const MenuList = () => {
             menuItems: menu
         });
     }
+
+    const handleDelete = (event) => {
+        const id = event.target.getAttribute('data-id');
+        deleteMenuItem({ variables: {_id: id } });
+    };
 
     return (
         <Accordion.Content active={state.activeIndex === 0}>
@@ -37,7 +45,7 @@ const MenuList = () => {
                             <Table.Cell className='edit-cell'>
                                 <Icon name='edit' /> 
                                 / 
-                                <Icon name='delete' />
+                                <Icon name='delete' data-id={item._id} onClick={handleDelete} />
                             </Table.Cell>
                         </Table.Row>
                     ))}

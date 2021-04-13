@@ -88,6 +88,14 @@ const resolvers = {
         }
     },
     Mutation: {
+        addMenuItem: async (parent, { menuItem }) => {
+            const query = await Course.findOne({ name: menuItem.course })
+            const courseId = query._id;
+
+            const newItem = await MenuItem.create({ ...menuItem, course: courseId });
+
+            return newItem;
+        },
         addUser: async (parent, args) => {
 
             const user = await User.create(args);
@@ -107,6 +115,12 @@ const resolvers = {
             }
 
             throw new AuthenticationError('Not logged in');
+        },
+        deleteMenuItem: async (parent, args, context) => {
+            console.log(args)
+            await MenuItem.findByIdAndDelete(args);
+
+            return;
         },
         updateUser: async (parent, args, context) => {
             if (context.user) {

@@ -2,46 +2,22 @@ const functions = require("firebase-functions");
 
 const admin = require('firebase-admin');
 admin.initializeApp();
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
-exports.addMessage = functions.https.onRequest(async( req, res) => {
-    const original = req.query.text;
-    const writeResult = await admin.firestore().collection('messages').add({ original: original });
 
-    res.json({ result: `Message with ID: ${writeResult.id} added.`});
-});
+exports.welcomeUser = functions.database.ref('/users/{userId}')
+    .onWrite((change, context) => {
 
-exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
-    .onCreate((snap, context) => {
-        const original = snap.data().original;
-
-        functions.logger.log('Uppercasing', context.params.documentId, original);
-
-        const uppercase = original.toUpperCase();
-
-        return snap.ref.set({uppercase}, {merge:true});
-});
-
-exports.welcomeUser = functions.database.ref('/users/{uid}')
-    .onCreate((snapshot, context) => {
-        
-        const userId = context.params.uid;
-        console.log(`testing ${userId}`)
-        const token = 'cxI26L__jA7scTWwuCgJuF:APA91bFu1sY2H9SQRVr30OVsRlCtLdbuRaqCzHhKD3fSXGIQByWs1Ez5P8xo1L22OC7MiI_KNt7XGycUlMWUpxWqR1Sm2mpxYvbb_XPwjmIESV3e2hd_otO_PCSTTSr-3sFcnoq-xlpz'
-        
-        const userData = snapshot.val()
-
+        const userId = context.params.userId
+        const userData = change.after.val()
+        const token = userData.token   
         const payload = {
             notification: {
                 title: 'Thanks for signing in!',
                 body: `Welcome to food baby, ${userData.firstName}`
             }
         }
+
+        console.log(`${userId} from firebase`);
+
     return admin.messaging().sendToDevice(token, payload);
 });
 

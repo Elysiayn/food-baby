@@ -5,7 +5,7 @@ import { useStoreContext } from '../../utils/GlobalState';
 import { formatName } from '../../utils/helpers';
 
 const MenuPreview = () => {
-    const [state, dispatch] = useStoreContext();
+    const [state] = useStoreContext();
     
     useEffect(() => {
         const previewArea = document.querySelector('.preview-area');
@@ -16,9 +16,11 @@ const MenuPreview = () => {
             const itemName = itemPreview.name ? 
                 itemPreview.name : 'Item Name'
             const itemPrice = itemPreview.price ? 
-                `$${itemPreview.price}` : 'Set a price.'
+                `$${itemPreview.price}` : 'Set a price'
             const itemCourse = itemPreview.course ? 
-                itemPreview.course : 'Pick a course'
+                itemPreview.course : 'pick a course'
+            const itemImage = itemPreview.image ?
+                `<img src=${itemPreview.image} alt=${itemPreview.name} />` : 'Upload an image!'
             const itemDescription = itemPreview.description ? 
                 itemPreview.description : 'Give your menu item a short description.'
 
@@ -27,11 +29,12 @@ const MenuPreview = () => {
                 <div>
                     <span class="preview-price">${itemPrice}</span>, ${itemCourse}
                 </div>
+                <div class="preview-image">${itemImage}</div>
                 <div class='preview-description'>${itemDescription}</div>
             `;
         }
 
-    }, [state, dispatch])
+    }, [state])
 
     return (
         <div className='preview-area'>
