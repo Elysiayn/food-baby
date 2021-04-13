@@ -67,7 +67,7 @@
 
 .login-createUser {
   position: relative;
-  color: var(--tertiary-color);
+  color: var(--secondary-color);
 }
 
 .login-createUser:before {
@@ -77,7 +77,7 @@
   height: 2px;
   bottom: 0;
   left: 0;
-  background: #2F5D62;
+  background: var(--secondary-color);
   visibility: hidden;
   transition: all 0.3s ease-in-out;
 }
@@ -213,4 +213,31 @@
 .menu-placeholder {
   height: 100%;
   width: 100%;
+}
+
+.checkout-link {
+  position: relative;
+  color: var(--secondary-color);
+}
+
+.checkout-link:before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: var(--secondary-color);
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.checkout-link:hover {
+  color: var(--secondary-color);
+}
+
+.checkout-link:hover:before {
+  visibility: visible;
+  width: 100%;
+
 }

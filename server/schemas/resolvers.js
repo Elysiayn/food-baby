@@ -88,6 +88,14 @@ const resolvers = {
         }
     },
     Mutation: {
+        addMenuItem: async (parent, { menuItem }) => {
+            const query = await Course.findOne({ name: menuItem.course })
+            const courseId = query._id;
+
+            const newItem = await MenuItem.create({ ...menuItem, course: courseId });
+
+            return newItem;
+        },
         addUser: async (parent, args) => {
 
             const user = await User.create(args);

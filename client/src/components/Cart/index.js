@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { Button, Header, Icon, List, Segment } from 'semantic-ui-react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { loadStripe } from '@stripe/stripe-js';
@@ -103,7 +104,7 @@ const Cart = () => {
                                 </Button.Content>
                             </Button>
                             :
-                            <span>(log in to check out)</span>
+                            <Link className='checkout-link' to={'/login'}>(log in to check out)</Link>
                         }
                     </p>
                 </div>
