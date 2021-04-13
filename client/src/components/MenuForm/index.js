@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Accordion, Button, Form } from 'semantic-ui-react';
 import { useMutation } from '@apollo/react-hooks';
 
 import ImageUpload from '../ImageUpload';
 
-import { UPDATE_CURRENT_MENU_ITEM } from '../../utils/actions';
+import { TOGGLE_EDIT_MODE, UPDATE_MENU_ITEM } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
 import { ADD_MENU_ITEM } from '../../utils/mutations';
 
 const MenuForm = (props) => {
     const [state, dispatch] = useStoreContext();
-    const { itemPreview } = state;
+    const { editMode, itemPreview } = state;
     const { index } = props;
     const [addMenuItem] = useMutation(ADD_MENU_ITEM);
 
@@ -20,6 +20,26 @@ const MenuForm = (props) => {
         { key: '2', value: 'desserts', text: 'desserts' },
         { key: '3', value: 'drinks', text: 'drinks' }
     ]
+
+    useEffect(() => {
+
+        // populates form fields when form is in 'edit mode'
+        if(editMode) {
+            const nameInput = document.querySelector('[name="name"]');
+            nameInput.setAttribute('value', itemPreview.name);
+    
+            const priceInput = document.querySelector('[name="price"]');
+            priceInput.setAttribute('value', itemPreview.price);
+    
+            const courseMenu = document.querySelector('[name="course"]');
+            const selectedOption = courseMenu.querySelector(`option[value="${itemPreview.course}"]`);
+            selectedOption.setAttribute('selected', 'selected');
+            
+            const descriptionInput = document.querySelector('[name="description"]');
+            descriptionInput.textContent = itemPreview.description
+        }
+
+    }, [editMode, itemPreview])
 
     const handleChange = event => {
         const { name, value } = event.target    
@@ -33,7 +53,7 @@ const MenuForm = (props) => {
                 const selectedOption = event.target.querySelector('span').textContent
                 
                 dispatch({
-                    type: UPDATE_CURRENT_MENU_ITEM,
+                    type: UPDATE_MENU_ITEM,
                     itemPreview: {
                         ...itemPreview,
                         course: selectedOption
@@ -46,7 +66,7 @@ const MenuForm = (props) => {
                 const priceInt = parseInt(value);
 
                 dispatch({ 
-                    type: UPDATE_CURRENT_MENU_ITEM,
+                    type: UPDATE_MENU_ITEM,
                     itemPreview: {
                         ...itemPreview,
                         price: priceInt
@@ -56,7 +76,7 @@ const MenuForm = (props) => {
                 break;
             default: 
                 dispatch({
-                    type: UPDATE_CURRENT_MENU_ITEM,
+                    type: UPDATE_MENU_ITEM,
                     itemPreview: { 
                         ...itemPreview, 
                         [name]: value 
@@ -67,6 +87,14 @@ const MenuForm = (props) => {
 
     const handleFormSubmit = async event => {
         event.preventDefault();
+
+        // turn off edit mode
+        if (editMode) {
+            dispatch({
+                type: TOGGLE_EDIT_MODE,
+                editMode: false
+            });
+        }
 
         try {
             const mutationResponse = await addMenuItem({ variables: {
@@ -99,14 +127,24 @@ const MenuForm = (props) => {
                             id='form-price'
                         />
                     </Form.Field> 
-                    <Form.Select 
+                    {/* <Form.Select 
                         fluid 
                         label='Course'
                         name='course'
                         placeholder='Select the Course' 
                         options={courses} 
                         onChange={handleChange} 
-                    />
+                    /> */}
+                    <Form.Field>
+                        <label htmlFor='form-course'>Course</label>
+                        <select name='course' id='form-course' onChange={handleChange}>
+                            <option value='' disabled>Select the course</option>
+                            <option value='appetizers'>appetizers</option>
+                            <option value='mains'>mains</option>
+                            <option value='desserts'>desserts</option>
+                            <option value='drinks'>drinks</option>
+                        </select>
+                    </Form.Field>
                 </Form.Group>
                 <Form.Field>
                     <label htmlFor='form-image-upload'>Image</label>

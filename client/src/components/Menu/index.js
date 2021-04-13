@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { Card, Header } from 'semantic-ui-react';
 
 import { useStoreContext } from '../../utils/GlobalState';
-import { UPDATE_ALL_COURSES, UPDATE_MENU_ITEMS } from '../../utils/actions';
+import { UPDATE_ALL_COURSES, UPDATE_MENU_LIST } from '../../utils/actions';
 import { QUERY_ALL_MENU_ITEMS, QUERY_ALL_COURSES } from '../../utils/queries';
 import { filterMenu, idbPromise } from '../../utils/helpers';
 import MenuItem from '../MenuItem/index';
@@ -36,7 +36,7 @@ function Menu() {
                 
             case (data !== undefined): 
                 dispatch({ 
-                    type: UPDATE_MENU_ITEMS,
+                    type: UPDATE_MENU_LIST,
                     menuItems: data.menuItems
                 });
                 
@@ -50,7 +50,7 @@ function Menu() {
             default:
                 idbPromise('menuItems', 'get').then(item => {
                     dispatch({
-                        type: UPDATE_MENU_ITEMS,
+                        type: UPDATE_MENU_LIST,
                         menuItems: item
                     });
                 });

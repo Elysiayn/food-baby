@@ -210,6 +210,19 @@
   margin: .75em 0;
 }
 
+.delete-btn,
+.edit-btn {
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  color: var(--secondary-color);
+}
+
+.delete-btn:hover {
+  color: darkred
+}
+
 .menu-placeholder {
   height: 100%;
   width: 100%;

@@ -13,7 +13,12 @@ const resolvers = {
             return await MenuItem.find().populate('course');
         },
         menuItem: async (parent, { _id }) => {
-            return await MenuItem.findById(_id).populate('course');
+            const menuItem = await MenuItem
+                .findById(_id)
+                .populate('course')
+                .select('-__v');
+
+            return menuItem;
         },
         allUsers : async () => {
             return User.find();
@@ -89,7 +94,7 @@ const resolvers = {
     },
     Mutation: {
         addMenuItem: async (parent, { menuItem }) => {
-            const query = await Course.findOne({ name: menuItem.course })
+            const query = await Course.findOne({ name: menuItem.course });
             const courseId = query._id;
 
             const newItem = await MenuItem.create({ ...menuItem, course: courseId });
@@ -129,10 +134,14 @@ const resolvers = {
 
             throw new AuthenticationError('Not logged in');
         },
-        updateMenuItem: async (parent, args, context) => {
-            // const decrement = Math.abs(args.quantity) * -1;
+        updateMenuItem: async (parent, { menuItem }) => {
+            const query = await Course.findOne({ name: menuItem.course });
+            const courseId = query._id;
 
-            return await MenuItem.findByIdAndUpdate(args._id, args, { new: true });
+            return await MenuItem.findByIdAndUpdate(
+                menuItem._id,
+                { ...menuItem, course: courseId}, 
+                { new: true });
         },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
