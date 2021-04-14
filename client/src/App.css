@@ -1,0 +1,261 @@
+:root {
+  --primary-background: white;
+  --secondary-background: black;
+  --primary-color: #FFE268;
+  --secondary-color: #2f5d62;
+  --tertiary-color: #364547;
+  --quarternary-color: #ffb037;
+  --title-font: 'Acme', sans-serif;
+  --body-font: 'Montserrat', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: var(--body-font);
+}
+
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: auto;
+  min-width: 100vw;
+  font-size: 1.45rem;
+}
+
+.login-title {
+  font-size: 6.25rem;
+  font-family: var(--title-font);
+}
+
+.login-form {
+  justify-content: space-between;
+  
+}
+
+.login-email {
+  align-items: center;
+  margin: 10px;
+}
+
+.login-email-label {
+  padding-right: .75rem;
+}
+
+.login-password {
+  margin: 10px;
+}
+.login-password-label {
+  padding-right: 4.125rem;
+}
+
+.login-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+#login-btn {
+  padding: 20px;
+  width: 15rem;
+  background: var(--primary-color);
+  font-size: 1.25rem;
+}
+
+.login-createUser {
+  position: relative;
+  color: var(--secondary-color);
+}
+
+.login-createUser:before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: var(--secondary-color);
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-createUser:hover:before {
+  visibility: visible;
+  width: 100%;
+}
+
+.create-form {
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.user-first-label {
+  padding-right: 3.25rem;
+}
+
+.user-last-label {
+  padding-right: 3.43rem;
+}
+
+.create-email-label {
+  padding-right: .85rem;
+}
+
+.create-password-label {
+  padding-right: 4.27rem;
+}
+
+.create-user {
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* nav styles */
+.nav-container {
+  background-color: var(--primary-color) !important;
+}
+
+.navLinks {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-size: large;
+}
+
+.nav-container a {
+  color:var(--secondary-color) !important;
+}
+
+.nav-container a:hover {
+  color: var(--tertiary-color) !important;
+  font-size: larger;
+}
+
+.createUser-error {
+  color: var(--quarternary-color);
+  text-align: center;
+  margin: 0 auto;
+  width: 65%;
+}
+
+.toLogin {
+  margin-top: 25px;
+
+}
+
+/* menu styles */
+.menu {
+  width: 75vw;
+}
+
+.menu-title {
+  letter-spacing: .1em;
+  text-align: center;
+}
+
+.course-wrapper {
+  margin: 2em 5em;
+}
+
+.course-title {
+  text-align: center;
+  letter-spacing: .1em;
+}
+
+.card-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* dashboard styles */
+.dashboard-left {
+  max-width: 50vw;
+}
+
+.dashboard-right {
+  max-width: 50vw;
+}
+
+.dashboard-menu {
+  padding: 1em;
+}
+
+.edit-cell {
+  display: flex;
+  justify-content: center;
+}
+
+.preview-area {
+  width: 100%;
+  height: 100%;
+}
+
+.preview-price {
+  color: rgba(10, 6, 6, 0.4);
+}
+
+.preview-course {
+  margin: 1em 0;
+}
+
+.preview-image {
+  max-width: 30em;
+  margin: .75em 0;
+}
+
+.preview-image img {
+  width: 100%;;
+}
+
+.preview-description {
+  margin: .75em 0;
+}
+
+.delete-btn,
+.edit-btn {
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  color: var(--secondary-color);
+}
+
+.delete-btn:hover {
+  color: darkred
+}
+
+.menu-placeholder {
+  height: 100%;
+  width: 100%;
+}
+
+.checkout-link {
+  position: relative;
+  color: var(--secondary-color);
+}
+
+.checkout-link:before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: var(--secondary-color);
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.checkout-link:hover {
+  color: var(--secondary-color);
+}
+
+.checkout-link:hover:before {
+  visibility: visible;
+  width: 100%;
+
+}
