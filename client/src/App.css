@@ -253,3 +253,20 @@
   visibility: visible;
   width: 100%;
 }
+
+/* order styles */
+.order-container {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  /* max-width:1200px;  */
+}
+
+.order {
+  font-family: var(--body-font);
+}
+
+.order-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: space-between;
+}
