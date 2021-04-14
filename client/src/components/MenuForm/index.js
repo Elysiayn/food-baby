@@ -6,20 +6,14 @@ import ImageUpload from '../ImageUpload';
 
 import { TOGGLE_EDIT_MODE, UPDATE_MENU_ITEM } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
-import { ADD_MENU_ITEM } from '../../utils/mutations';
+import { ADD_MENU_ITEM, EDIT_MENU_ITEM } from '../../utils/mutations';
 
 const MenuForm = (props) => {
     const [state, dispatch] = useStoreContext();
     const { editMode, itemPreview } = state;
     const { index } = props;
     const [addMenuItem] = useMutation(ADD_MENU_ITEM);
-
-    const courses = [
-        { key: '0', value: 'appetizers', text: 'appetizers' },
-        { key: '1', value: 'mains', text: 'mains' },
-        { key: '2', value: 'desserts', text: 'desserts' },
-        { key: '3', value: 'drinks', text: 'drinks' }
-    ]
+    const [editMenuItem] = useMutation(EDIT_MENU_ITEM);
 
     useEffect(() => {
 
@@ -38,7 +32,6 @@ const MenuForm = (props) => {
             const descriptionInput = document.querySelector('[name="description"]');
             descriptionInput.textContent = itemPreview.description
         }
-
     }, [editMode, itemPreview])
 
     const handleChange = event => {
@@ -94,18 +87,30 @@ const MenuForm = (props) => {
                 type: TOGGLE_EDIT_MODE,
                 editMode: false
             });
-        }
 
-        try {
-            const mutationResponse = await addMenuItem({ variables: {
-                menuItem: itemPreview
-            }});
+            try {
+                const editResponse = await editMenuItem({
+                    variables: {
+                        menuItem: itemPreview
+                    }
+                })
 
-            return mutationResponse;
-        } catch (e) {
-            console.log(e)
+                return editResponse;
+            } catch (e) {
+                console.log(e)
+            }
+        } else {
+            try {
+                const mutationResponse = await addMenuItem({ variables: {
+                    menuItem: itemPreview
+                }});
+    
+                return mutationResponse;
+            } catch (e) {
+                console.log(e)
+            }
         }
-    }
+    };
 
     return (
         <Accordion.Content active={state.activeIndex === index}>
@@ -138,6 +143,7 @@ const MenuForm = (props) => {
                     <Form.Field>
                         <label htmlFor='form-course'>Course</label>
                         <select name='course' id='form-course' onChange={handleChange}>
+                            <option value='' disabled hidden>Select the course</option>
                             <option value='' disabled>Select the course</option>
                             <option value='appetizers'>appetizers</option>
                             <option value='mains'>mains</option>

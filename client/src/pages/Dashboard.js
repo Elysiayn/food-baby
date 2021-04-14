@@ -64,7 +64,7 @@ const Dashboard = () => {
                     
                 </Accordion>
             </Segment>
-            <Segment>
+            <Segment className='dashboard-right'>
                 <MenuPreview />
             </Segment>
         </Segment.Group>

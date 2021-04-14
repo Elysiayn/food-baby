@@ -27,6 +27,10 @@ const MenuList = () => {
         if (data) {
             const { menuItem } = data;
 
+            // remove __typename
+            delete menuItem.__typename
+            delete menuItem.course.__typename
+
             dispatch({
                 type: UPDATE_MENU_ITEM,
                 itemPreview: {

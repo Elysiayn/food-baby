@@ -127,6 +127,16 @@ const resolvers = {
 
             return;
         },
+        editMenuItem: async (parent, { menuItem }) => {
+            console.log('something')
+            const query = await Course.findOne({ name: menuItem.course });
+            const courseId = query._id;
+
+            return await MenuItem.findByIdAndUpdate(
+                menuItem._id,
+                { ...menuItem, course: courseId}, 
+                { new: true });
+        },
         updateUser: async (parent, args, context) => {
             if (context.user) {
                 return await User.findByIdAndUpdate(context.user._id, args, { new: true })
@@ -134,7 +144,35 @@ const resolvers = {
 
             throw new AuthenticationError('Not logged in');
         },
-        updateMenuItem: async (parent, { menuItem }) => {
+
+        editMenuItem: async (parent, { menuItem }) => {
+            const query = await Course.findOne({ name: menuItem.course });
+            const courseId = query._id;
+
+            return await MenuItem.findByIdAndUpdate(
+                menuItem._id,
+                { ...menuItem, course: courseId}, 
+                { new: true });
+        },
+        editMenuItem: async (parent, { menuItem }) => {
+            const query = await Course.findOne({ name: menuItem.course });
+            const courseId = query._id;
+
+            return await MenuItem.findByIdAndUpdate(
+                menuItem._id,
+                { ...menuItem, course: courseId}, 
+                { new: true });
+        },
+        editMenuItem: async (parent, { menuItem }) => {
+            const query = await Course.findOne({ name: menuItem.course });
+            const courseId = query._id;
+
+            return await MenuItem.findByIdAndUpdate(
+                menuItem._id,
+                { ...menuItem, course: courseId}, 
+                { new: true });
+        },
+        editMenuItem: async (parent, { menuItem }) => {
             const query = await Course.findOne({ name: menuItem.course });
             const courseId = query._id;
 
