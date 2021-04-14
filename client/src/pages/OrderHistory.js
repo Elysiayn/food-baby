@@ -21,7 +21,7 @@ function OrderHistory() {
     <div className="order-container">
       <Grid padded stackable columns={2}>
         <Link className="checkout-link" to="/">
-          ← Back to Menu Items
+        <p className='menuLink'>← Back to Menu Items</p>
         </Link>
           {user ? (
             <>

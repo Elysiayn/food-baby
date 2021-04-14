@@ -91,4 +91,16 @@ export const GlobalStyles = createGlobalStyle`
 & .close {
   color: ${({ theme }) => theme.a};
 }
+
+& .menuLink {
+  color: ${({ theme }) => theme.a};
+}
+
+& .menuLink:hover {
+  color: ${({ theme }) => theme.a};
+}
+
+& #cart-btn {
+  background: ${({ theme }) => theme.a};
+}
   `
