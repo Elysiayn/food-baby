@@ -25,7 +25,7 @@ db.once('open', async () => {
         },
         {
             name: 'Traveler\'s Stew',
-            description: 'A earthy and hearty beef, ale and vegetable stew straight from a flame-licked cauldron. For optimal flavour served in a wooden bowl and spoon.',
+            description: 'A earthy and hearty beef, ale and vegetable stew straight from a flame-licked cauldron. For optimal flavour, serve in a wooden bowl and spoon.',
             image: 'https://firebasestorage.googleapis.com/v0/b/food-baby-682db.appspot.com/o/images%2Ftravelers-stew.jpg?alt=media&token=8650eec3-a990-4c09-8797-688704b705d5',
             price: 9,
             course: categories[0]._id
@@ -60,7 +60,7 @@ db.once('open', async () => {
         },
         { 
             name: 'The Mimic',
-            description: 'While the Mimic remains motionless, it is indistinguishable from an ordinary object. Be careful this veggie burger bites back.',
+            description: 'While the Mimic remains motionless, it is indistinguishable from an ordinary burger. Be careful this veggie burger bites back.',
             image: 'https://firebasestorage.googleapis.com/v0/b/food-baby-682db.appspot.com/o/images%2Fveggie-burger.jpg?alt=media&token=232dffc2-0247-4090-b48e-6f9cb8078848',
             price: 12,
             course: categories[1]._id
@@ -88,7 +88,7 @@ db.once('open', async () => {
         },
         {
             name: 'Tavern Steak',
-            description: 'Juicy beef patties kneaded with a chock-full of rich seasongings and seared over an open flame. These steaks are fast dinner options for the hurried tavern hopper.',
+            description: 'Juicy beef patties kneaded with a chock-full of rich seasonings and seared over an open flame. These steaks are fast dinner options for the hurried tavern hopper.',
             image: 'https://firebasestorage.googleapis.com/v0/b/food-baby-682db.appspot.com/o/images%2Ftavern-steak.jpg?alt=media&token=b0e66100-47ef-44cd-bbaa-4cc3fffdaa11',
             price: 12,
             course: categories[1]._id

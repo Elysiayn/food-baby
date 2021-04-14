@@ -15,60 +15,53 @@ function Menu() {
     const { loading, data } = useQuery(QUERY_ALL_MENU_ITEMS);
     const { loading: coursesLoading, data: coursesData } = useQuery(QUERY_ALL_COURSES);
    
-    // stores full menu in localStorage for admin dashboard render persistence
-    localStorage.setItem('menuItems', JSON.stringify(state.menuItems));
-
     useEffect(() => {
-        switch (true) {
-                    
-            case (coursesData !== undefined):
-                dispatch({
-                    type: UPDATE_ALL_COURSES,
-                    allCourses: coursesData.course
-                });
-                        
-                // save to indexedDB
-                coursesData.course.forEach(course => {
-                    idbPromise('courses', 'put', course);
-                });
-                
-                break;
-                
-            case (data !== undefined): 
-                dispatch({ 
-                    type: UPDATE_MENU_LIST,
-                    menuItems: data.menuItems
-                });
-                
-                // save to indexedDB
-                data.menuItems.forEach(item => {
-                    idbPromise('menuItems', 'put', item);
-                });
-                
-                break;
+        
+        if (data) {
+            dispatch({ 
+                type: UPDATE_MENU_LIST,
+                menuItems: data.menuItems
+            });
             
-            default:
-                idbPromise('menuItems', 'get').then(item => {
-                    dispatch({
-                        type: UPDATE_MENU_LIST,
-                        menuItems: item
-                    });
+            // save to indexedDB
+            data.menuItems.forEach(item => {
+                idbPromise('menuItems', 'put', item);
+            });
+        }
+        
+        if (coursesData) {
+            dispatch({
+                type: UPDATE_ALL_COURSES,
+                allCourses: coursesData.course
+            });
+                    
+            // save to indexedDB
+            coursesData.course.forEach(course => {
+                idbPromise('courses', 'put', course);
+            });
+        }
+        
+        if (!loading && !coursesLoading) {
+            idbPromise('menuItems', 'get').then(item => {
+                dispatch({
+                    type: UPDATE_MENU_LIST,
+                    menuItems: item
                 });
+            });
 
-                idbPromise('courses', 'get').then(course => {
-                    dispatch({ 
-                        type: UPDATE_ALL_COURSES,
-                        allCourses: course
-                    });
+            idbPromise('courses', 'get').then(course => {
+                dispatch({ 
+                    type: UPDATE_ALL_COURSES,
+                    allCourses: course
                 });
-        };
+            });
+        }
 
     }, [data, loading, coursesLoading, coursesData, dispatch]);
 
     function capitalize(title) {
         return title.toUpperCase();
     };
-
 
     return (
         <div>

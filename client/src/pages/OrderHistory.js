@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import MenuItem from '../../src/components/MenuItem/index';
+// import MenuItem from '../../src/components/MenuItem/index'; 
 import { Card, Image, Grid } from 'semantic-ui-react';
 import { formatName } from '../utils/helpers';
 
@@ -17,27 +17,26 @@ function OrderHistory() {
   } 
 
   return (
-    <>
-      <Grid className="order-container" padded stackable columns={2}>
-
+  <>
+    <div className="order-container">
+      <Grid padded stackable columns={2}>
         <Link className="checkout-link" to="/">
           ← Back to Menu Items
-          </Link>
-
+        </Link>
           {user ? (
             <>
-            <Grid.Row>
-              <h2>Order History for {user.firstName} {user.lastName} </h2>
+            <Grid.Row> 
+              <h2 className="order" >Order History for {user.firstName} {user.lastName} </h2>
             </Grid.Row>
-            <Grid.Row>
               {user.orders.map((order) => (
                 <div key={order._id} >
-                  <h3>{new Date(parseInt(order.purchaseDate)).toLocaleDateString()}</h3>
+                  <h3 className="order" >{new Date(parseInt(order.purchaseDate)).toLocaleDateString()}</h3>
                   {/* <Grid.Column  id='mobile'>  */}
                     <div>
+                      <Card.Group className="order-group">
                       {order.menuItems.map(({ _id, image, name, price, description }, index) => (
-                        <Grid.Column>
-                          <Card className="card-group" key={index}>
+                        // <Grid.Column>
+                          <Card key={index}>
                             <Image
                               alt={name}
                               src={image}
@@ -48,17 +47,16 @@ function OrderHistory() {
                               <Card.Description>{description}</Card.Description>
                             </Card.Content>
                           </Card>
-                        </Grid.Column>
                       ))}
+                      </Card.Group>
                     </div>
-                  {/* </Grid.Column>  */}
                 </div>
               ))}
-            </Grid.Row>
             </>
           ) : null}
-        </Grid>
-      </>)
+      </Grid>
+    </div>
+  </>)
   };
 
 export default OrderHistory;
