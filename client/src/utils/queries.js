@@ -52,6 +52,7 @@ export const QUERY_USER = gql`
                 purchaseDate
                 menuItems {
                     _id
+                    image
                     name
                     description
                     price
@@ -63,6 +64,7 @@ export const QUERY_USER = gql`
             }
             favorites {
                 _id
+                image
                 name
                 description
                 price
