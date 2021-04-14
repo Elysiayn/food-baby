@@ -6,11 +6,12 @@ import {
     UPDATE_CART_QUANTITY,
     CLEAR_CART,
     TOGGLE_CART,
+    TOGGLE_EDIT_MODE,
     UPDATE_ACTIVE_INDEX,
     UPDATE_ALL_COURSES,
     UPDATE_CURRENT_COURSE,
-    UPDATE_CURRENT_MENU_ITEM,
-    UPDATE_MENU_ITEMS,
+    UPDATE_MENU_ITEM,
+    UPDATE_MENU_LIST,
     UPDATE_USER
   } from "./actions";
 
@@ -66,6 +67,12 @@ export const reducer = (state, action) => {
                 ...state,
                 cartOpen: !state.cartOpen
             };
+      
+        case TOGGLE_EDIT_MODE:
+            return {
+                ...state,
+                editMode: action.editMode
+            };
 
         case UPDATE_ACTIVE_INDEX: 
             return {
@@ -85,13 +92,13 @@ export const reducer = (state, action) => {
                 currentCourse: action.currentCourse
             };
 
-        case UPDATE_CURRENT_MENU_ITEM:
+        case UPDATE_MENU_ITEM:
             return {
                 ...state,
                 itemPreview: {...action.itemPreview}
             };
             
-        case UPDATE_MENU_ITEMS:
+        case UPDATE_MENU_LIST:
             return {
                 ...state,
                 menuItems: [...action.menuItems]

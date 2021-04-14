@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from 'firebase';
 import FileUploader from 'react-firebase-file-uploader';
 
-import { UPDATE_CURRENT_MENU_ITEM } from '../../utils/actions';
+import { UPDATE_MENU_ITEM } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
 
 const ImageUpload = () => {
@@ -18,7 +18,7 @@ const ImageUpload = () => {
             .child(filename)
             .getDownloadURL()
             .then(url => dispatch({
-                type: UPDATE_CURRENT_MENU_ITEM,
+                type: UPDATE_MENU_ITEM,
                 itemPreview: {
                     ...state.itemPreview,
                     image: url

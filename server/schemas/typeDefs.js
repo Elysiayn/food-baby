@@ -68,8 +68,8 @@ type Mutation {
     addMenuItem(menuItem: MenuItemInput): MenuItem
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
     deleteMenuItem(_id: ID!): MenuItem
+    editMenuItem(menuItem: MenuItemInput): MenuItem
     updateUser(_id: ID!, firstName: String, lastName: String, email: String, password: String): User
-    updateMenuItem(_id: ID!, name: String!, image: String!, description: String!, price: Int!): MenuItem
     login(email: String!, password: String!): Auth
     addOrder(menuItems: [ID]!): Order
 }
