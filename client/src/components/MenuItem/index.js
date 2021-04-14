@@ -5,7 +5,7 @@ import {useQuery } from '@apollo/react-hooks';
 
 import { useStoreContext } from '../../utils/GlobalState';
 import { formatName, idbPromise } from '../../utils/helpers';
-import { ADD_TO_CART, UPDATE_CART_QUANTITY, UPDATE_MENU_ITEMS } from '../../utils/actions';
+import { ADD_TO_CART, UPDATE_CART_QUANTITY, UPDATE_MENU_LIST } from '../../utils/actions';
 import { QUERY_MENU_ITEM } from '../../utils/queries';
 
 function MenuItem(item) {
@@ -50,25 +50,24 @@ function MenuItem(item) {
     useEffect(() => {
       // if there's data to be stored
       if (data) {
-        //  store's in  the global state object
+        //  store's in the global state object
         dispatch ({
-          type:UPDATE_MENU_ITEMS,
-          menuItems: data.menuItems
+            type: UPDATE_MENU_LIST,
+            menuItems: data.menuItems
         });
         // takes each item and saves it to IndexDB
         data.menuItems.forEach((menuItem) => {
-          idbPromise('menuItems', 'put', menuItem);
+            idbPromise('menuItems', 'put', menuItem);
         });
       } else if (!loading) {
         idbPromise('menuItems', 'get').then((menuItems) => {
-          dispatch({
-            type: UPDATE_MENU_ITEMS,
-            menuItems: menuItems
-          });
+            dispatch({
+                type: UPDATE_MENU_LIST,
+                menuItems: menuItems
+            });
         });
       }
     }, [data, loading, dispatch]);
-// 
 
     return (
         <Card>

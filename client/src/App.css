@@ -184,11 +184,6 @@
   padding: 1em;
 }
 
-.edit-cell {
-  display: flex;
-  justify-content: center;
-}
-
 .preview-area {
   width: 100%;
   height: 100%;

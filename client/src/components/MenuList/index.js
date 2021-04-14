@@ -3,23 +3,25 @@ import { Accordion, Icon, Table } from 'semantic-ui-react';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 
 import { TOGGLE_EDIT_MODE, UPDATE_ACTIVE_INDEX, UPDATE_MENU_ITEM, UPDATE_MENU_LIST } from '../../utils/actions';
-import { formatName } from '../../utils/helpers';
+import { formatName, idbPromise } from '../../utils/helpers';
 import { useStoreContext } from '../../utils/GlobalState';
 import { DELETE_MENU_ITEM } from '../../utils/mutations';
 import { QUERY_MENU_ITEM } from '../../utils/queries';
 
 const MenuList = () => {
     const [state, dispatch] = useStoreContext();
+    const { menuItems } = state
+
     const [deleteMenuItem] = useMutation(DELETE_MENU_ITEM);
     const [getMenuItem, { data }] = useLazyQuery(QUERY_MENU_ITEM);
 
-    if (state.menuItems.length < 1) {
-        // uses menu saved in localStorage
-        const menu = JSON.parse(localStorage.getItem('menuItems'));
+    if (menuItems.length < 1) {
 
-        dispatch({ 
-            type: UPDATE_MENU_LIST,
-            menuItems: menu
+        idbPromise('menuItems', 'get').then(item => {
+            dispatch({
+                type: UPDATE_MENU_LIST,
+                menuItems: item
+            });
         });
     }
     
@@ -27,7 +29,7 @@ const MenuList = () => {
         if (data) {
             const { menuItem } = data;
 
-            // remove __typename
+            // remove __typename from menuItem object
             delete menuItem.__typename
             delete menuItem.course.__typename
 
@@ -53,7 +55,7 @@ const MenuList = () => {
 
     const handleEdit = event => {
         const id = event.target.getAttribute('data-id');
-
+ 
         getMenuItem({ 
             variables: { _id: id } 
         });
@@ -62,6 +64,15 @@ const MenuList = () => {
     const handleDelete = event => {
         const id = event.target.getAttribute('data-id');
         deleteMenuItem({ variables: { _id: id } });
+
+        const filteredList = menuItems.filter(item => item._id !== id);
+        
+        dispatch ({
+            type: UPDATE_MENU_LIST,
+            menuItems: filteredList
+        });
+
+        idbPromise('menuItems', 'delete', { _id: id });
     };
 
     return (
@@ -75,8 +86,8 @@ const MenuList = () => {
                 </Table.Header>
 
                 <Table.Body>
-                    {state.menuItems.map(item => (
-                        <Table.Row>
+                    {menuItems.map(item => (
+                        <Table.Row key={item._id}>
                             <Table.Cell>{formatName(item.name)}</Table.Cell>
                             <Table.Cell>${item.price}</Table.Cell>
                             <Table.Cell>{item.course.name}</Table.Cell>
