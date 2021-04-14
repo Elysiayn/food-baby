@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import MenuItem from '../../src/components/MenuItem/index';
-import { Card, Image, Button, Icon } from 'semantic-ui-react';
+import { Card, Image, Grid } from 'semantic-ui-react';
 import { formatName } from '../utils/helpers';
 
 import { useQuery } from '@apollo/react-hooks';
@@ -13,47 +13,49 @@ function OrderHistory() {
 
   if (data) {
     user = data.user;
-  }
+    console.log(user.orders)
+  } 
 
   return (
     <>
-      <div className="container my-1">
-        <Link to="/">
+      <Grid stackable columns={2}>
+
+        <Link className="checkout-link" to="/">
           ← Back to Menu Items
           </Link>
 
           {user ? (
             <>
+            <Grid.Row>
               <h2>Order History for {user.firstName} {user.lastName} </h2>
+            </Grid.Row>
+            <Grid.Row>
               {user.orders.map((order) => (
-                <div key={order._id} className="Card">
+                <div key={order._id} >
                   <h3>{new Date(parseInt(order.purchaseDate)).toLocaleDateString()}</h3>
-                  <Card>
-                    {order.menuItems.map(({ _id, image, name, price, description }, index) => (
-                      <Card key={index}>
-                        <Image
-                          alt={name}
-                          src={`/images/${image}`}
-                          />
-                        <Card.Content className='menu-cards'>
-                          <Card.Header>{formatName(name)}</Card.Header>
-                          <Card.Meta>${price}</Card.Meta>
-                          <Card.Description>{description}</Card.Description>
-                        </Card.Content>
-                        {/* <Button animated='fade' onClick={addToCart}>
-                          <Button.Content hidden>Add To Order</Button.Content>
-                          <Button.Content visible>
-                              <Icon name='utensils' />
-                          </Button.Content>
-                        </Button> */}
-                      </Card>
-                    ))}
-                  </Card>
+                  <Grid.Column  id='mobile'>
+                    <div>
+                      {order.menuItems.map(({ _id, image, name, price, description }, index) => (
+                        <Card className="card-group" key={index}>
+                          <Image
+                            alt={name}
+                            src={image}
+                            />
+                          <Card.Content className='menu-cards'>
+                            <Card.Header>{formatName(name)}</Card.Header>
+                            <Card.Meta>${price}</Card.Meta>
+                            <Card.Description>{description}</Card.Description>
+                          </Card.Content>
+                        </Card>
+                      ))}
+                    </div>
+                  </Grid.Column>
                 </div>
               ))}
+            </Grid.Row>
             </>
           ) : null}
-        </div>
+        </Grid>
       </>)
   };
 
