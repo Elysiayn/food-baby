@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Accordion, Icon, Table } from 'semantic-ui-react';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 
@@ -13,51 +13,48 @@ const MenuList = () => {
     const { menuItems } = state
 
     const [deleteMenuItem] = useMutation(DELETE_MENU_ITEM);
-    const [getMenuItem, { data }] = useLazyQuery(QUERY_MENU_ITEM);
+    const [getMenuItem] = useLazyQuery(QUERY_MENU_ITEM, { onCompleted: data => {
+        const { menuItem } = data;
+
+        // remove __typename from menuItem object
+        delete menuItem.__typename
+        delete menuItem.course.__typename
+
+        dispatch({
+            type: UPDATE_MENU_ITEM,
+            itemPreview: {
+                ...menuItem,
+                course: menuItem.course.name
+            }
+        });
+
+        dispatch({
+            type: UPDATE_ACTIVE_INDEX,
+            activeIndex: 1
+        });
+
+                
+        dispatch({
+            type: TOGGLE_EDIT_MODE,
+            editMode: true
+        });
+    }});
 
     if (menuItems.length < 1) {
 
-        idbPromise('menuItems', 'get').then(item => {
+        idbPromise('menuItems', 'get').then(list => {
             dispatch({
                 type: UPDATE_MENU_LIST,
-                menuItems: item
+                menuItems: list
             });
         });
     }
     
-    useEffect(() => {
-        if (data) {
-            const { menuItem } = data;
-
-            // remove __typename from menuItem object
-            delete menuItem.__typename
-            delete menuItem.course.__typename
-
-            dispatch({
-                type: UPDATE_MENU_ITEM,
-                itemPreview: {
-                    ...menuItem,
-                    course: menuItem.course.name
-                }
-            })
-
-            dispatch({
-                type: UPDATE_ACTIVE_INDEX,
-                activeIndex: 1
-            });
-
-            dispatch({
-                type: TOGGLE_EDIT_MODE,
-                editMode: true
-            })
-        }
-    }, [data, dispatch])
-
     const handleEdit = event => {
         const id = event.target.getAttribute('data-id');
- 
+
         getMenuItem({ 
-            variables: { _id: id } 
+            variables: { _id: id },
         });
     };
 
