@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import MenuItem from '../../src/components/MenuItem/index';
+import { Card, Image, Button, Icon } from 'semantic-ui-react';
+import { formatName } from '../utils/helpers';
 
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_USER } from "../utils/queries"; 
@@ -23,24 +26,29 @@ function OrderHistory() {
             <>
               <h2>Order History for {user.firstName} {user.lastName} </h2>
               {user.orders.map((order) => (
-                <div key={order._id} className="my-2">
+                <div key={order._id} className="Card">
                   <h3>{new Date(parseInt(order.purchaseDate)).toLocaleDateString()}</h3>
-                  <div className="flex-row">
-                    {order.menuItems.map(({ _id, image, name, price }, index) => (
-                      <div key={index} className="card px-1 py-1">
-                        <Link to={`/menuItems/${_id}`}>
-                          <img
-                            alt={name}
-                            src={`/images/${image}`}
-                            />
-                            <p>{name}</p>
-                        </Link>
-                        <div>
-                          <span>${price}</span>
-                        </div>
-                      </div>
+                  <Card>
+                    {order.menuItems.map(({ _id, image, name, price, description }, index) => (
+                      <Card key={index}>
+                        <Image
+                          alt={name}
+                          src={`/images/${image}`}
+                          />
+                        <Card.Content className='menu-cards'>
+                          <Card.Header>{formatName(name)}</Card.Header>
+                          <Card.Meta>${price}</Card.Meta>
+                          <Card.Description>{description}</Card.Description>
+                        </Card.Content>
+                        {/* <Button animated='fade' onClick={addToCart}>
+                          <Button.Content hidden>Add To Order</Button.Content>
+                          <Button.Content visible>
+                              <Icon name='utensils' />
+                          </Button.Content>
+                        </Button> */}
+                      </Card>
                     ))}
-                  </div>
+                  </Card>
                 </div>
               ))}
             </>
