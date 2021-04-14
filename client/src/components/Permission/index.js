@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import firebase from 'firebase';
-import {Label, Icon} from 'semantic-ui-react';
 import { useStoreContext } from '../../utils/GlobalState';
 
 
@@ -16,9 +15,7 @@ function Permission () {
 
     function gainPermission() {
         messaging.requestPermission()
-        .then(function() {
-            console.log('Have permission');
-            
+        .then(function() { 
             return messaging.getToken(); 
         })
         .then( function (token) {
@@ -31,8 +28,6 @@ function Permission () {
             .catch(function(error) {
                 console.error(error)
             })
-            // firebase.database().ref('users/' + this.currentUid + '/notificationTokens/' + token).set(true)
-            console.log(token);
             setPermission(true);
         })
         .catch(function(err) {
@@ -49,18 +44,13 @@ function Permission () {
     return (
         
         (!permission) ? (
-        <>
-        <Label color='green' >
-            Turn notifications on{" "}
-        <Icon className="big permission" aria-label="turn notifications on" name="envelope outline" onClick={gainPermission} />
-        </Label>
-        </>
+            <div className="ui green button" onClick={gainPermission}>
+            <i aria-label="turn notifications on" className=" big envelope outline icon"></i> Turn notifications on
+            </div>
         ) : (
-        
-        <Label color='red'>
-            Turn notifications off{" "}
-        <Icon className="big permission" aria-label="turn notifications off" name="envelope open outline" onClick={removePermission} />
-        </Label>
+            <div className="ui red button" onClick={removePermission}>
+            <i aria-label="turn notifications off" className=" big envelope open outline icon"></i> Turn notifications off
+            </div>
         )
         
     )
