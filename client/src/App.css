@@ -252,7 +252,6 @@
 .checkout-link:hover:before {
   visibility: visible;
   width: 100%;
-}
 
 /* order styles */
 .order-container {
