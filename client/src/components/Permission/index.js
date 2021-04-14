@@ -3,14 +3,12 @@ import firebase from 'firebase';
 import {Label, Icon} from 'semantic-ui-react';
 import { useStoreContext } from '../../utils/GlobalState';
 
-
-
 function Permission () {
 
     const [state] = useStoreContext();
     const [permission, setPermission ] = useState(false);
 
-     const firebaseId = state.user._id
+    const firebaseId = state.user._id
 
     const messaging= firebase.messaging();
 
@@ -28,7 +26,9 @@ function Permission () {
                 lastName: state.user.lastName,
                 token
             })
-            .catch(function(error) {
+            
+
+        .catch(function(error) {
                 console.error(error)
             })
             console.log(token);
@@ -45,19 +45,20 @@ function Permission () {
         console.log('token removed')
     };
 
+
     return (
         
         (!permission) ? (
         <>
         <Label as='a' color='green' >
-            Turn notifications on 
+            Turn notifications on
         <Icon className="big" aria-label="turn notifications on" name="envelope outline" onClick={gainPermission} />
         </Label>
         </>
         ) : (
         
         <Label as='a' color='red'>
-            Turn notifications off 
+            Turn notifications off
         <Icon className="big" aria-label="turn notifications off" name="envelope open outline" onClick={removePermission} />
         </Label>
         )

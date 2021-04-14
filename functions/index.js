@@ -1,7 +1,23 @@
 const functions = require("firebase-functions");
+const firebase = require('firebase');
 
 const admin = require('firebase-admin');
 admin.initializeApp();
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAPYUQl3v49glJc2H1WErSHVGgejiqEfxo",
+    authDomain: "food-baby-682db.firebaseapp.com",
+    databaseURL: "https://food-baby-682db-default-rtdb.firebaseio.com",
+    projectId: "food-baby-682db",
+    storageBucket: "food-baby-682db.appspot.com",
+    messagingSenderId: "696002118688",
+    appId: "1:696002118688:web:c7b3e92a1806d71bb92845",
+    measurementId: "G-L9R64LNE17"
+  };
+
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+  }
 
 exports.welcomeUser = functions.database.ref('/users/{userId}')
     .onWrite((change, context) => {
@@ -25,25 +41,29 @@ exports.orderConfirmation = functions.database.ref('/orders/{oid}')
     .onCreate((snapshot, context) => {
         const orderId = context.params.oid
         const userData = snapshot.val()
+        const userId = userData.firebaseId;
 
         const dbRef = firebase.database().ref();
-            dbRef.child("user").child(userData.firebaseId).get().then((snap) => {
-                 snap.val()
-            }
-            
-            )
+            dbRef.child("users").child(userId).get().then((snap) => {
+                 const tokenData = snap.val()
 
-            const token = dbRef.snap.token;
+                const token = tokenData.token;
 
-        const payload = {
-            notification: {
-                title: 'Order Recieved',
-                body: `Thank you for your order# ${orderId}, ${userData.firstName}. It will be ready at ${userData.orderReady}`
-            }
-        }
-
-        return admin.messaging.sendToDevice(token, payload);
-    })
+                const payload = {
+                    notification: {
+                        title: 'Order Recieved',
+                        body: `Thank you for your order# ${orderId}, ${token.firstName}. It will be ready in 30 minutes.`
+                    }
+        
+                         
+                }
+                
+                admin.messaging.sendToDevice(token, payload);
+            })
+                        
+        return ;
+        
+    });
 
 // exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
 //     // [END onCreateTrigger]

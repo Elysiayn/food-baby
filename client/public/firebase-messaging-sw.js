@@ -16,7 +16,7 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler(function(payload) {
-    const title= 'Hello World';
+    const title= 'Food Baby';
     const options = {
         body: payload.data.status
     }

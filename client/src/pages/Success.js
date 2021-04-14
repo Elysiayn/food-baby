@@ -10,61 +10,42 @@ function Success() {
 
     const [addOrder] = useMutation(ADD_ORDER);
     const [state] = useStoreContext();
-
     
-
     useEffect(() => {
 
         async function saveOrder() {
-            console.log(state.user)
+    
             const cart = await idbPromise('cart', 'get');
-            
-
             const menuItems = cart.map(item => item._id);
 
             if (menuItems.length) {
                 const { data } = await addOrder({ variables: { menuItems } });
                 const menuItemData = data.addOrder.menuItems;
-                const purchaseDate = parseInt(data.addOrder.purchaseDate);
-                const orderTime = new Date (purchaseDate)
-                const completionTime = new Date(purchaseDate);
-                completionTime.setMinutes( completionTime.getMinutes() + 30 )
-                console.log(state.user)
-                const firstName = state.user.firstName;
-                const firebaseId = state.user._id;
-                const lastName = state.user.lastName;   
-                
 
                 menuItemData.forEach(item => {
                     idbPromise('cart', 'delete', item)
-                    // console.log('====33333333333======', item);
-
-                });
-
-                firebase.database().ref('orders').push({
-                    firebaseId,
-                    firstName,
-                    lastName,
-                    menuItems,
-                    purchaseDate: orderTime,
-                    orderReady: completionTime
-                }).then(() => {
-                setTimeout(function() {
-                    window.location.assign('/')
-                }, 3000);
-            })  
-
+                });      
                 
+                    setTimeout(function() {
+                        window.location.assign('/');
+                        
+                    }, 3000);
             } else {
                 console.log('error');
             }
             
         }
-        
+    
         saveOrder();
     }, [addOrder])
-
-  
+    
+    firebase.database().ref('orders').push({
+        
+        firebaseId: state.user._id,
+        firstName: state.firstName,
+        lastName: state.lastName
+    })
+   
 
     return (
         <div>
@@ -77,9 +58,6 @@ function Success() {
             </h2>
         </div>
     );
-};
+}
 
 export default Success;
-
-
-// , {`${user.firstName}`}
