@@ -85,7 +85,7 @@ function Nav() {
                     <Grid.Column className="navLinks">  
                         <h1>
                             <Link to="/">
-                                <span role="img" aria-label="empty plate">🍽️Nerdy Nummies</span>
+                                <span role="img" aria-label="empty plate">🍽️Food Baby</span>
                             </Link>
                         </h1>
                     </Grid.Column>  
