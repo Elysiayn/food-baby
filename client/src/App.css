@@ -252,12 +252,12 @@
 .checkout-link:hover:before {
   visibility: visible;
   width: 100%;
+}
 
 /* order styles */
 .order-container {
   margin-left: auto !important;
   margin-right: auto !important;
-  /* max-width:1200px;  */
 }
 
 .order {
