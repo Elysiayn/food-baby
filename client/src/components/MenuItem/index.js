@@ -5,7 +5,7 @@ import {useQuery } from '@apollo/react-hooks';
 
 import { useStoreContext } from '../../utils/GlobalState';
 import { formatName, idbPromise } from '../../utils/helpers';
-import { ADD_TO_CART, UPDATE_CART_QUANTITY, UPDATE_MENU_ITEMS } from '../../utils/actions';
+import { ADD_TO_CART, UPDATE_CART_QUANTITY, UPDATE_MENU_ITEM } from '../../utils/actions';
 import { QUERY_MENU_ITEM } from '../../utils/queries';
 
 function MenuItem(item) {
@@ -52,7 +52,7 @@ function MenuItem(item) {
       if (data) {
         //  store's in  the global state object
         dispatch ({
-          type:UPDATE_MENU_ITEMS,
+          type:UPDATE_MENU_ITEM,
           menuItems: data.menuItems
         });
         // takes each item and saves it to IndexDB
@@ -62,7 +62,7 @@ function MenuItem(item) {
       } else if (!loading) {
         idbPromise('menuItems', 'get').then((menuItems) => {
           dispatch({
-            type: UPDATE_MENU_ITEMS,
+            type: UPDATE_MENU_ITEM,
             menuItems: menuItems
           });
         });
