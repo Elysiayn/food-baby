@@ -40,7 +40,7 @@ function Nav() {
                                 Logout
                             </a>
                         </Grid.Column>
-                        <Permission />
+                        <Permission/>
                     </>
                 );
             case (state.user.role === 'owner'):

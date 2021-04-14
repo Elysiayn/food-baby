@@ -50,16 +50,16 @@ function Permission () {
         
         (!permission) ? (
         <>
-        <Label as='a' color='green' >
-            Turn notifications on 
-        <Icon className="big" aria-label="turn notifications on" name="envelope outline" onClick={gainPermission} />
+        <Label color='green' >
+            Turn notifications on{" "}
+        <Icon className="big permission" aria-label="turn notifications on" name="envelope outline" onClick={gainPermission} />
         </Label>
         </>
         ) : (
         
-        <Label as='a' color='red'>
-            Turn notifications off 
-        <Icon className="big" aria-label="turn notifications off" name="envelope open outline" onClick={removePermission} />
+        <Label color='red'>
+            Turn notifications off{" "}
+        <Icon className="big permission" aria-label="turn notifications off" name="envelope open outline" onClick={removePermission} />
         </Label>
         )
         
