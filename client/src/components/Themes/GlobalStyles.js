@@ -99,4 +99,8 @@ export const GlobalStyles = createGlobalStyle`
 & .menuLink:hover {
   color: ${({ theme }) => theme.a};
 }
+
+& #cart-btn {
+  background: ${({ theme }) => theme.a};
+}
   `

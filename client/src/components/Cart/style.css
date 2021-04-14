@@ -72,8 +72,10 @@
         height: 21rem;
         overflow: auto;
         display: table-column;
-        transform: translate(889px, -285px);
+        /* transform: translate(307%, -80%); */
         position: fixed;
+        top: 10px;
+        right: 25px
     }
     .cart input {
         width: 60px;
@@ -86,7 +88,13 @@
     }
 }
 
-/* @media screen and (max-width: 995px) {
+/* @media screen and (max-width: 1230px) {
+    #overlay {
+        transform: translate(60vw, -39vh);
+    }
+}
+
+@media screen and (max-width: 995px) {
     .ui.cards.card-group .ui.card {
         width: auto;
     }
