@@ -61,18 +61,7 @@ const client = new ApolloClient({
   }
 
   const messaging = firebase.messaging();
-  // messaging.requestPermission()
-  // .then(function() {
-  //   console.log('Have permission');
-  //   return messaging.getToken(); 
-  // })
-  // .then( function (token) {
 
-  //   console.log(token);
-  // })
-  // .catch(function(err) {
-  //   console.log(err);
-  // })
   messaging.onMessage(payload => {
     console.log('onMessage:', payload)
   });
@@ -113,7 +102,6 @@ const client = new ApolloClient({
                   {(show) && <Message
                     onDismiss={() => handleDismiss()}
                     show={show}
-                    delay={100}
                     header={notification.title}
                     content={notification.body}
                   />}
