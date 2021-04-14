@@ -29,6 +29,7 @@ function OrderHistory() {
               <h2 className="order" >Order History for {user.firstName} {user.lastName} </h2>
             </Grid.Row>
               {user.orders.map((order) => (
+<<<<<<< HEAD
                 <div key={order._id} >
                   <h3 className="order" >{new Date(parseInt(order.purchaseDate)).toLocaleDateString()}</h3>
                   {/* <Grid.Column  id='mobile'>  */}
@@ -50,6 +51,26 @@ function OrderHistory() {
                       ))}
                       </Card.Group>
                     </div>
+=======
+                <div key={order._id} className="my-2">
+                  <h3>{new Date(parseInt(order.purchaseDate)).toLocaleDateString()}</h3>
+                  <div className="flex-row">
+                    {order.menuItems.map(({ _id, image, name, price }, index) => (
+                      <div key={index} className="card px-1 py-1">
+                        <Link to={`/menuItems/${_id}`}>
+                          <img
+                            alt={name}
+                            src={image}
+                            />
+                            <p>{name}</p>
+                        </Link>
+                        <div>
+                          <span>${price}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+>>>>>>> 8170963b84e17fc70ba4dfeae25e2cf47b966920
                 </div>
               ))}
             </>

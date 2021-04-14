@@ -1,10 +1,9 @@
 import React from 'react';
 import { Card, Image, Button, Icon } from 'semantic-ui-react';
 
-import { useStoreContext } from '../../utils/GlobalState';
-import { formatName } from '../../utils/helpers';
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from '../../utils/actions';
-import { idbPromise } from '../../utils/helpers';
+import { useStoreContext } from '../../utils/GlobalState';
+import { formatName, idbPromise } from '../../utils/helpers';
 
 function MenuItem(item) {
     const {
