@@ -15,6 +15,7 @@
   font-family: var(--body-font);
 }
 
+
 .login-container {
   display: flex;
   flex-direction: column;
@@ -172,7 +173,11 @@
 
 /* dashboard styles */
 .dashboard-left {
-  max-width: 45vw;
+  max-width: 50vw;
+}
+
+.dashboard-right {
+  max-width: 50vw;
 }
 
 .dashboard-menu {
@@ -203,11 +208,24 @@
 }
 
 .preview-image img {
-  width: 100%;
+  width: 100%;;
 }
 
 .preview-description {
   margin: .75em 0;
+}
+
+.delete-btn,
+.edit-btn {
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  color: var(--secondary-color);
+}
+
+.delete-btn:hover {
+  color: darkred
 }
 
 .menu-placeholder {

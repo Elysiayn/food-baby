@@ -11,6 +11,7 @@ const StoreProvider = ({ value = [], ...props }) => {
         cart: [],
         cartOpen: false,
         currentCourse: '',
+        editMode: false,
         itemPreview: {},
         menuItems: [],
         user: {}

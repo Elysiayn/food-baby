@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Accordion, Icon, Segment } from 'semantic-ui-react';
 
 import MenuForm from '../components/MenuForm';
@@ -10,6 +10,18 @@ import { useStoreContext } from '../utils/GlobalState';
 
 const Dashboard = () => {
     const [state, dispatch] = useStoreContext();
+    const { editMode } = state;
+
+    useEffect(() => {
+        const formTitleEl = document.querySelector('.form-title');
+
+        if (editMode) {
+            formTitleEl.innerHTML = '<i aria-hidden="true" class="dropdown icon"></i> Edit Menu Item';
+        } else {
+            formTitleEl.innerHTML = '<i aria-hidden="true" class="dropdown icon"></i> Add Menu Item';
+        }
+
+    }, [editMode]);
 
     const handleClick = (index) => {
         if (index === state.activeIndex) {
@@ -43,6 +55,7 @@ const Dashboard = () => {
                     <Accordion.Title
                         active={state.activeIndex === 1}
                         onClick={() => handleClick(1)}
+                        className='form-title'
                     >
                         <Icon name='dropdown' />
                         Add Menu Item
@@ -51,7 +64,7 @@ const Dashboard = () => {
                     
                 </Accordion>
             </Segment>
-            <Segment>
+            <Segment className='dashboard-right'>
                 <MenuPreview />
             </Segment>
         </Segment.Group>

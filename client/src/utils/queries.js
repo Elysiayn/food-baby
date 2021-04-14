@@ -15,9 +15,9 @@ export const QUERY_MENU_ITEM = gql`
             _id
             name
             description
+            image
             price
             course {
-                _id
                 name
             }
         }

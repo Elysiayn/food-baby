@@ -31,7 +31,7 @@ const client = new ApolloClient({
       }
     })
   },
-  uri: '/graphql',
+  uri: '/graphql'
 })
 
 // const App = () => 
@@ -106,9 +106,10 @@ const client = new ApolloClient({
             <>
               <GlobalStyles />
               <div>
-                <Toggle theme={theme} toggleTheme={themeToggler} />
+         
                 <StoreProvider>
                   <Nav />
+                  <Toggle theme={theme} toggleTheme={themeToggler} />
                   {(show) && <Message
                     onDismiss={() => handleDismiss()}
                     show={show}
@@ -126,6 +127,7 @@ const client = new ApolloClient({
                     <Route component={NoMatch} />
                   </Switch>
                 </StoreProvider>
+                
               </div>
             </>
           </ThemeProvider>

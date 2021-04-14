@@ -67,8 +67,8 @@ export const DELETE_MENU_ITEM = gql`
 `;
 
 export const EDIT_MENU_ITEM = gql`
-    mutation updateMenuItem($_id: ID!, $name: String, $description: String, $price: Int) {
-        updateMenuItem(_id: $_id, name: $name, description: $description, price: $price) {
+    mutation editMenuItem($menuItem: MenuItemInput) {
+        editMenuItem(menuItem: $menuItem) {
             _id
             name
             description
