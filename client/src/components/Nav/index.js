@@ -81,7 +81,7 @@ function Nav() {
     return (
         <Header className="block nav-container"> 
             <Grid className="middle aligned" columns={3} divided>
-                <Grid.Row>
+                <Grid.Row className='navBar'>
                     <Grid.Column className="navLinks">  
                         <h1>
                             <Link to="/">
