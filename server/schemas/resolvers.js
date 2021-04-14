@@ -122,7 +122,6 @@ const resolvers = {
             throw new AuthenticationError('Not logged in');
         },
         deleteMenuItem: async (parent, args, context) => {
-            console.log(args)
             await MenuItem.findByIdAndDelete(args);
 
             return;

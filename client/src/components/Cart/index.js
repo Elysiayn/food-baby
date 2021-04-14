@@ -14,7 +14,7 @@ import './style.css';
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
-const Cart = () => {
+const Cart = (props) => {
     const [state, dispatch] = useStoreContext();
     const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
@@ -75,7 +75,7 @@ const Cart = () => {
     }
 
     return (
-        <Segment className='cart'>
+        <Segment className='cart' id={props.cartId}> 
             <div className='close' onClick={toggleCart}>[close]</div>
             <Header size='medium' dividing>
                 Current Order

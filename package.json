@@ -28,7 +28,8 @@
     "react-toastify": "^7.0.3",
     "stripe": "^8.142.0",
     "styled-components": "^4.4.1",
-    "web-vitals": "^1.1.1"
+    "web-vitals": "^1.1.1",
+    "workbox": "0.0.0"
   },
   "devDependencies": {
     "concurrently": "^6.0.0"
@@ -39,7 +40,8 @@
     "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
-    "heroku-postbuild": "cd client && npm run build"
+    "heroku-postbuild": "cd client && npm run build",
+    "build": "react-scripts build"
   },
   "repository": {
     "type": "git",

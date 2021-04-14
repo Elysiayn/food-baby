@@ -40,7 +40,7 @@ function Nav() {
                                 Logout
                             </a>
                         </Grid.Column>
-                        <Permission />
+                        <Permission/>
                     </>
                 );
             case (state.user.role === 'owner'):
@@ -81,11 +81,11 @@ function Nav() {
     return (
         <Header className="block nav-container"> 
             <Grid className="middle aligned" columns={3} divided>
-                <Grid.Row>
+                <Grid.Row className='navBar'>
                     <Grid.Column className="navLinks">  
                         <h1>
                             <Link to="/">
-                                <span role="img" aria-label="empty plate">🍽️Nerdy Nummies</span>
+                                <span role="img" aria-label="empty plate">🍽️Food Baby</span>
                             </Link>
                         </h1>
                     </Grid.Column>  

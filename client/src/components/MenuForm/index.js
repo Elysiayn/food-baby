@@ -1,36 +1,50 @@
-import React, { useEffect } from 'react';
-import { Accordion, Button, Form } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react';
+import { Accordion, Button, Form, Message } from 'semantic-ui-react';
 import { useMutation } from '@apollo/react-hooks';
 
 import ImageUpload from '../ImageUpload';
 
 import { TOGGLE_EDIT_MODE, UPDATE_MENU_ITEM } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
+import { idbPromise } from '../../utils/helpers';
 import { ADD_MENU_ITEM, EDIT_MENU_ITEM } from '../../utils/mutations';
 
 const MenuForm = (props) => {
     const [state, dispatch] = useStoreContext();
     const { editMode, itemPreview } = state;
+
+    const [errorMessage, setErrorMessage] = useState('');
     const { index } = props;
+
     const [addMenuItem] = useMutation(ADD_MENU_ITEM);
     const [editMenuItem] = useMutation(EDIT_MENU_ITEM);
 
+    const menuItemForm = document.querySelector('.menu-item-form');
+
     useEffect(() => {
+
+        const populateForm = inputName => {
+            const el = document.querySelector(`[name=${inputName}]`);
+
+            switch(inputName) {
+                case ('course'):
+                    const selected = el.querySelector(`option[value='${itemPreview[inputName]}']`);
+                    selected.setAttribute('selected', 'selected');
+                    break;
+
+                case ('description'):
+                    el.textContent = itemPreview[inputName];
+                    break;
+
+                default:
+                    el.value = itemPreview[inputName];
+            };
+        };
 
         // populates form fields when form is in 'edit mode'
         if(editMode) {
-            const nameInput = document.querySelector('[name="name"]');
-            nameInput.setAttribute('value', itemPreview.name);
-    
-            const priceInput = document.querySelector('[name="price"]');
-            priceInput.setAttribute('value', itemPreview.price);
-    
-            const courseMenu = document.querySelector('[name="course"]');
-            const selectedOption = courseMenu.querySelector(`option[value="${itemPreview.course}"]`);
-            selectedOption.setAttribute('selected', 'selected');
-            
-            const descriptionInput = document.querySelector('[name="description"]');
-            descriptionInput.textContent = itemPreview.description
+            const formFields = ['name', 'price', 'course', 'description'];
+            formFields.forEach(field => populateForm(field));
         }
     }, [editMode, itemPreview])
 
@@ -81,40 +95,63 @@ const MenuForm = (props) => {
     const handleFormSubmit = async event => {
         event.preventDefault();
 
-        // turn off edit mode
-        if (editMode) {
-            dispatch({
-                type: TOGGLE_EDIT_MODE,
-                editMode: false
-            });
+        console.log(event)
 
-            try {
+        // submit form in edit mode
+        if (editMode) {
+               try {
+                // updates idb store
+                idbPromise('menuItems', 'put', itemPreview);
+
+                // sends graphql mutation
                 const editResponse = await editMenuItem({
                     variables: {
                         menuItem: itemPreview
                     }
-                })
+                });
 
+                // turn off edit mode
+                dispatch({
+                    type: TOGGLE_EDIT_MODE,
+                    editMode: false
+                });
+
+                menuItemForm.reset();
+                
                 return editResponse;
             } catch (e) {
-                console.log(e)
+                console.log(e);
+                setErrorMessage('Please check your form fields or try again later.');
+                setTimeout(() => setErrorMessage(''), 5000);
             }
+
+        // submit new menu item
         } else {
             try {
                 const mutationResponse = await addMenuItem({ variables: {
                     menuItem: itemPreview
                 }});
     
+                menuItemForm.reset();
+
                 return mutationResponse;
             } catch (e) {
-                console.log(e)
+                console.log(e);
+                setErrorMessage('Please check your form fields or try again later.');
+                setTimeout(() => setErrorMessage(''), 5000);
             }
         }
     };
 
     return (
         <Accordion.Content active={state.activeIndex === index}>
-            <Form onSubmit={handleFormSubmit}>
+            {errorMessage && (
+                <Message negative>
+                    <Message.Header>Error!</Message.Header>
+                    <p>{errorMessage}</p>
+                </Message>
+            )}
+            <Form className='menu-item-form' onSubmit={handleFormSubmit}>
                 <Form.Input 
                     label='Name' 
                     name='name'
@@ -132,14 +169,6 @@ const MenuForm = (props) => {
                             id='form-price'
                         />
                     </Form.Field> 
-                    {/* <Form.Select 
-                        fluid 
-                        label='Course'
-                        name='course'
-                        placeholder='Select the Course' 
-                        options={courses} 
-                        onChange={handleChange} 
-                    /> */}
                     <Form.Field>
                         <label htmlFor='form-course'>Course</label>
                         <select name='course' id='form-course' onChange={handleChange}>

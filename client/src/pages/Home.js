@@ -13,9 +13,10 @@ const Home = () => {
                 <Ref innerRef={contextRef}>
                     <Segment className="menu">
                         <Menu />
+                        <Cart cartId='overlay' />
                         <Rail position='right'>
                             <Sticky context={contextRef}>
-                                <Cart />
+                                <Cart cartId='sidebar' />
                             </Sticky>
                         </Rail>
                     </Segment>
