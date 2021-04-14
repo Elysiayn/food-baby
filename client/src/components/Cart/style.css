@@ -39,17 +39,26 @@
     font-size: 1.25rem;
 }
   
-/* @media screen and (max-width: 768px) {
-    .cart {
-      position: relative;
-      max-width: 100%;
-      max-height: auto;
-      box-shadow: none;
-      background-color: inherit;
+@media screen and (max-width: 1425px) {
+    #mobile {
+        width: 100%;
+        display: grid;
     }
-  
-    .cart-closed {
-      position: relative;
-      margin: 0 auto;
+    .ui.segment.menu {
+        width: 100%;
+        margin: auto;
     }
-} */
+    .ui.cards.card-group .ui.card {
+        width: 28em;
+        margin: 2.5rem auto 5rem auto;
+    }
+    .ui.right.rail {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 995px) {
+    .ui.cards.card-group .ui.card {
+        width: auto;
+    }
+}

@@ -72,7 +72,7 @@ function Menu() {
 
     return (
         <div>
-            <Header size='large' className='menu-title'>MENU</Header>
+            <Header size='large' className='menu-title'><span className='mobile-menu'>MENU</span></Header>
 
             {/* renders each menu course */}
             {state.allCourses.map(course => (

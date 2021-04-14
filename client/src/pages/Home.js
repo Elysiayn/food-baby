@@ -9,7 +9,7 @@ const Home = () => {
     
     return (
         <Grid stackable columns={2}>
-            <Grid.Column>
+            <Grid.Column id='mobile'>
                 <Ref innerRef={contextRef}>
                     <Segment className="menu">
                         <Menu />
