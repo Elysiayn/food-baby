@@ -53,6 +53,8 @@ const MenuList = () => {
     const handleEdit = event => {
         const id = event.target.getAttribute('data-id');
 
+        console.log('clicked')
+
         getMenuItem({ 
             variables: { _id: id },
         });

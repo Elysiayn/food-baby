@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Accordion, Button, Form } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react';
+import { Accordion, Button, Form, Message } from 'semantic-ui-react';
 import { useMutation } from '@apollo/react-hooks';
 
 import ImageUpload from '../ImageUpload';
@@ -12,9 +12,14 @@ import { ADD_MENU_ITEM, EDIT_MENU_ITEM } from '../../utils/mutations';
 const MenuForm = (props) => {
     const [state, dispatch] = useStoreContext();
     const { editMode, itemPreview } = state;
+
+    const [errorMessage, setErrorMessage] = useState('');
     const { index } = props;
+
     const [addMenuItem] = useMutation(ADD_MENU_ITEM);
     const [editMenuItem] = useMutation(EDIT_MENU_ITEM);
+
+    const menuItemForm = document.querySelector('.menu-item-form');
 
     useEffect(() => {
 
@@ -90,6 +95,8 @@ const MenuForm = (props) => {
     const handleFormSubmit = async event => {
         event.preventDefault();
 
+        console.log(event)
+
         // submit form in edit mode
         if (editMode) {
                try {
@@ -108,10 +115,14 @@ const MenuForm = (props) => {
                     type: TOGGLE_EDIT_MODE,
                     editMode: false
                 });
+
+                menuItemForm.reset();
                 
                 return editResponse;
             } catch (e) {
-                console.log(e)
+                console.log(e);
+                setErrorMessage('Please check your form fields or try again later.');
+                setTimeout(() => setErrorMessage(''), 5000);
             }
 
         // submit new menu item
@@ -121,16 +132,26 @@ const MenuForm = (props) => {
                     menuItem: itemPreview
                 }});
     
+                menuItemForm.reset();
+
                 return mutationResponse;
             } catch (e) {
-                console.log(e)
+                console.log(e);
+                setErrorMessage('Please check your form fields or try again later.');
+                setTimeout(() => setErrorMessage(''), 5000);
             }
         }
     };
 
     return (
         <Accordion.Content active={state.activeIndex === index}>
-            <Form onSubmit={handleFormSubmit}>
+            {errorMessage && (
+                <Message negative>
+                    <Message.Header>Error!</Message.Header>
+                    <p>{errorMessage}</p>
+                </Message>
+            )}
+            <Form className='menu-item-form' onSubmit={handleFormSubmit}>
                 <Form.Input 
                     label='Name' 
                     name='name'
@@ -148,14 +169,6 @@ const MenuForm = (props) => {
                             id='form-price'
                         />
                     </Form.Field> 
-                    {/* <Form.Select 
-                        fluid 
-                        label='Course'
-                        name='course'
-                        placeholder='Select the Course' 
-                        options={courses} 
-                        onChange={handleChange} 
-                    /> */}
                     <Form.Field>
                         <label htmlFor='form-course'>Course</label>
                         <select name='course' id='form-course' onChange={handleChange}>
