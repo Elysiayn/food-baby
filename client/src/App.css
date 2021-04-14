@@ -257,15 +257,21 @@
 .checkout-link:hover:before {
   visibility: visible;
   width: 100%;
-
 }
 
 /* order styles */
-/* .order-container {
-  position: relative;
+.order-container {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  /* max-width:1200px;  */
+}
+
+.order {
+  font-family: var(--body-font);
+}
+
+.order-group {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-} */
+  justify-items: space-between;
+}
