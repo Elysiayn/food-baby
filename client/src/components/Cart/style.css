@@ -68,12 +68,12 @@
     }
     #overlay {
         z-index: 1000000;
-        width: 38rem;
+        width: 23rem;
         height: 21rem;
         overflow: auto;
         display: table-column;
-        transform: translate(10px, -255px);
-        position: relative;
+        transform: translate(889px, -285px);
+        position: fixed;
     }
     .cart input {
         width: 60px;
