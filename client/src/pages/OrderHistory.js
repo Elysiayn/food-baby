@@ -18,7 +18,7 @@ function OrderHistory() {
 
   return (
     <>
-      <Grid stackable columns={2}>
+      <Grid className="order-container" padded stackable columns={2}>
 
         <Link className="checkout-link" to="/">
           ← Back to Menu Items
@@ -33,23 +33,25 @@ function OrderHistory() {
               {user.orders.map((order) => (
                 <div key={order._id} >
                   <h3>{new Date(parseInt(order.purchaseDate)).toLocaleDateString()}</h3>
-                  <Grid.Column  id='mobile'>
+                  {/* <Grid.Column  id='mobile'>  */}
                     <div>
                       {order.menuItems.map(({ _id, image, name, price, description }, index) => (
-                        <Card className="card-group" key={index}>
-                          <Image
-                            alt={name}
-                            src={image}
-                            />
-                          <Card.Content className='menu-cards'>
-                            <Card.Header>{formatName(name)}</Card.Header>
-                            <Card.Meta>${price}</Card.Meta>
-                            <Card.Description>{description}</Card.Description>
-                          </Card.Content>
-                        </Card>
+                        <Grid.Column>
+                          <Card className="card-group" key={index}>
+                            <Image
+                              alt={name}
+                              src={image}
+                              />
+                            <Card.Content className='menu-cards'>
+                              <Card.Header>{formatName(name)}</Card.Header>
+                              <Card.Meta>${price}</Card.Meta>
+                              <Card.Description>{description}</Card.Description>
+                            </Card.Content>
+                          </Card>
+                        </Grid.Column>
                       ))}
                     </div>
-                  </Grid.Column>
+                  {/* </Grid.Column>  */}
                 </div>
               ))}
             </Grid.Row>
