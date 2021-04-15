@@ -48,7 +48,7 @@ const Dashboard = () => {
                         onClick={() => handleClick(0)}
                     >
                         <Icon name='dropdown' />
-                        Current Menu
+                        <span className='owner-menu-title'>Current Menu</span>
                     </Accordion.Title>
                     <MenuList />
 
@@ -58,7 +58,7 @@ const Dashboard = () => {
                         className='form-title'
                     >
                         <Icon name='dropdown' />
-                        Add Menu Item
+                        <span className='owner-menu-title'>Add Menu Item</span>
                     </Accordion.Title>
                     <MenuForm index={1} />
                     

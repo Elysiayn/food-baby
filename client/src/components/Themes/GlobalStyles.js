@@ -103,4 +103,37 @@ export const GlobalStyles = createGlobalStyle`
 & #cart-btn {
   background: ${({ theme }) => theme.a};
 }
-  `
+
+& .ui.horizontal.segments {
+  background: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.text};
+    border: 1px solid lightgrey
+}
+& div.accordion.ui.fluid.styled {
+background: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.text};
+    border: 1px solid lightgrey
+}
+
+& i.dropdown.icon {
+  color: ${({ theme }) => theme.text};
+}
+
+& .owner-menu-title {
+  color: ${({ theme }) => theme.text};
+}
+
+& thead {
+  & div.accordion.ui.fluid.styled {
+    background: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.text};
+    border: 1px solid lightgrey
+    }
+}
+
+& table.ui.selectable.striped.compact.table {
+  background: ${({ theme }) => theme.body};
+  color: ${({ theme }) => theme.text};
+  border: 1px solid lightgrey
+  }
+`
