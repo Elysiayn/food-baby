@@ -124,16 +124,16 @@ background: ${({ theme }) => theme.body};
 }
 
 & thead {
-  & div.accordion.ui.fluid.styled {
     background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};
     border: 1px solid lightgrey
-    }
+}
+
+& tr:hover {
+  color: ${({ theme }) => theme.a};
 }
 
 & table.ui.selectable.striped.compact.table {
-  background: ${({ theme }) => theme.body};
-  color: ${({ theme }) => theme.text};
-  border: 1px solid lightgrey
+  
   }
 `
