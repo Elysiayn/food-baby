@@ -3,6 +3,8 @@ const functions = require("firebase-functions");
 const admin = require('firebase-admin');
 admin.initializeApp();
 
+// this is the function that send the notification payload to the messanging it waits on the database to be updated, created or delete
+// no message runs when the token is delete due to it not updating the firebase database. 
 exports.welcomeUser = functions.database.ref('/users/{userId}')
     .onWrite((change, context) => {
 
@@ -21,6 +23,9 @@ exports.welcomeUser = functions.database.ref('/users/{userId}')
     return admin.messaging().sendToDevice(token, payload);
 });
 
+// this currently doesn't work due to the state not being defined when the variables are initially pulled need to get a working promise or if statement
+// work in progress can be found in feature/checkoutNotification
+
 // exports.orderConfirmation = functions.database.ref('/checkout/{oid}/{uid}')
 //     .onCreate((snapshot, context) => {
 //         const orderId = context.params.oid
@@ -37,6 +42,8 @@ exports.welcomeUser = functions.database.ref('/users/{userId}')
 
 //         return admin.messaging.sendToDevice(token, payload);
 //     })
+
+// this was an idea I saw that I thought would make a nice feature never got around to testing it though
 
 // exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
 //     // [END onCreateTrigger]

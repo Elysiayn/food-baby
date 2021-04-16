@@ -61,7 +61,9 @@ const client = new ApolloClient({
   }
 
   const messaging = firebase.messaging();
-
+  // this is the listener for any message being created by firebase. It is either passed to the onMessageListener below if the page is active
+  // or the backgroundMessageHandler in the client/public/firebase-messaging-sw.js if the page is not the main focus.
+  // Currently there are no notifications that would run where the page wouldn't be in focus
   messaging.onMessage(payload => {
     console.log('onMessage:', payload)
   });
@@ -74,13 +76,11 @@ const client = new ApolloClient({
 
     const [show, setShow] = useState(false)
     const [notification, setNotification] = useState({ title: '', body: '' });
-
+    // This is the active listener for when the webpage is in focus and firebase function will pass the payload to the message component.
     onMessageListener().then(payload => {
       setShow(true);
       setNotification({ title: payload.notification.title, body: payload.notification.body })
-      console.log(payload);
     }).catch(err => console.log('failed: ', err));
-
     const handleDismiss = () => {
       setShow(false)
 
@@ -99,6 +99,7 @@ const client = new ApolloClient({
                 <StoreProvider>
                   <Nav />
                   <Toggle theme={theme} toggleTheme={themeToggler} />
+                  {/* shows up when there is a new notification sent from firebase messaging and the screen is active */}
                   {(show) && <Message
                     onDismiss={() => handleDismiss()}
                     show={show}
