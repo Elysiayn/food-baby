@@ -31,11 +31,9 @@ function OrderHistory() {
               {user.orders.map((order) => (
                 <div key={order._id} >
                   <h3 className="order" >{new Date(parseInt(order.purchaseDate)).toLocaleDateString()}</h3>
-                  {/* <Grid.Column  id='mobile'>  */}
                     <div>
                       <Card.Group className="order-group">
                       {order.menuItems.map(({ _id, image, name, price, description }, index) => (
-                        // <Grid.Column>
                           <Card key={index}>
                             <Image
                               alt={name}
