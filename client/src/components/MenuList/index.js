@@ -40,10 +40,6 @@ const MenuList = () => {
         });
     }});
 
-    useEffect(() => {
-        console.log(menuItems)
-    }, [menuItems])
-
     if (menuItems.length < 1) {
 
         idbPromise('menuItems', 'get').then(list => {
@@ -64,6 +60,8 @@ const MenuList = () => {
 
     const handleDelete = event => {
         const id = event.target.getAttribute('data-id');
+
+        idbPromise('menuItems', 'delete', { _id: id });
         deleteMenuItem({ variables: { _id: id } });
 
         const filteredList = menuItems.filter(item => item._id !== id);
@@ -72,8 +70,6 @@ const MenuList = () => {
             type: UPDATE_MENU_LIST,
             menuItems: filteredList
         });
-
-        idbPromise('menuItems', 'delete', { _id: id });
     };
 
     return (
@@ -94,10 +90,10 @@ const MenuList = () => {
                             <Table.Cell>{item.course.name}</Table.Cell>
                             <Table.Cell className='edit-cell'>
                                 <Button icon className='edit-btn' data-id={item._id} onClick={handleEdit}>
-                                    <Icon name='edit' /> 
+                                    <Icon data-id={item._id} name='edit' /> 
                                 </Button>
                                 <Button icon className='delete-btn' data-id={item._id} onClick={handleDelete}>
-                                    <Icon name='delete' />
+                                    <Icon data-id={item._id} name='delete' />
                                 </Button>
                             </Table.Cell>
                         </Table.Row>

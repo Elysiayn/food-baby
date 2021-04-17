@@ -116,14 +116,14 @@ const MenuForm = (props) => {
                         menuItem: itemPreview
                     }
                 });
-
+                
                 idbPromise('menuItems', 'put', data.addMenuItem);
-
+                
                 dispatch({
                     type: UPDATE_MENU_LIST,
                     menuItems: [...menuItems, data.addMenuItem]
                 });
-
+                
             }
         } catch (e) {
             console.log(e);

@@ -63,14 +63,12 @@ const resolvers = {
                     images: [`${url}/images/${menuItems[i].image}`]
                 });
 
-                console.log('1')
                 const price = await stripe.prices.create({
                     product: menuItem.id,
                     unit_amount: menuItems[i].price * 100,
                     currency: 'usd'
                 });
 
-                console.log('2')
                 line_items.push({
                     price: price.id,
                     quantity: 1
@@ -87,7 +85,6 @@ const resolvers = {
                 cancel_url: `${url}/`
             });
 
-            console.log(session);
             return { session: session.id };
         }
     },
@@ -116,7 +113,6 @@ const resolvers = {
         addOrder: async (parent, { menuItems }, context) => {
             if (context.user) {
                 const order = new Order({ menuItems });
-                console.log(order);
 
                 await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
 
@@ -131,7 +127,6 @@ const resolvers = {
             return;
         },
         editMenuItem: async (parent, { menuItem }) => {
-            console.log('something')
             const query = await Course.findOne({ name: menuItem.course });
             const courseId = query._id;
 
