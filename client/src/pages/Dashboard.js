@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Accordion, Icon, Segment } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -15,20 +15,10 @@ const Dashboard = () => {
     const { editMode } = state;
     const { data } = useQuery(QUERY_ROLE);
 
-    if (!data || data.user.role !== 'owner') {
-        window.location.replace('/');
-    }
-
-    useEffect(() => {
-        const formTitleEl = document.querySelector('.form-title');
-
-        if (editMode) {
-            formTitleEl.innerHTML = '<i aria-hidden="true" class="dropdown icon"></i> Edit Menu Item';
-        } else {
-            formTitleEl.innerHTML = '<i aria-hidden="true" class="dropdown icon"></i> Add Menu Item';
-        }
-
-    }, [editMode]);
+    // redirects unless user is an owner
+    // if (!data || data.user.role !== 'owner') {
+    //     window.location.replace('/');
+    // }
 
     const handleClick = (index) => {
         if (index === state.activeIndex) {
@@ -65,7 +55,7 @@ const Dashboard = () => {
                         className='form-title'
                     >
                         <Icon name='dropdown' />
-                        Add Menu Item
+                        {editMode ? "Edit" : "Add"} Menu Item
                     </Accordion.Title>
                     <MenuForm index={1} />
                     

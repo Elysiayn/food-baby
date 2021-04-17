@@ -95,59 +95,43 @@ const MenuForm = (props) => {
     const handleFormSubmit = async event => {
         event.preventDefault();
 
-        console.log(event)
-
-        // submit form in edit mode
-        if (editMode) {
-               try {
-                // updates idb store
+        try {
+            if (editMode) {
                 idbPromise('menuItems', 'put', itemPreview);
 
-                // sends graphql mutation
-                const editResponse = await editMenuItem({
+                const editedItem = await editMenuItem({
                     variables: {
                         menuItem: itemPreview
                     }
                 });
 
-                // turn off edit mode
-                dispatch({
+                // turn off editMode
+                dispatch({ 
                     type: TOGGLE_EDIT_MODE,
                     editMode: false
                 });
+            } else {
+                const { data } = await addMenuItem({
+                    variables: {
+                        menuItem: itemPreview
+                    }
+                });
 
-                menuItemForm.reset();
-                
-                return editResponse;
-            } catch (e) {
-                console.log(e);
-                setErrorMessage('Please check your form fields or try again later.');
-                setTimeout(() => setErrorMessage(''), 5000);
-            }
-
-        // submit new menu item
-        } else {
-            try {
-                const mutationResponse = await addMenuItem({ variables: {
-                    menuItem: itemPreview
-                }});
-
-                idbPromise('menuItems', 'put', itemPreview);
+                idbPromise('menuItems', 'put', data.addMenuItem);
 
                 dispatch({
                     type: UPDATE_MENU_LIST,
-                    menuItems: [...menuItems, itemPreview]
-                })
-    
-                menuItemForm.reset();
+                    menuItems: [...menuItems, data.addMenuItem]
+                });
 
-                return mutationResponse;
-            } catch (e) {
-                console.log(e);
-                setErrorMessage('Please check your form fields or try again later.');
-                setTimeout(() => setErrorMessage(''), 5000);
             }
+        } catch (e) {
+            console.log(e);
+            setErrorMessage('Please check your form fields or try again later.');
+            setTimeout(() => setErrorMessage(''), 5000);
         }
+          
+        menuItemForm.reset();
     };
 
     return (

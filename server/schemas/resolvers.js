@@ -54,7 +54,6 @@ const resolvers = {
             const order = new Order({ menuItems: args.menuItems});
             const { menuItems } = await order.populate('menuItems').execPopulate();
 
-            console.log(menuItems);
             const line_items = [];
 
             for (let i = 0; i < menuItems.length; i++) {
@@ -97,9 +96,14 @@ const resolvers = {
             const query = await Course.findOne({ name: menuItem.course });
             const courseId = query._id;
 
-            const newItem = await MenuItem.create({ ...menuItem, course: courseId });
+            const newItem = await MenuItem.create({ 
+                ...menuItem, 
+                course: courseId
+            });
 
-            return newItem;
+            const item = MenuItem.findById(newItem._id).populate('course')
+
+            return item;
         },
         addUser: async (parent, args) => {
 

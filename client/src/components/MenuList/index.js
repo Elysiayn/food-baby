@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Accordion, Button, Icon, Table } from 'semantic-ui-react';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 
@@ -39,6 +39,10 @@ const MenuList = () => {
             editMode: true
         });
     }});
+
+    useEffect(() => {
+        console.log(menuItems)
+    }, [menuItems])
 
     if (menuItems.length < 1) {
 
