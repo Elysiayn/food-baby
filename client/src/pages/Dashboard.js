@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Accordion, Icon, Segment } from 'semantic-ui-react';
+import { Accordion, Icon, MenuItem, Segment } from 'semantic-ui-react';
 
 import MenuForm from '../components/MenuForm';
 import MenuList from '../components/MenuList';
@@ -12,18 +12,19 @@ const Dashboard = () => {
     const [state, dispatch] = useStoreContext();
     const { editMode } = state;
 
-    useEffect(() => {
-        const formTitleEl = document.querySelector('.form-title');
+    // useEffect(() => {
+    //     const formTitleEl = document.querySelector('.form-title');
 
-        if (editMode) {
-            formTitleEl.innerHTML = '<i aria-hidden="true" class="dropdown icon"></i> Edit Menu Item';
-        } else {
-            formTitleEl.innerHTML = '<i aria-hidden="true" class="dropdown icon"></i> Add Menu Item';
-        }
+    //     if (editMode) {
+    //         formTitleEl.innerHTML = '<i aria-hidden="true" class="dropdown icon"></i> Edit Menu Item';
+    //     } else {
+    //         formTitleEl.innerHTML = '<i aria-hidden="true" class="dropdown icon"></i> Add Menu Item';
+    //     }
 
-    }, [editMode]);
+    // }, [editMode]);
 
     const handleClick = (index) => {
+        console.log(index)
         if (index === state.activeIndex) {
             // closes menu if active menu is the one clicked
             dispatch({
@@ -58,7 +59,7 @@ const Dashboard = () => {
                         className='form-title'
                     >
                         <Icon name='dropdown' />
-                        <span className='owner-menu-title'>Add Menu Item</span>
+                        <span className='owner-menu-title'>{ editMode ? "Edit" : "Add"} Menu Item</span>
                     </Accordion.Title>
                     <MenuForm index={1} />
                     

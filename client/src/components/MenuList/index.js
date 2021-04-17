@@ -86,7 +86,10 @@ const MenuList = () => {
 
                 <Table.Body>
                     {menuItems.map(item => (
-                        <Table.Row key={item._id}>
+                        <Table.Row
+                         key={item._id}
+                         className='owner-tr'
+                        >
                             <Table.Cell>{formatName(item.name)}</Table.Cell>
                             <Table.Cell>${item.price}</Table.Cell>
                             <Table.Cell>{item.course.name}</Table.Cell>

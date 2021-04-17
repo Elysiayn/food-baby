@@ -133,7 +133,22 @@ background: ${({ theme }) => theme.body};
   color: ${({ theme }) => theme.a};
 }
 
+& .preview-price {
+  color: ${({ theme }) => theme.text};
+}
+
+& .ui.form .field>label {
+  color: ${({ theme }) => theme.text};
+}
+
 & table.ui.selectable.striped.compact.table {
-  
-  }
+  background: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.text};
+    border: 1px solid lightgrey;
+}
+
+& .owner-tr:hover {
+  background: lightgrey;
+  cursor: pointer;
+}
 `
