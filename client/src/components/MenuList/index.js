@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Icon, Table } from 'semantic-ui-react';
+import { Accordion, Button, Icon, Table } from 'semantic-ui-react';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 
 import { TOGGLE_EDIT_MODE, UPDATE_ACTIVE_INDEX, UPDATE_MENU_ITEM, UPDATE_MENU_LIST } from '../../utils/actions';
@@ -53,8 +53,6 @@ const MenuList = () => {
     const handleEdit = event => {
         const id = event.target.getAttribute('data-id');
 
-        console.log('clicked')
-
         getMenuItem({ 
             variables: { _id: id },
         });
@@ -94,9 +92,12 @@ const MenuList = () => {
                             <Table.Cell>${item.price}</Table.Cell>
                             <Table.Cell>{item.course.name}</Table.Cell>
                             <Table.Cell className='edit-cell'>
-                                <Icon className='edit-btn' name='edit' data-id={item._id} onClick={handleEdit} /> 
-                                / 
-                                <Icon className='delete-btn' name='delete' data-id={item._id} onClick={handleDelete} />
+                                <Button icon className='edit-btn' data-id={item._id} onClick={handleEdit}>
+                                    <Icon name='edit' /> 
+                                </Button>
+                                <Button icon className='delete-btn' data-id={item._id} onClick={handleDelete}>
+                                    <Icon name='delete' />
+                                </Button>
                             </Table.Cell>
                         </Table.Row>
                     ))}

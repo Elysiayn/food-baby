@@ -4,14 +4,14 @@ import { useMutation } from '@apollo/react-hooks';
 
 import ImageUpload from '../ImageUpload';
 
-import { TOGGLE_EDIT_MODE, UPDATE_MENU_ITEM } from '../../utils/actions';
+import { TOGGLE_EDIT_MODE, UPDATE_MENU_ITEM, UPDATE_MENU_LIST } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
 import { idbPromise } from '../../utils/helpers';
 import { ADD_MENU_ITEM, EDIT_MENU_ITEM } from '../../utils/mutations';
 
 const MenuForm = (props) => {
     const [state, dispatch] = useStoreContext();
-    const { editMode, itemPreview } = state;
+    const { editMode, itemPreview, menuItems } = state;
 
     const [errorMessage, setErrorMessage] = useState('');
     const { index } = props;
@@ -131,6 +131,13 @@ const MenuForm = (props) => {
                 const mutationResponse = await addMenuItem({ variables: {
                     menuItem: itemPreview
                 }});
+
+                idbPromise('menuItems', 'put', itemPreview);
+
+                dispatch({
+                    type: UPDATE_MENU_LIST,
+                    menuItems: [...menuItems, itemPreview]
+                })
     
                 menuItemForm.reset();
 
@@ -172,7 +179,6 @@ const MenuForm = (props) => {
                     <Form.Field>
                         <label htmlFor='form-course'>Course</label>
                         <select name='course' id='form-course' onChange={handleChange}>
-                            <option value='' disabled hidden>Select the course</option>
                             <option value='' disabled>Select the course</option>
                             <option value='appetizers'>appetizers</option>
                             <option value='mains'>mains</option>
