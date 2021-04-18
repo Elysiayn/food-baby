@@ -95,59 +95,43 @@ const MenuForm = (props) => {
     const handleFormSubmit = async event => {
         event.preventDefault();
 
-        console.log(event)
-
-        // submit form in edit mode
-        if (editMode) {
-               try {
-                // updates idb store
+        try {
+            if (editMode) {
                 idbPromise('menuItems', 'put', itemPreview);
 
-                // sends graphql mutation
-                const editResponse = await editMenuItem({
+                const editedItem = await editMenuItem({
                     variables: {
                         menuItem: itemPreview
                     }
                 });
 
-                // turn off edit mode
-                dispatch({
+                // turn off editMode
+                dispatch({ 
                     type: TOGGLE_EDIT_MODE,
                     editMode: false
                 });
+            } else {
+                const { data } = await addMenuItem({
+                    variables: {
+                        menuItem: itemPreview
+                    }
+                });
 
-                menuItemForm.reset();
+                idbPromise('menuItems', 'put', data.addMenuItem);
                 
-                return editResponse;
-            } catch (e) {
-                console.log(e);
-                setErrorMessage('Please check your form fields or try again later.');
-                setTimeout(() => setErrorMessage(''), 5000);
-            }
-
-        // submit new menu item
-        } else {
-            try {
-                const mutationResponse = await addMenuItem({ variables: {
-                    menuItem: itemPreview
-                }});
-
-                idbPromise('menuItems', 'put', itemPreview);
-
                 dispatch({
                     type: UPDATE_MENU_LIST,
-                    menuItems: [...menuItems, itemPreview]
-                })
-    
-                menuItemForm.reset();
-
-                return mutationResponse;
-            } catch (e) {
-                console.log(e);
-                setErrorMessage('Please check your form fields or try again later.');
-                setTimeout(() => setErrorMessage(''), 5000);
+                    menuItems: [...menuItems, data.addMenuItem]
+                });
+                
             }
+        } catch (e) {
+            console.log(e);
+            setErrorMessage('Please check your form fields or try again later.');
+            setTimeout(() => setErrorMessage(''), 5000);
         }
+          
+        menuItemForm.reset();
     };
 
     return (
@@ -178,8 +162,8 @@ const MenuForm = (props) => {
                     </Form.Field> 
                     <Form.Field>
                         <label htmlFor='form-course'>Course</label>
-                        <select name='course' id='form-course' onChange={handleChange}>
-                            <option value='' disabled>Select the course</option>
+                        <select defaultValue='none' name='course' id='form-course' onChange={handleChange}>
+                            <option disabled={true} value='none'>Select the course</option>
                             <option value='appetizers'>appetizers</option>
                             <option value='mains'>mains</option>
                             <option value='desserts'>desserts</option>
@@ -196,6 +180,7 @@ const MenuForm = (props) => {
                     name='description'
                     placeholder='Enter a short description of the menu item.' 
                     onChange={handleChange} 
+                    className='form-textarea'
                 />
                     <Button type='submit'>Save</Button>
             </Form>

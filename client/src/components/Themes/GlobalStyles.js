@@ -103,4 +103,73 @@ export const GlobalStyles = createGlobalStyle`
 & #cart-btn {
   background: ${({ theme }) => theme.a};
 }
-  `
+
+& .ui.horizontal.segments {
+  background: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.text};
+    border: 1px solid lightgrey
+}
+& div.accordion.ui.fluid.styled {
+background: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.text};
+    border: 1px solid lightgrey
+}
+
+& i.dropdown.icon {
+  color: ${({ theme }) => theme.text};
+}
+
+& .owner-menu-title {
+  color: ${({ theme }) => theme.text};
+}
+
+& thead {
+    background: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.text};
+    border: 1px solid lightgrey
+}
+
+& tr:hover {
+  color: ${({ theme }) => theme.a};
+}
+
+& .preview-price {
+  color: ${({ theme }) => theme.text};
+}
+
+& .ui.form .field>label {
+  color: ${({ theme }) => theme.text};
+}
+
+& table.ui.selectable.striped.compact.table {
+  background: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.text};
+    border: 1px solid lightgrey;
+}
+
+
+
+& .ui.selectable.table tbody tr:hover {
+  color: ${({ theme }) => theme.text}!important;
+  cursor: pointer;
+}
+
+& .ui.card>.content, .ui.cards>.card>.content {
+  background: ${({ theme }) => theme.body}!important;
+  color: ${({ theme }) => theme.text}!important;
+}
+
+& div.header {
+  color: ${({ theme }) => theme.text}!important;
+}
+
+& div.meta {
+  color: ${({ theme }) => theme.text}!important;
+}
+
+& div.description {
+  color: ${({ theme }) => theme.text}!important;
+}
+`;
+
+/* Line - important tag used to override Semantic's important tag. */

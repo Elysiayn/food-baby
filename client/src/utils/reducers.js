@@ -85,12 +85,6 @@ export const reducer = (state, action) => {
                 ...state,
                 allCourses: [...action.allCourses]
             };
-            
-        case UPDATE_CURRENT_COURSE:
-            return {
-                ...state,
-                currentCourse: action.currentCourse
-            };
 
         case UPDATE_MENU_ITEM:
             return {
@@ -101,7 +95,7 @@ export const reducer = (state, action) => {
         case UPDATE_MENU_LIST:
             return {
                 ...state,
-                menuItems: [...action.menuItems]
+                menuItems: action.menuItems
             };
 
         case UPDATE_USER:

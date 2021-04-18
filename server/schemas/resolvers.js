@@ -54,7 +54,6 @@ const resolvers = {
             const order = new Order({ menuItems: args.menuItems});
             const { menuItems } = await order.populate('menuItems').execPopulate();
 
-            console.log(menuItems);
             const line_items = [];
 
             for (let i = 0; i < menuItems.length; i++) {
@@ -64,14 +63,12 @@ const resolvers = {
                     images: [`${url}/images/${menuItems[i].image}`]
                 });
 
-                console.log('1')
                 const price = await stripe.prices.create({
                     product: menuItem.id,
                     unit_amount: menuItems[i].price * 100,
                     currency: 'usd'
                 });
 
-                console.log('2')
                 line_items.push({
                     price: price.id,
                     quantity: 1
@@ -88,7 +85,6 @@ const resolvers = {
                 cancel_url: `${url}/`
             });
 
-            console.log(session);
             return { session: session.id };
         }
     },
@@ -97,9 +93,14 @@ const resolvers = {
             const query = await Course.findOne({ name: menuItem.course });
             const courseId = query._id;
 
-            const newItem = await MenuItem.create({ ...menuItem, course: courseId });
+            const newItem = await MenuItem.create({ 
+                ...menuItem, 
+                course: courseId
+            });
 
-            return newItem;
+            const item = MenuItem.findById(newItem._id).populate('course')
+
+            return item;
         },
         addUser: async (parent, args) => {
 
@@ -112,7 +113,6 @@ const resolvers = {
         addOrder: async (parent, { menuItems }, context) => {
             if (context.user) {
                 const order = new Order({ menuItems });
-                console.log(order);
 
                 await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
 
@@ -121,13 +121,10 @@ const resolvers = {
 
             throw new AuthenticationError('Not logged in');
         },
-        deleteMenuItem: async (parent, args, context) => {
-            await MenuItem.findByIdAndDelete(args);
-
-            return;
+        deleteMenuItem: async (parent, args) => {
+            return await MenuItem.findByIdAndDelete(args);
         },
         editMenuItem: async (parent, { menuItem }) => {
-            console.log('something')
             const query = await Course.findOne({ name: menuItem.course });
             const courseId = query._id;
 
