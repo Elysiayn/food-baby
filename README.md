@@ -90,11 +90,15 @@ git clone git@github.com:Nickhill2380/food-baby.git
 ```sh
 npm install
 ```
-3. To seed the database with mock data, in the root directory, run:
+3. Include `AUTH_SECRET` in an `.env` file located in the root of the server directory.
+```JS
+AUTH_SECRET = 'TEXT HERE';
+```
+4. To seed the database with mock data, in the root directory, run:
 ```sh
 npm run seed
 ```
-4. To begin application:
+5. To begin application in localhost:
 ```sh
 npm start
 ```
@@ -117,9 +121,20 @@ The admin account enables access to the owner dashboard. The live preview featur
 - Add Menu Item tab allows the addition of a new item into the listing. 
     - Users will need to input a name, price, description, select a course and upload an image for the new menu item before adding it by saving. 
 
-Customers will be able to [sign up](https://food-babycmnw.herokuapp.com/signup) for a new account by providing a first and last name, a valid email address and a password that is a minimum
-6 characters. Users will need to be logged into their accounts to checkout.  
-- In order to avoid any potential delay in service between the restaurant and the customer, the checkout feature is designed to only succeed while connected to the internet. 
+Customers will be able to [sign up](https://food-babycmnw.herokuapp.com/signup) for a new account or [log in](https://food-babycmnw.herokuapp.com/Login) to a current account.
+- To create an account, users will need to provide a first and last name, a valid email address and a password that is a minimum of 6 characters in length. 
+- To log into an existing account, users will need to provide a registered email address and password.
+
+<br />
+
+All users will be required to be logged into an account in order to checkout.  
+- In order to avoid any potential delay in service between the restaurant and customer, the checkout feature is designed to only succeed while connected to the internet. 
+
+<br />
+
+- Notifications may only be accessed by registered users. 
+
+- The dark mode toggle is located at the bottom-right of the navigation bar. Once clicked, the icon will change into a sun or moon, depending on it's activated mode. 
 
 
 
