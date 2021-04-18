@@ -62,6 +62,13 @@ export const DELETE_MENU_ITEM = gql`
     mutation deleteMenuItem($_id: ID!) {
         deleteMenuItem(_id: $_id) {
             _id
+            name
+            description
+            image
+            price
+            course {
+                _id
+            }
         }
     }
 `;

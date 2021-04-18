@@ -116,7 +116,7 @@ const MenuForm = (props) => {
                         menuItem: itemPreview
                     }
                 });
-                
+
                 idbPromise('menuItems', 'put', data.addMenuItem);
                 
                 dispatch({
@@ -180,6 +180,7 @@ const MenuForm = (props) => {
                     name='description'
                     placeholder='Enter a short description of the menu item.' 
                     onChange={handleChange} 
+                    className='form-textarea'
                 />
                     <Button type='submit'>Save</Button>
             </Form>

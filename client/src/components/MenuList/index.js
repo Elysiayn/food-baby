@@ -59,17 +59,23 @@ const MenuList = () => {
     };
 
     const handleDelete = event => {
+        if(event.target.tagName !== "BUTTON") { 
+            return; 
+        } 
+
         const id = event.target.getAttribute('data-id');
-
-        idbPromise('menuItems', 'delete', { _id: id });
-        deleteMenuItem({ variables: { _id: id } });
-
         const filteredList = menuItems.filter(item => item._id !== id);
-        
+                
         dispatch ({
             type: UPDATE_MENU_LIST,
             menuItems: filteredList
         });
+
+        // removes item from indexedDB
+        idbPromise('menuItems', 'delete', { _id: id });
+
+        // removes item from MongoDB
+        deleteMenuItem({ variables: { _id: id } });
     };
 
     return (
@@ -90,10 +96,10 @@ const MenuList = () => {
                             <Table.Cell>{item.course.name}</Table.Cell>
                             <Table.Cell className='edit-cell'>
                                 <Button icon className='edit-btn' data-id={item._id} onClick={handleEdit}>
-                                    <Icon data-id={item._id} name='edit' /> 
+                                    <Icon name='edit' /> 
                                 </Button>
                                 <Button icon className='delete-btn' data-id={item._id} onClick={handleDelete}>
-                                    <Icon data-id={item._id} name='delete' />
+                                    <Icon name='delete' />
                                 </Button>
                             </Table.Cell>
                         </Table.Row>

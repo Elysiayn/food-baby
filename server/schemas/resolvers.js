@@ -121,10 +121,8 @@ const resolvers = {
 
             throw new AuthenticationError('Not logged in');
         },
-        deleteMenuItem: async (parent, args, context) => {
-            await MenuItem.findByIdAndDelete(args);
-
-            return;
+        deleteMenuItem: async (parent, args) => {
+            return await MenuItem.findByIdAndDelete(args);
         },
         editMenuItem: async (parent, { menuItem }) => {
             const query = await Course.findOne({ name: menuItem.course });
