@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import { useStoreContext } from '../../utils/GlobalState';
 
 
-
+// This function sets up the token that firebase uses to identify where to send the notifications
 function Permission () {
 
     const [state] = useStoreContext();
@@ -13,13 +13,15 @@ function Permission () {
 
     const messaging= firebase.messaging();
 
+    // this creates the token and then creates or updates the user information in the firebase database
     function gainPermission() {
         messaging.requestPermission()
         .then(function() { 
             return messaging.getToken(); 
         })
         .then( function (token) {
-
+            // this is the information that goes to the firebase database and is what prompts the firebase cloud function welcomeUser
+            // found in functions/index.js
             firebase.database().ref(`users/` + firebaseId).set({
                 firstName: state.user.firstName,
                 lastName: state.user.lastName,
@@ -35,6 +37,7 @@ function Permission () {
         })
     };
 
+    // this removes the token it does not update the firebase database as that would trigger the cloud function and then cause an invalid token error
     function removePermission() {
         messaging.deleteToken();
         setPermission(false);

@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Accordion, Icon, Segment } from 'semantic-ui-react';
+import { useQuery } from '@apollo/react-hooks';
 
 import MenuForm from '../components/MenuForm';
 import MenuList from '../components/MenuList';
@@ -7,23 +8,21 @@ import MenuPreview from '../components/MenuPreview';
 
 import { UPDATE_ACTIVE_INDEX } from '../utils/actions';
 import { useStoreContext } from '../utils/GlobalState';
+import { QUERY_ROLE } from '../utils/queries';
 
 const Dashboard = () => {
     const [state, dispatch] = useStoreContext();
     const { editMode } = state;
+    const { data } = useQuery(QUERY_ROLE);
 
-    useEffect(() => {
-        const formTitleEl = document.querySelector('.form-title');
 
-        if (editMode) {
-            formTitleEl.innerHTML = '<i aria-hidden="true" class="dropdown icon"></i> Edit Menu Item';
-        } else {
-            formTitleEl.innerHTML = '<i aria-hidden="true" class="dropdown icon"></i> Add Menu Item';
-        }
-
-    }, [editMode]);
+    // redirects unless user is an owner
+    if (!data || data.user.role !== 'owner') {
+        window.location.replace('/');
+    }
 
     const handleClick = (index) => {
+        console.log(index)
         if (index === state.activeIndex) {
             // closes menu if active menu is the one clicked
             dispatch({
@@ -48,7 +47,7 @@ const Dashboard = () => {
                         onClick={() => handleClick(0)}
                     >
                         <Icon name='dropdown' />
-                        Current Menu
+                        <span className='owner-menu-title'>Current Menu</span>
                     </Accordion.Title>
                     <MenuList />
 
@@ -58,7 +57,7 @@ const Dashboard = () => {
                         className='form-title'
                     >
                         <Icon name='dropdown' />
-                        Add Menu Item
+                        <span className='owner-menu-title'>{ editMode ? "Edit" : "Add"} Menu Item</span>
                     </Accordion.Title>
                     <MenuForm index={1} />
                     

@@ -4,14 +4,14 @@ import { useMutation } from '@apollo/react-hooks';
 
 import ImageUpload from '../ImageUpload';
 
-import { TOGGLE_EDIT_MODE, UPDATE_MENU_ITEM } from '../../utils/actions';
+import { TOGGLE_EDIT_MODE, UPDATE_MENU_ITEM, UPDATE_MENU_LIST } from '../../utils/actions';
 import { useStoreContext } from '../../utils/GlobalState';
 import { idbPromise } from '../../utils/helpers';
 import { ADD_MENU_ITEM, EDIT_MENU_ITEM } from '../../utils/mutations';
 
 const MenuForm = (props) => {
     const [state, dispatch] = useStoreContext();
-    const { editMode, itemPreview } = state;
+    const { editMode, itemPreview, menuItems } = state;
 
     const [errorMessage, setErrorMessage] = useState('');
     const { index } = props;
@@ -95,52 +95,43 @@ const MenuForm = (props) => {
     const handleFormSubmit = async event => {
         event.preventDefault();
 
-        console.log(event)
-
-        // submit form in edit mode
-        if (editMode) {
-               try {
-                // updates idb store
+        try {
+            if (editMode) {
                 idbPromise('menuItems', 'put', itemPreview);
 
-                // sends graphql mutation
-                const editResponse = await editMenuItem({
+                const editedItem = await editMenuItem({
                     variables: {
                         menuItem: itemPreview
                     }
                 });
 
-                // turn off edit mode
-                dispatch({
+                // turn off editMode
+                dispatch({ 
                     type: TOGGLE_EDIT_MODE,
                     editMode: false
                 });
+            } else {
+                const { data } = await addMenuItem({
+                    variables: {
+                        menuItem: itemPreview
+                    }
+                });
 
-                menuItemForm.reset();
+                idbPromise('menuItems', 'put', data.addMenuItem);
                 
-                return editResponse;
-            } catch (e) {
-                console.log(e);
-                setErrorMessage('Please check your form fields or try again later.');
-                setTimeout(() => setErrorMessage(''), 5000);
+                dispatch({
+                    type: UPDATE_MENU_LIST,
+                    menuItems: [...menuItems, data.addMenuItem]
+                });
+                
             }
-
-        // submit new menu item
-        } else {
-            try {
-                const mutationResponse = await addMenuItem({ variables: {
-                    menuItem: itemPreview
-                }});
-    
-                menuItemForm.reset();
-
-                return mutationResponse;
-            } catch (e) {
-                console.log(e);
-                setErrorMessage('Please check your form fields or try again later.');
-                setTimeout(() => setErrorMessage(''), 5000);
-            }
+        } catch (e) {
+            console.log(e);
+            setErrorMessage('Please check your form fields or try again later.');
+            setTimeout(() => setErrorMessage(''), 5000);
         }
+          
+        menuItemForm.reset();
     };
 
     return (
@@ -171,9 +162,8 @@ const MenuForm = (props) => {
                     </Form.Field> 
                     <Form.Field>
                         <label htmlFor='form-course'>Course</label>
-                        <select name='course' id='form-course' onChange={handleChange}>
-                            <option value='' disabled hidden>Select the course</option>
-                            <option value='' disabled>Select the course</option>
+                        <select defaultValue='none' name='course' id='form-course' onChange={handleChange}>
+                            <option disabled={true} value='none'>Select the course</option>
                             <option value='appetizers'>appetizers</option>
                             <option value='mains'>mains</option>
                             <option value='desserts'>desserts</option>
@@ -190,6 +180,7 @@ const MenuForm = (props) => {
                     name='description'
                     placeholder='Enter a short description of the menu item.' 
                     onChange={handleChange} 
+                    className='form-textarea'
                 />
                     <Button type='submit'>Save</Button>
             </Form>

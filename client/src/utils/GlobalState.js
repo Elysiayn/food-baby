@@ -10,7 +10,6 @@ const StoreProvider = ({ value = [], ...props }) => {
         allCourses: [],
         cart: [],
         cartOpen: false,
-        currentCourse: '',
         editMode: false,
         itemPreview: {},
         menuItems: [],
