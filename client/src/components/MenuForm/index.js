@@ -178,8 +178,8 @@ const MenuForm = (props) => {
                     </Form.Field> 
                     <Form.Field>
                         <label htmlFor='form-course'>Course</label>
-                        <select name='course' id='form-course' onChange={handleChange}>
-                            <option value='' disabled>Select the course</option>
+                        <select defaultValue='none' name='course' id='form-course' onChange={handleChange}>
+                            <option disabled={true} value='none'>Select the course</option>
                             <option value='appetizers'>appetizers</option>
                             <option value='mains'>mains</option>
                             <option value='desserts'>desserts</option>

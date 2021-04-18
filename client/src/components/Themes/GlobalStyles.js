@@ -147,8 +147,29 @@ background: ${({ theme }) => theme.body};
     border: 1px solid lightgrey;
 }
 
-& .owner-tr:hover {
-  background: lightgrey;
+
+
+& .ui.selectable.table tbody tr:hover {
+  color: ${({ theme }) => theme.text}!important;
   cursor: pointer;
 }
-`
+
+& .ui.card>.content, .ui.cards>.card>.content {
+  background: ${({ theme }) => theme.body}!important;
+  color: ${({ theme }) => theme.text}!important;
+}
+
+& div.header {
+  color: ${({ theme }) => theme.text}!important;
+}
+
+& div.meta {
+  color: ${({ theme }) => theme.text}!important;
+}
+
+& div.description {
+  color: ${({ theme }) => theme.text}!important;
+}
+`;
+
+/* Line - important tag used to override Semantic's important tag. */
