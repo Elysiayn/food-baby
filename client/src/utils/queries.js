@@ -40,6 +40,14 @@ export const QUERY_ALL_MENU_ITEMS = gql`
 }
 `;
 
+export const QUERY_ROLE = gql`
+    {
+        user {
+            role
+        }
+    }
+`;
+
 export const QUERY_USER = gql`
     {
         user {

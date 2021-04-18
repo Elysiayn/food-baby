@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Accordion, Button, Icon, Table } from 'semantic-ui-react';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 
@@ -59,17 +59,23 @@ const MenuList = () => {
     };
 
     const handleDelete = event => {
-        const id = event.target.getAttribute('data-id');
-        deleteMenuItem({ variables: { _id: id } });
+        if(event.target.tagName !== "BUTTON") { 
+            return; 
+        } 
 
+        const id = event.target.getAttribute('data-id');
         const filteredList = menuItems.filter(item => item._id !== id);
-        
+                
         dispatch ({
             type: UPDATE_MENU_LIST,
             menuItems: filteredList
         });
 
+        // removes item from indexedDB
         idbPromise('menuItems', 'delete', { _id: id });
+
+        // removes item from MongoDB
+        deleteMenuItem({ variables: { _id: id } });
     };
 
     return (
