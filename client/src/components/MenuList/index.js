@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Accordion, Button, Icon, Table } from 'semantic-ui-react';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 
@@ -59,9 +59,6 @@ const MenuList = () => {
     };
 
     const handleDelete = event => {
-        if(event.target.tagName !== "BUTTON") { 
-            return; 
-        } 
 
         const id = event.target.getAttribute('data-id');
         const filteredList = menuItems.filter(item => item._id !== id);
@@ -99,10 +96,10 @@ const MenuList = () => {
                             <Table.Cell>{item.course.name}</Table.Cell>
                             <Table.Cell className='edit-cell'>
                                 <Button icon className='edit-btn' data-id={item._id} onClick={handleEdit}>
-                                    <Icon name='edit' /> 
+                                    <Icon data-id={item._id} name='edit' /> 
                                 </Button>
                                 <Button icon className='delete-btn' data-id={item._id} onClick={handleDelete}>
-                                    <Icon name='delete' />
+                                    <Icon data-id={item._id} name='delete' />
                                 </Button>
                             </Table.Cell>
                         </Table.Row>
