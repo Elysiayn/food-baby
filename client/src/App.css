@@ -256,10 +256,12 @@
 
 .order {
   font-family: var(--body-font);
+  padding-top: 1rem;
+  padding-bottom: 3rem;;
 }
 
-.order-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-items: space-between;
+.date{
+  padding-top: 1.5rem;
+  padding-bottom: .5rem;
 }
+

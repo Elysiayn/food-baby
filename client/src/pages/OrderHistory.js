@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import MenuItem from '../../src/components/MenuItem/index'; 
 import { Card, Image, Grid } from 'semantic-ui-react';
 import { formatName } from '../utils/helpers';
 
@@ -19,23 +18,23 @@ function OrderHistory() {
   return (
   <>
     <div className="order-container">
-      <Grid padded stackable columns={2}>
+      <Grid padded columns={2}>
         <Link className="checkout-link" to="/">
         <p className='menuLink'>← Back to Menu Items</p>
         </Link>
           {user ? (
             <>
-            <Grid.Row> 
-              <h2 className="order" >Order History for {user.firstName} {user.lastName} </h2>
+            <Grid.Row className="centered"> 
+              <h2  className="order" >Order History for {user.firstName} {user.lastName} </h2>
             </Grid.Row>
+            <div>
               {user.orders.map((order) => (
-                <div key={order._id} >
-                  <h3 className="order" >{new Date(parseInt(order.purchaseDate)).toLocaleDateString()}</h3>
-                  {/* <Grid.Column  id='mobile'>  */}
-                    <div>
+                <Card.Group key={order._id}  >
+                <div>
+                  <h3 className="date" >{new Date(parseInt(order.purchaseDate)).toLocaleDateString()}</h3>
+                    <div >
                       <Card.Group className="order-group">
-                      {order.menuItems.map(({ _id, image, name, price, description }, index) => (
-                        // <Grid.Column>
+                      {order.menuItems.map(({ image, name, price, description }, index) => (
                           <Card key={index}>
                             <Image
                               alt={name}
@@ -50,8 +49,10 @@ function OrderHistory() {
                       ))}
                       </Card.Group>
                     </div>
-                </div>
+                  </div>
+                </Card.Group>
               ))}
+            </div>
             </>
           ) : null}
       </Grid>
